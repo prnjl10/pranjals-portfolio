@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranjal Trivedi | Hardware & Verification Engineer</title>
+    <style>
+        /* Tamal Sen Inspired Core Styles */
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: #121216;
+            --accent-color: #00f3ff; /* Neon Silicon Cyan */
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: #222229;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            padding: 0 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-mono {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--card-bg);
+            border-color: var(--accent-color);
+        }
+
+        /* Skills/Tech Grid */
+        .skills-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 4rem 0;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+
+        .project-num {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background-color: rgba(0, 243, 255, 0.05);
+            color: var(--accent-color);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+        }
+
+        .project-links a {
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-decoration: none;
+            margin-right: 1rem;
+            border-bottom: 1px dashed var(--accent-color);
+        }
+
+        .project-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="#" class="logo">PRANJAL_TRIVEDI //</a>
+            <nav>
+                <a href="#skills">.skills()</a>
+                <a href="#projects">.projects()</a>
+                <a href="mailto:prtrivedi@ucdavis.edu">.contact()</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-mono">⚡ hardware verification & systems engineer</div>
+            <h1>Hi, I'm Pranjal. I design, verify, and accelerate silicon architectures.</h1>
+            <p>
+                Master's student at UC Davis specializing in computer architecture, UVM testbench engineering, and FPGA-SoC acceleration. From writing robust assertions to optimizing hardware accelerators, I bridge the gap between software algorithms and physical execution units.
+            </p>
+            <div class="btn-group">
+                <a href="mailto:prtrivedi@ucdavis.edu" class="btn btn-primary">Hire Me</a>
+                <a href="https://github.com/prnjl10" target="_blank" class="btn btn-secondary">GitHub Profile</a>
+                <a href="https://www.linkedin.com/in/pranjal-trivedi/" target="_blank" class="btn btn-secondary">LinkedIn</a>
+            </div>
+        </section>
+
+        <section class="skills-section" id="skills">
+            <div class="section-title">> system.getCoreSkills()</div>
+            <div class="skills-grid">
+                <div class="skill-card">SystemVerilog / UVM</div>
+                <div class="skill-card">Verilog RTL</div>
+                <div class="skill-card">FPGA / Xilinx SoC</div>
+                <div class="skill-card">RISC-V Architecture</div>
+                <div class="skill-card">Embedded Firmware</div>
+                <div class="skill-card">DMA / AXI Protocols</div>
+                <div class="skill-card">Hardware ML/HLS</div>
+                <div class="skill-card">PCB Design & Testing</div>
+            </div>
+        </section>
+
+        <section class="projects-section" id="projects">
+            <div class="section-title">> system.loadFeaturedProjects()</div>
+            <div class="project-list">
+                
+                <div class="project-card">
+                    <div class="project-num">01 // VERIFICATION ENGINE</div>
+                    <h3>RISC-V UVM Verification Ecosystem</h3>
+                    <p>
+                        Designed a robust, modular Universal Verification Methodology (UVM) ecosystem for a 32-bit RV32I core processor. Engineered a dynamic Register Abstraction Layer (RAL) with integrated TLM transaction tracking and dynamic coverage mapping. Successfully handled edge-case sign extensions and hazard loops, boosting overall regression automated test throughput by 30%.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">SystemVerilog</span>
+                        <span class="tag">UVM</span>
+                        <span class="tag">RAL</span>
+                        <span class="tag">TLM Flow</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/prnjl10" target="_blank">> View Source Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-num">02 // RTL & ARCHITECTURE</div>
+                    <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
+                    <p>
+                        Implemented a single-issue, in-order 4-stage pipelined 32-bit RISC-V CPU on an Intel DE10-Lite FPGA platform. Optimized instruction flow execution by implementing branch/jump decode bypass mechanics and hazard-mitigating data forwarding. Interfaced the core natively over an Avalon-MM system configuration featuring custom UART and storage SRAM modules.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Verilog RTL</span>
+                        <span class="tag">RISC-V</span>
+                        <span class="tag">Intel DE10-Lite FPGA</span>
+                        <span class="tag">Avalon-MM Bus</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/prnjl10" target="_blank">> View Source Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-num">03 // HARDWARE ACCELERATION</div>
+                    <h3>Quantized Neural Network Accelerator on FPGA-SoC</h3>
+                    <p>
+                        Architected an end-to-end hardware-accelerated inferencing engine for the MNIST architecture implemented on a PYNQ-Z2 board. Hand-coded optimized compute layers utilizing High-Level Synthesis (C++ HLS) integrated natively over AXI-Stream pipelines to achieve a 10x throughput scaling factor on resource-constrained silicon layout constraints.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">C++ HLS</span>
+                        <span class="tag">AXI-Stream</span>
+                        <span class="tag">Zynq-7000 SoC</span>
+                        <span class="tag">PYNQ-Z2</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/prnjl10" target="_blank">> View Source Code</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with minimal semantic HTML/CSS // Designed for Silicon Recruiters</p>
+            <p style="margin-top: 0.5rem; color: #444452;">&copy; 2026 Pranjal Trivedi. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
