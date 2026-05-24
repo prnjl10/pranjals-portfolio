@@ -191,11 +191,11 @@
     <div id="canvas3d"></div>
 
     <div class="sidebar">
-        <div class="sidebar-header">Explorations [PT]</div>
+        <div class="sidebar-header">EXPLORER // PRANJAL</div>
         <div class="file-tree">
             <a href="#hero" class="file-item"><span class="file-icon">⚡</span>PranjalTrivedi.sv</a>
-            <a href="#skills" class="file-item"><span class="file-icon">📁</span>tech_stack.json</a>
-            <a href="#projects" class="file-item"><span class="file-icon">📁</span>silicon_projects.v</a>
+            <a href="#skills" class="file-item"><span class="file-icon">⚙️</span>tech_stack.json</a>
+            <a href="#projects" class="file-item"><span class="file-icon">📁</span>hardware_projects.v</a>
         </div>
     </div>
 
@@ -207,17 +207,17 @@
         <div class="editor-container">
             
             <section id="hero">
-                <span class="comment">// Computer Architecture & IC Verification Portfolio</span>
+                <span class="comment">// IC Custom Verification & System Architectures</span>
                 <div class="line"><span class="keyword">module</span> <span class="var-name">PranjalTrivedi</span> (</div>
                 <h1 style="padding-left: 2rem;">Hi, I'm Pranjal Trivedi.</h1>
                 <p style="padding-left: 2rem; color: #a9a9b3; margin-bottom: 1.5rem; max-width: 650px;">
-                    Electrical and Computer Engineering Master's graduate from UC Davis. I specialize in SystemVerilog/UVM automated verification, pipeline CPU microarchitectures, and high-performance FPGA-SoC physical hardware implementations.
+                    Electrical and Computer Engineering Master's student at UC Davis[cite: 4]. I specialize in SystemVerilog/UVM automated verification environments, digital pipeline CPU design architectures, and hardware accelerator design pipelines[cite: 19, 23, 28].
                 </p>
                 <div class="line" style="padding-left: 2rem;">
-                    <span class="keyword">input</span> wire email = <span class="string">"prtrivedi@ucdavis.edu"</span>;
+                    <span class="keyword">input</span> wire email = <span class="string">"prtrivedi@ucdavis.edu"</span>; [cite: 2]
                 </div>
                 <div class="line" style="padding-left: 2rem; margin-bottom: 2rem;">
-                    <span class="keyword">input</span> wire location = <span class="string">"UC Davis, CA"</span>;
+                    <span class="keyword">input</span> wire location = <span class="string">"UC Davis, CA"</span>; [cite: 4]
                 </div>
                 <div class="social-links" style="padding-left: 2rem;">
                     <a href="https://github.com/prnjl10" target="_blank">> GitHub</a>
@@ -226,72 +226,72 @@
             </section>
 
             <section id="skills" class="section-block">
-                <span class="comment">// system.getCoreSkills() compilation matrix</span>
+                <span class="comment">// system.getCoreSkills() matrix compilation</span>
                 <div class="line"><span class="keyword">const</span> <span class="var-name">HardwareStack</span> = [</div>
                 <p style="padding-left: 2rem; color: #ce9178;">
-                    "SystemVerilog / UVM", "Verilog RTL Architecture", "FPGA Synthesis (Intel DE10 / PYNQ)", <br>
-                    "RISC-V Pipelining", "AXI-Stream / Avalon-MM Buses", "High-Level Synthesis (HLS C++)", <br>
-                    "4-Layer PCB Layout & Pathways", "Hardware Testing (Oscilloscopes/DMM)"
+                    "SystemVerilog / UVM", "Verilog RTL Design", "FPGA Implementation (DE10-Lite / PYNQ-Z2)", <br>
+                    "RISC-V Pipelining & Branch Prediction", "AXI-Stream / Avalon-MM Buses", "High-Level Synthesis (C++ HLS)", <br>
+                    "4-Layer Controlled Impedance PCB Layout", "Oscilloscopes & Logic Analyzers Diagnostic Bring-up"
                 </p>
                 <div class="line">];</div>
             </section>
 
             <section id="projects" class="section-block">
-                <span class="comment">// Loading explicit non-software structural logic projects...</span>
-                <h2 style="color: #ffffff; margin-bottom: 1.5rem;">Featured Core Hardware Engineering Projects</h2>
+                <span class="comment">// executing hardware_projects.v parsing sequences...</span>
+                <h2 style="color: #ffffff; margin-bottom: 1.5rem;">Core Hardware Architecture & PCB Projects</h2>
 
                 <div class="project-card">
-                    <span class="comment">// 01 // Verification Framework</span>
+                    <span class="comment">// 01 // IC Verification & Coverage Matrix</span>
                     <h3>RISC-V UVM Verification Ecosystem</h3>
                     <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Designed a complete, modular Universal Verification Methodology (UVM) ecosystem (including custom sequencers, driver agents, monitors, and scoreboards) for a 32-bit RV32I core layout. Integrated a dynamic Register Abstraction Layer (RAL) supporting front/back-door access structures. Achieved >98% functional coverage parameters via automated loop regressions.
+                        Designed a modular UVM environment containing verification infrastructure components (uvm_env, sequencer/driver/monitor agents, and scoreboards) targeting a 32-bit RV32I core structure[cite: 19]. Developed a Register Abstraction Layer (RAL) supporting front-door/back-door access sequences alongside TLM-based transaction tracking[cite: 20]. Achieved >98% functional coverage parameters, debugging sign-extension and control-flow failures to improve test regression automation throughput by 30%[cite: 21].
                     </p>
                     <div class="project-tags">
-                        <span class="tag">SystemVerilog</span><span class="tag">UVM Testing</span><span class="tag">RAL Logic</span><span class="tag">Functional Coverage</span>
+                        <span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL</span><span class="tag">TLM Flows</span><span class="tag">Functional Coverage</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 02 // Structural RTL Design</span>
-                    <h3>32-Bit Pipelined RISC-V CPU on FPGA</h3>
+                    <span class="comment">// 02 // Core Microarchitecture RTL Layout</span>
+                    <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
                     <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Engineered a single-issue, in-order 4-stage pipelined 32-bit RISC-V physical core utilizing Verilog RTL on the Intel DE10-Lite FPGA platform. Integrated data hazard forwarding mechanisms and execution bypass engines to cut down stall cycles. Interfaced components natively over an Avalon-MM hardware bus with dual-port 32KB configuration layouts.
+                        Designed and implemented a 32-bit RISC-V processor in Verilog using an in-order 4-stage pipeline execution path onto an Intel DE10-Lite FPGA platform[cite: 23]. Engineered hazard mitigation loops, EX/MEM/WB hardware bypassing configurations, and decode-stage branch/jump ALU processing structures to minimize performance stall penalties[cite: 24]. Interfaced the core system across a memory-mapped Avalon-MM bus topology with dual-port 32 KB instructions and custom UART/timer configuration logic blocks[cite: 25].
                     </p>
                     <div class="project-tags">
-                        <span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon Bus</span><span class="tag">FPGA Mapping</span>
+                        <span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon-MM Bus</span><span class="tag">FPGA Realization</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 03 // Logic Acceleration Matrix</span>
+                    <span class="comment">// 03 // Logic Hardware Acceleration Subsystems</span>
                     <h3>Accelerated Quantized Neural Network Engine</h3>
                     <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Architected a high-throughput, quantized inferencing computing engine mapped across the Zynq-7000 SoC fabric using a PYNQ-Z2 deployment pipeline. Designed high-performance compute blocks utilizing High-Level Synthesis (C++ HLS) natively tied together using AXI-Stream configurations to scale hardware inference speed up to 10× faster.
+                        Implemented a quantized neural network tailored for MNIST classification mapping across a PYNQ-Z2 board, scaling computing processing performance metrics by ~10×[cite: 27]. Designed discrete layout processing layers utilizing High-Level Synthesis (C++ HLS) natively tied together via AXI-Stream configurations to maximize pipeline layout performance and FPGA fabric resource usage parameters across the Zynq-7000 SoC architecture[cite: 28].
                     </p>
                     <div class="project-tags">
-                        <span class="tag">C++ HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq Processing System</span><span class="tag">Real-Time ML</span>
+                        <span class="tag">C++ HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq-7000 SoC</span><span class="tag">Hardware Acceleration</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 04 // Artificial Intelligence Hardware Interface</span>
+                    <span class="comment">// 04 // AI Layout Routing Algorithms</span>
                     <h3>ML-Based PCB Auto-Routing Pipeline</h3>
                     <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Developed and validated a machine learning-guided physical PCB trace router using structural U-Net segmentation models combined with complex A* pathfinding engines. Effectively automated layouts to achieve structural optimization improvements across overall baseline trace density distributions.
+                        Implemented and validated an ML-guided PCB auto-routing pipeline utilizing customized U-Net computer vision segmentation models backed by integrated A* search route navigation pathfinders within Python and OpenCV environments[cite: 51]. Successfully adjusted routing paths across various testing layouts to yield a 5% optimization improvement metric in baseline trace density lengths and overall layer via counts[cite: 52].
                     </p>
                     <div class="project-tags">
-                        <span class="tag">Python Design</span><span class="tag">OpenCV Data</span><span class="tag">PCB Trace Optimization</span>
+                        <span class="tag">Python</span><span class="tag">OpenCV Data</span><span class="tag">U-Net Topology</span><span class="tag">A* Pathfinding</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 05 // Hardware Prototyping & Bring-Up</span>
-                    <h3>4-Layer ESP32 System Design & Verification</h3>
+                    <span class="comment">// 05 // Hardware Bring-Up & Signal Integrity Engineering</span>
+                    <h3>4-Layer ESP32 System Design & Testing</h3>
                     <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Designed, laid out, and fully assembled an operational 4-layer physical PCB integrating standard microcontrollers and diagnostic data streams. Handled physical bring-up processes including pathing verifications, controlled impedance track balancing, and bus signaling debugging using real hardware oscilloscope and logic analytics configurations.
+                        Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams[cite: 55]. Handled physical hardware bring-up procedures, tracking pathing checkouts, voltage validations, and bus signaling communications (UART, I2C) using oscilloscopes and logic analyzers[cite: 55, 56]. Implemented layout balancing techniques including controlled impedance track routing and effective ground plane isolate isolation[cite: 57].
                     </p>
                     <div class="project-tags">
-                        <span class="tag">PCB Design Layout</span><span class="tag">Hardware Bring-Up</span><span class="tag">Signal Integrity</span>
+                        <span class="tag">PCB Layout Design</span><span class="tag">Signal Integrity</span><span class="tag">Hardware Bring-Up</span><span class="tag">Impedance Control</span>
                     </div>
                 </div>
 
@@ -364,7 +364,7 @@
             requestAnimationFrame(animate);
 
             // Passive continuous rotation simulation
-            chipGroup.rotation.y += 0.005;
+            chipGroup.rotation.y += 0.003;
 
             // Interactive response matrix logic mapping to tracking angles
             chipGroup.rotation.x += (mouseY * 2 - chipGroup.rotation.x) * 0.1;
