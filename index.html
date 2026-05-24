@@ -67,7 +67,8 @@
         .btn-primary { background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color: #ffffff; box-shadow: 0 4px 25px rgba(139, 92, 246, 0.3); }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 30px rgba(0, 243, 255, 0.5); }
         .btn-secondary { border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-primary); background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(5px); }
-        .btn-secondary:hover { border-color: var(--accent-orange); transform: translateY(-3px); }
+        .btn-secondary:hover { border-color: var(--accent-cyan); transform: translateY(-3px); }
+
         .btn-more { margin-top: 1rem; align-self: flex-start; border: 1px solid var(--accent-cyan); color: var(--accent-cyan); background: transparent; box-shadow: 0 0 15px rgba(0, 243, 255, 0.05); }
         .btn-more:hover { background: rgba(0, 243, 255, 0.08); box-shadow: 0 0 25px rgba(0, 243, 255, 0.2); transform: translateY(-2px); }
 
@@ -89,8 +90,10 @@
         .project-meta { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-orange); margin-bottom: 0.75rem; font-weight: 600; }
         .project-card h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; }
         .project-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
-        .tag-group { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+        .tag-group { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
         .tag { font-size: 0.75rem; background: rgba(255,255,255,0.02); color: #cbd5e1; padding: 0.3rem 0.8rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
+        .project-link { display: inline-block; color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: 0.2s; }
+        .project-link:hover { color: #ffffff; transform: translateX(3px); }
 
         .project-subpage { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(2, 2, 5, 0.98); z-index: 500; overflow-y: auto; padding: 6rem 10% 4rem 10%; display: none; opacity: 0; transition: opacity 0.4s ease; }
         .project-subpage.active { display: block; opacity: 1; }
@@ -134,7 +137,7 @@
                 <div class="hero-tag">Silicon Engineering & Verification</div>
                 <h1>Working on hardware verification, FPGA Development, ML acceleration, PCB Design & more.</h1>
                 <p class="hero-desc">
-                    Recent M.S. Graduate in Electrical and Computer Engineering from UC Davis. Specializing in Design Verification, FPGA development, Hardware acceleration, PCB design and Hardware testing. I love building and verifying digital hardware systems.
+                    M.S. in Electrical and Computer Engineering from UC Davis. Specializing in Design Verification, FPGA development, Hardware acceleration, PCB design, and System Testing. I love building and verifying digital hardware systems.
                 </p>
                 
                 <h2 class="section-title">Technical Skills</h2>
@@ -144,29 +147,40 @@
                         <div class="category-tokens"><span class="token">RISC-V</span><span class="token">ARM Cortex</span><span class="token">Xilinx Zynq SoC</span><span class="token">Intel DE10 SoC</span><span class="token">STM32</span></div>
                     </div>
                     <div class="skills-category-block">
-                        <div class="category-title"><div class="category-dot"></div>HDL Stack</div>
+                        <div class="category-title"><div class="category-dot"></div>HDL & Verification</div>
                         <div class="category-tokens"><span class="token">Verilog</span><span class="token">SystemVerilog</span><span class="token">VHDL</span><span class="token">UVM</span><span class="token">PyUVM</span></div>
                     </div>
                     <div class="skills-category-block">
-                        <div class="category-title"><div class="category-dot"></div>Coding Stack</div>
-                        <div class="category-tokens"><span class="token">C</span><span class="token">C++</span><span class="token">HLS</span><span class="token">Python</span><span class="token">MATLAB</span></div>
+                        <div class="category-title"><div class="category-dot"></div>Software & Scripts</div>
+                        <div class="category-tokens"><span class="token">C/C++</span><span class="token">Vivado HLS</span><span class="token">Python</span><span class="token">MATLAB</span><span class="token">TCL</span></div>
                     </div>
                 </div>
 
                 <div class="cta-group" style="margin-bottom: 2rem; margin-top: 1rem;">
-                    <a href="mailto:prtrivedi@ucdavis.edu" class="btn btn-primary">Connect</a>
+                    <a href="mailto:prtrivedi@ucdavis.edu" class="btn btn-primary">Contact Me</a>
                     <a href="https://github.com/prnjl10" target="_blank" class="btn btn-secondary">GitHub</a>
-                    <a href="https://www.linkedin.com/in/pranjal-trivedi/" target="_blank" class="btn btn-secondary" style="border-color: #0077b5; color: #0077b5;">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/pranjal-trivedi/" target="_blank" class="btn btn-secondary">LinkedIn</a>
                 </div>
 
                 <div class="project-stack">
                     <h2 class="section-title">Silicon Verification & Deployment</h2>
+                    
                     <div class="project-card">
-                        <div class="project-meta">Verification Framework // SystemVerilog</div>
+                        <div class="project-meta">Verification Framework // SystemVerilog & UVM</div>
                         <h3>RISC-V UVM Verification Ecosystem</h3>
-                        <p>Designed a modular UVM environment containing verification infrastructure components targeting a 32-bit RV32I core structure. Achieved >98% functional coverage parameters.</p>
-                        <div class="tag-group"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL</span></div>
+                        <p>Designed a modular UVM ecosystem for a 32-bit RV32I core enabling directed and constrained-random verification. Developed a Register Abstraction Layer (RAL) with front-door/back-door access and integrated TLM-based transaction flows. Debugged corner-case failures to achieve >98% functional coverage across all instruction groups, increasing test regression throughput by 30%.</p>
+                        <div class="tag-group"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL Verification</span></div>
+                        <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
                     </div>
+
+                    <div class="project-card">
+                        <div class="project-meta">RTL Design & Integration // Verilog</div>
+                        <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
+                        <p>Designed and implemented a 32-bit RISC-V processor in Verilog on the Intel DE10-Lite FPGA with a single-issue, in-order 4-stage pipeline. Engineered control-flow recovery and hazard mitigation via a decode-stage branch/jump ALU (1-cycle penalty) and merged MEM+WB forwarding. Integrated a memory-mapped Avalon-MM SoC containing dual-port SRAM, UART, and GPIO peripherals.</p>
+                        <div class="tag-group"><span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon-MM</span></div>
+                        <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
+                    </div>
+
                     <button onclick="openSubpage('silicon-dashboard')" class="btn btn-secondary btn-more">View Full Silicon Dashboard &rarr;</button>
                 </div>
             </div>
@@ -180,12 +194,15 @@
             <div class="text-panel">
                 <div class="project-stack" style="padding: 2rem 0 6rem 0;">
                     <h2 class="section-title">Miscellaneous Systems Projects</h2>
-                    <div class="project-card">
-                        <div class="project-meta">EDA Algorithms // Optimization</div>
+                    
+                    <div class="project-card" style="border-left-color: var(--accent-orange);">
+                        <div class="project-meta">EDA Algorithms // Python & OpenCV</div>
                         <h3>ML-Based PCB Auto-Routing Pipeline</h3>
-                        <p>Implemented and validated an ML-guided PCB auto-routing pipeline utilizing customized U-Net computer vision segmentation models backed by A* search route navigation.</p>
-                        <div class="tag-group"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">A* Routing</span></div>
+                        <p>Implemented and validated an ML-guided PCB auto-routing pipeline utilizing a U-Net segmentation model backed by an integrated A* search algorithm. Adjusted routing parameters across multiple test layouts to perform batch inference testing, resulting in a 5% optimization improvement in baseline trace lengths and total via counts.</p>
+                        <div class="tag-group"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">U-Net</span><span class="tag">A* Routing</span></div>
+                        <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
                     </div>
+
                     <button onclick="openSubpage('misc-dashboard')" class="btn btn-secondary btn-more">View Miscellaneous Portfolio &rarr;</button>
                 </div>
             </div>
@@ -200,18 +217,38 @@
         <button onclick="closeSubpage('silicon-dashboard')" class="close-btn">&larr; Back to Home</button>
         <div class="hero-tag">Core Registry</div>
         <h2 class="section-title" style="font-size: 2.8rem;">RTL, Design Verification & FPGA Subsystems</h2>
+        
         <div class="subpage-grid">
             <div class="project-card">
-                <div class="project-meta">RTL & Verification // SystemVerilog & UVM</div>
+                <div class="project-meta">Verification Framework // SystemVerilog & UVM</div>
                 <h3>RISC-V UVM Verification Ecosystem</h3>
-                <p>Designed a modular UVM environment containing verification infrastructure components targeting a 32-bit RV32I core structure.</p>
-                <div class="tag-group"><span class="tag">SystemVerilog</span><span class="tag">UVM</span></div>
+                <p>Designed a modular UVM ecosystem for a 32-bit RV32I core enabling directed and constrained-random verification. Developed a Register Abstraction Layer (RAL) with front-door/back-door access and integrated TLM-based transaction flows. Debugged corner-case failures to achieve >98% functional coverage across all instruction groups, increasing test regression throughput by 30%.</p>
+                <div class="tag-group"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL Verification</span></div>
+                <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
             </div>
+
             <div class="project-card">
-                <div class="project-meta">RTL // SystemVerilog</div>
+                <div class="project-meta">RTL Design & Integration // Verilog</div>
                 <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
-                <p>Designed and implemented a 32-bit RISC-V processor in Verilog using an in-order 4-stage pipeline execution path onto an Intel DE10-Lite FPGA platform.</p>
-                <div class="tag-group"><span class="tag">Verilog RTL</span><span class="tag">Avalon-MM</span></div>
+                <p>Designed and implemented a 32-bit RISC-V processor in Verilog on the Intel DE10-Lite FPGA with a single-issue, in-order 4-stage pipeline. Engineered control-flow recovery and hazard mitigation via a decode-stage branch/jump ALU (1-cycle penalty) and merged MEM+WB forwarding. Integrated a memory-mapped Avalon-MM SoC containing dual-port SRAM, UART, and GPIO peripherals.</p>
+                <div class="tag-group"><span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon-MM</span></div>
+                <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
+            </div>
+
+            <div class="project-card" style="border-left-color: var(--accent-cyan);">
+                <div class="project-meta">Hardware Acceleration // Vivado HLS</div>
+                <h3>Accelerated Quantized Neural Network (MNIST)</h3>
+                <p>Implemented a quantized neural network for MNIST classification on the PYNQ-Z2 board. Designed modular processing layers in C++ (HLS) and integrated them via AXI-Stream for end-to-end hardware acceleration on the Zynq-7000 SoC. Optimized pipeline latency and FPGA fabric resource usage, achieving ~10x performance improvements for real-time classification.</p>
+                <div class="tag-group"><span class="tag">Vivado HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq SoC</span></div>
+                <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-meta">DSP Hardware Acceleration // Python & PYNQ</div>
+                <h3>DMA-Driven FIR Accelerator on Zynq SoC</h3>
+                <p>Designed and implemented a streaming FIR filter accelerator on the Zynq-7000 programmable logic utilizing an AXI-DMA block. Orchestrated data transfers and performance benchmarking via the Python-based PYNQ framework, achieving a 4.77x end-to-end execution speedup over Arm Cortex-A9 software processing for large streaming workloads.</p>
+                <div class="tag-group"><span class="tag">Zynq-7000</span><span class="tag">AXI-DMA</span><span class="tag">PYNQ</span><span class="tag">Digital Signal Processing</span></div>
+                <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
             </div>
         </div>
     </div>
@@ -220,12 +257,22 @@
         <button onclick="closeSubpage('misc-dashboard')" class="close-btn">&larr; Back to Home</button>
         <div class="hero-tag">Extended Registry</div>
         <h2 class="section-title" style="font-size: 2.8rem;">Miscellaneous Engineering Projects</h2>
+        
         <div class="subpage-grid">
             <div class="project-card" style="border-left-color: var(--accent-orange);">
-                <div class="project-meta">Physical Systems Integration // Board Bring-Up</div>
+                <div class="project-meta">EDA Algorithms // Python & OpenCV</div>
+                <h3>ML-Based PCB Auto-Routing Pipeline</h3>
+                <p>Implemented and validated an ML-guided PCB auto-routing pipeline utilizing a U-Net segmentation model backed by an integrated A* search algorithm. Adjusted routing parameters across multiple test layouts to perform batch inference testing, resulting in a 5% optimization improvement in baseline trace lengths and total via counts.</p>
+                <div class="tag-group"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">U-Net</span><span class="tag">A* Routing</span></div>
+                <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-meta">Physical Systems Integration // PCB Design</div>
                 <h3>4-Layer ESP32 System Design & Testing</h3>
-                <p>Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts.</p>
-                <div class="tag-group"><span class="tag">4-Layer PCB Layout</span><span class="tag">Signal Integrity</span></div>
+                <p>Designed and assembled a 4-layer ESP32-based functional PCB integrated with onboard sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts, power-on sequencing, and bus signaling communications using oscilloscopes and logic analyzers.</p>
+                <div class="tag-group"><span class="tag">4-Layer PCB</span><span class="tag">Signal Integrity</span><span class="tag">Oscilloscope Verification</span></div>
+                <a href="https://github.com/prnjl10" target="_blank" class="project-link">View Source &rarr;</a>
             </div>
         </div>
     </div>
@@ -315,11 +362,8 @@
         });
 
         window.addEventListener('mousemove', (e) => {
-            // Background Parallax Tracking
             targetMouseX = (e.clientX / window.innerWidth) - 0.5;
             targetMouseY = (e.clientY / window.innerHeight) - 0.5;
-
-            // Direct Click-and-Drag Rotation
             if (isDragging) {
                 let deltaX = e.clientX - previousMouseX;
                 let deltaY = e.clientY - previousMouseY;
@@ -333,7 +377,6 @@
         window.addEventListener('mouseup', () => { isDragging = false; });
         window.addEventListener('mouseleave', () => { isDragging = false; });
 
-        // Touch Device Drag Support
         window.addEventListener('touchstart', (e) => {
             if(e.touches.length === 1) {
                 isDragging = true;
@@ -346,7 +389,6 @@
             if(e.touches.length === 1) {
                 targetMouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
                 targetMouseY = (e.touches[0].clientY / window.innerHeight) - 0.5;
-
                 if (isDragging) {
                     let deltaX = e.touches[0].clientX - previousMouseX;
                     let deltaY = e.touches[0].clientY - previousMouseY;
@@ -360,7 +402,6 @@
 
         window.addEventListener('touchend', () => { isDragging = false; });
 
-        // Component Materials
         const capSilverMat = new THREE.MeshStandardMaterial({ color: 0xdcdcdf, metalness: 0.8, roughness: 0.2 });
         const resistorBlackMat = new THREE.MeshStandardMaterial({ color: 0x202024, roughness: 0.6 });
         const copperTraceMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 1.0, roughness: 0.15 });
@@ -506,19 +547,34 @@
         generateTraceBus(riscvGroup, -0.6, -1.5, -0.071, 1.5, false, 14, 0.04, true); 
         generateTraceBus(riscvGroup, -1.2, 0.8, -0.071, 1.2, true, 8, 0.03, true); 
 
+        // Main RISC-V Die with QFP style pins
         const RISC_VDie = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.4, 0.18), new THREE.MeshStandardMaterial({ color: 0x0f0f13, roughness: 0.3, metalness: 0.8 }));
         RISC_VDie.position.set(0, 0.5, 0.12); riscvGroup.add(RISC_VDie);
+        for(let i=0; i<12; i++) {
+            let px = -0.55 + (i * 0.1);
+            let pinT = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.1, 0.02), metalMat); pinT.position.set(px, 0.75, -0.05); RISC_VDie.add(pinT);
+            let pinB = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.1, 0.02), metalMat); pinB.position.set(px, -0.75, -0.05); RISC_VDie.add(pinB);
+            let pinL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.03, 0.02), metalMat); pinL.position.set(-0.75, px, -0.05); RISC_VDie.add(pinL);
+            let pinR = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.03, 0.02), metalMat); pinR.position.set(0.75, px, -0.05); RISC_VDie.add(pinR);
+        }
 
-        const silkBorder2 = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), silkMat);
+        const silkBorder2 = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.6), silkMat);
         silkBorder2.position.set(0, 0.5, 0.072); riscvGroup.add(silkBorder2);
 
         const riscvLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.3), new THREE.MeshBasicMaterial({ map: riscvTextMap, transparent: true, depthTest: false }));
         riscvLabelPlate.position.set(0, 0.5, 0.22); riscvLabelPlate.renderOrder = 999; riscvGroup.add(riscvLabelPlate);
 
+        // Memory Chips with TSOP style pins
         for(let m = 0; m < 3; m++) {
             const extMem = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.1), new THREE.MeshStandardMaterial({ color: 0x141419, roughness: 0.4 }));
             extMem.position.set(-0.6 + (m * 0.6), -1.3, 0.1); riscvGroup.add(extMem);
+            for(let p = 0; p < 6; p++) {
+                let py = -0.25 + (p * 0.1);
+                let pinL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.03, 0.02), metalMat); pinL.position.set(-0.3, py, -0.02); extMem.add(pinL);
+                let pinR = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.03, 0.02), metalMat); pinR.position.set(0.3, py, -0.02); extMem.add(pinR);
+            }
         }
+        
         for(let c = 0; c < 12; c++) {
             const capComp = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, 0.05), capSilverMat);
             capComp.position.set(-0.9 + (c * 0.16), 0.2, -0.09); capComp.rotation.y = Math.PI; riscvGroup.add(capComp);
@@ -528,7 +584,16 @@
             const tp = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.02, 8), copperTraceMat);
             tp.rotation.x = Math.PI / 2; tp.position.set(-1.0 + (i * 0.22), -1.8, -0.08); riscvGroup.add(tp);
         }
+        
+        // Backside Debug IC with QFN/QFP style pins
         const debugIC = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.08), icMat); debugIC.position.set(0.2, -0.5, -0.11); riscvGroup.add(debugIC);
+        for(let p = 0; p < 5; p++) {
+            let px = -0.2 + (p * 0.1);
+            let pinT = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.08, 0.01), metalMat); pinT.position.set(px, 0.34, -0.02); debugIC.add(pinT);
+            let pinB = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.08, 0.01), metalMat); pinB.position.set(px, -0.34, -0.02); debugIC.add(pinB);
+            let pinL = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.02, 0.01), metalMat); pinL.position.set(-0.34, px, -0.02); debugIC.add(pinL);
+            let pinR = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.02, 0.01), metalMat); pinR.position.set(0.34, px, -0.02); debugIC.add(pinR);
+        }
         
         for(let i = 0; i < 15; i++) {
             const smd = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.1, 0.04), capSilverMat);
@@ -548,30 +613,26 @@
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
             
-            // 1. Smooth Pointer Parallax tracking (Decoupled from drag interaction)
             mouseX += (targetMouseX - mouseX) * 0.05;
             mouseY += (targetMouseY - mouseY) * 0.05;
 
-            // 2. Smooth Drag Momentum (Inertia effect when rotating)
             userRotX += (targetUserRotX - userRotX) * 0.08;
             userRotY += (targetUserRotY - userRotY) * 0.08;
 
-            // 3. Smooth Scroll Interpolation (Eliminates scroll-wheel stutter)
             const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
             let targetScrollProgress = window.scrollY / maxScroll;
             currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.08; 
 
-            // Board 1 (PYNQ) - Flips Forward
+            // Board 1 (PYNQ)
             let page1Progress = Math.min(1, currentScrollProgress * 1.8); 
             pynqGroup.rotation.x = (mouseY * 0.25) + userRotX;
             pynqGroup.rotation.y = (page1Progress * Math.PI) + (mouseX * 0.25) + userRotY;
             pynqGroup.rotation.z = 0;
 
-            // Board 2 (RISC-V) - Flips Backward to reveal the Front label
+            // Board 2 (RISC-V)
             let page2Progress = Math.max(0, (currentScrollProgress - 0.3) * 1.42); 
             page2Progress = Math.min(1, page2Progress);
             
-            // Formula applies a backwards un-flip: starts at Math.PI (Back) and lands at 0 (Front)
             riscvGroup.rotation.x = (mouseY * 0.25) + userRotX;
             riscvGroup.rotation.y = ((1 - page2Progress) * Math.PI) + (mouseX * 0.25) + userRotY;
             riscvGroup.rotation.z = 0;
@@ -582,7 +643,6 @@
 
         masterRenderEngineLoop();
 
-        // Responsive Resizing
         window.addEventListener('resize', () => {
             generateBinaryColumns();
             pynqCamera.aspect = pynqContainer.clientWidth / pynqContainer.clientHeight;
