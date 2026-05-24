@@ -6,17 +6,16 @@
     <title>Pranjal Trivedi | Silicon Architecture & Verification</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* Premium Dark Palette with Brilliant, Youthful, High-Caliber Accents */
+        /* High-Contrast Color Theory Palette */
         :root {
-            --bg-deep: #030306;
-            --bg-surface: #08080f;
-            --bg-card: #0e0e18;
+            --bg-deep: #020205;
+            --bg-surface: #06060c;
+            --bg-card: #0b0b14;
             --accent-cyan: #00f3ff;   /* Ingenuity & Youth */
-            --accent-orange: #ff6b00; /* Energy & Fresh Perspectives */
+            --accent-orange: #ff5500; /* High Energy & Innovation */
             --accent-purple: #8b5cf6; /* Brilliance & High Caliber */
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
-            --border-glow: rgba(139, 92, 246, 0.15);
         }
 
         * {
@@ -29,11 +28,11 @@
         body {
             background-color: var(--bg-deep);
             color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             overflow-x: hidden;
         }
 
-        /* 3D Fixed Background Canvas */
+        /* Fixed High-Fidelity 3D Viewport across half the screen */
         #canvas3d-container {
             position: fixed;
             top: 0;
@@ -44,7 +43,7 @@
             pointer-events: none;
         }
 
-        /* Fixed Navigation Header */
+        /* Fixed Header */
         header {
             position: fixed;
             top: 0;
@@ -55,7 +54,7 @@
             align-items: center;
             padding: 1.5rem 4rem;
             z-index: 100;
-            background: linear-gradient(to bottom, rgba(3,3,6,0.8), rgba(3,3,6,0));
+            background: linear-gradient(to bottom, rgba(2,2,5,0.8), rgba(2,2,5,0));
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
@@ -75,12 +74,10 @@
             margin-left: 2.5rem;
             font-size: 0.9rem;
             letter-spacing: 1px;
-            font-weight: 500;
             transition: color 0.3s;
         }
         nav a:hover { color: var(--accent-cyan); }
 
-        /* Main Scrolling Container with Parallax Triggers */
         main {
             position: relative;
             z-index: 2;
@@ -92,17 +89,13 @@
             display: flex;
             align-items: center;
             padding: 0 8%;
-            position: relative;
         }
 
         .content-layer {
-            max-width: 55vw;
+            max-width: 52vw;
             position: relative;
-            z-index: 5;
-            transform: translateZ(0);
         }
 
-        /* Hero Layout */
         .hero-tag {
             display: inline-block;
             font-size: 0.8rem;
@@ -114,7 +107,7 @@
             border-radius: 50px;
             margin-bottom: 2rem;
             background: rgba(139, 92, 246, 0.05);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
         }
 
         h1 {
@@ -123,7 +116,7 @@
             line-height: 1.1;
             letter-spacing: -0.03em;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #ffffff, #c7d2fe, #ffedd5);
+            background: linear-gradient(to right, #ffffff, #cbd5e1, #ffedd5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -148,7 +141,6 @@
             font-weight: 600;
             font-size: 0.95rem;
             text-decoration: none;
-            letter-spacing: 0.5px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -170,15 +162,12 @@
         }
         .btn-secondary:hover {
             border-color: var(--accent-orange);
-            background: rgba(255, 107, 0, 0.02);
             transform: translateY(-3px);
         }
 
-        /* Section Typography */
         .section-title {
             font-size: 2.2rem;
             font-weight: 800;
-            letter-spacing: -0.02em;
             margin-bottom: 3rem;
             position: relative;
         }
@@ -192,12 +181,10 @@
             background: var(--accent-orange);
         }
 
-        /* Skills Layout Matrix */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
-            margin-top: 2rem;
         }
 
         .skill-item {
@@ -212,7 +199,6 @@
         }
         .skill-item:hover {
             border-color: var(--accent-purple);
-            background: rgba(139, 92, 246, 0.01);
             transform: translateX(5px);
         }
 
@@ -224,10 +210,7 @@
             box-shadow: 0 0 8px var(--accent-orange);
         }
 
-        /* Project Cards Stack */
-        #projects {
-            padding: 12rem 8%;
-        }
+        #projects { padding: 12rem 8%; }
 
         .project-stack {
             display: flex;
@@ -266,7 +249,6 @@
             font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #ffffff;
         }
 
         .project-card p {
@@ -276,15 +258,10 @@
             margin-bottom: 1.5rem;
         }
 
-        .tag-group {
-            display: flex;
-            gap: 0.6rem;
-            flex-wrap: wrap;
-        }
+        .tag-group { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
         .tag {
             font-size: 0.75rem;
-            font-weight: 500;
             background: rgba(255,255,255,0.02);
             color: #cbd5e1;
             padding: 0.3rem 0.8rem;
@@ -300,9 +277,6 @@
             align-items: center;
             color: #475569;
             font-size: 0.85rem;
-            background: var(--bg-deep);
-            position: relative;
-            z-index: 10;
         }
 
         @media (max-width: 1024px) {
@@ -365,7 +339,7 @@
                     <div class="project-meta">Verification Framework // SystemVerilog</div>
                     <h3>RISC-V UVM Verification Ecosystem</h3>
                     <p>
-                        Designed a modular UVM environment containing verification infrastructure components (uvm_env, sequencer/driver/monitor agents, and scoreboards) targeting a 32-bit RV32I core structure. Developed a Register Abstraction Layer (RAL) supporting front-door/back-door access sequences alongside TLM-based transaction tracking. Achieved >98% functional coverage parameters, debugging sign-extension and control-flow failures to improve test regression automation throughput by 30%.
+                        Designed a modular UVM environment containing verification infrastructure components targeting a 32-bit RV32I core structure. Developed a Register Abstraction Layer (RAL) supporting front-door/back-door access sequences alongside TLM-based transaction tracking. Achieved >98% functional coverage parameters, debugging sign-extension and control-flow failures to improve test regression automation throughput by 30%.
                     </p>
                     <div class="tag-group">
                         <span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL Verification</span><span class="tag">Coverage Mapping</span>
@@ -415,7 +389,6 @@
                         <span class="tag">PCB Design Layout</span><span class="tag">Signal Integrity</span><span class="tag">Hardware Testing</span><span class="tag">Impedance Matching</span>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
@@ -433,145 +406,184 @@
         camera.position.set(0, 0, 14);
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(renderer.domElement);
 
-        // Parent CPU Architecture Group
-        const rvvProcessor = new THREE.Group();
+        // Global Parent Component System Group
+        const hardwareSystem = new THREE.Group();
 
-        // 1. Core Interconnect Chassis Backplane
-        const chassisGeo = new THREE.BoxGeometry(6.5, 6.5, 0.1);
-        const chassisMat = new THREE.MeshStandardMaterial({
-            color: 0x090911,
-            roughness: 0.4,
-            metalness: 0.85
-        });
-        const chassis = new THREE.Mesh(chassisGeo, chassisMat);
-        rvvProcessor.add(chassis);
+        // -------------------------------------------------------------
+        // SUB-SYSTEM 1: COMPONENT CHIP (LEFT HALF - RISC-V DIE PROTOTYPE)
+        // -------------------------------------------------------------
+        const chipGroup = new THREE.Group();
+        chipGroup.position.set(-2.2, 0, 0);
 
-        // Helper function to build distinct architectural stages
-        function buildStageBlock(w, h, d, x, y, z, color, emissive) {
-            const geo = new THREE.BoxGeometry(w, h, d);
-            const mat = new THREE.MeshStandardMaterial({
-                color: color,
-                roughness: 0.2,
-                metalness: 0.9,
-                emissive: emissive,
-                emissiveIntensity: 0.3
-            });
-            const mesh = new THREE.Mesh(geo, mat);
-            mesh.position.set(x, y, z);
-            rvvProcessor.add(mesh);
-            return mesh;
+        // Core Silicon Base Platform
+        const chipBaseGeo = new THREE.BoxGeometry(3.5, 4.5, 0.1);
+        const chipEdges = new THREE.EdgesGeometry(chipBaseGeo);
+        const chipWireframe = new THREE.LineSegments(chipEdges, new THREE.LineBasicMaterial({ color: 0x8b5cf6, opacity: 0.3, transparent: true }));
+        chipGroup.add(chipWireframe);
+
+        // Helper function for individual internal block mapping
+        function addDieModule(w, h, x, y, edgeColor, emissive) {
+            const block = new THREE.Group();
+            const wire = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(w, h, 0.3)), new THREE.LineBasicMaterial({ color: edgeColor }));
+            const glass = new THREE.Mesh(new THREE.BoxGeometry(w*0.9, h*0.9, 0.28), new THREE.MeshStandardMaterial({
+                color: 0x070412, transparent: true, opacity: 0.6, metalness: 0.9, roughness: 0.1, emissive: emissive, emissiveIntensity: 0.4
+            }));
+            block.add(wire, glass);
+            block.position.set(x, y, 0.15);
+            chipGroup.add(block);
+            return glass;
         }
 
-        // 2. RISC-V Pipeline Pipeline Blocks Map
-        // Fetch/Decode (Electric Cyan - Youth and Innovation)
-        const fetchStage = buildStageBlock(2.2, 1.2, 0.3, -1.8, 2.0, 0.2, 0x111e2e, 0x00f3ff);
-        const decodeStage = buildStageBlock(2.2, 1.2, 0.3, -1.8, 0.5, 0.2, 0x111e2e, 0x00f3ff);
+        const fetchBlock = addDieModule(1.3, 0.9, -0.8, 1.4, 0x00f3ff, 0x002c33);
+        const decodeBlock = addDieModule(1.3, 0.9, -0.8, 0.2, 0xff5500, 0x3d1400);
+        const aluBlock = addDieModule(1.4, 2.1, 0.8, 0.8, 0x8b5cf6, 0x220945);
+        const regBlock = addDieModule(3.0, 1.0, 0, -1.4, 0x8b5cf6, 0x1b073a);
+        const chipActiveModules = [fetchBlock, decodeBlock, aluBlock, regBlock];
 
-        // Core ALU Compute Complex (Brilliant Deep Purple - Intellect and Caliber)
-        const aluComplex = buildStageBlock(2.6, 2.6, 0.4, 1.6, 1.2, 0.25, 0x1a0f30, 0x8b5cf6);
+        hardwareSystem.add(chipGroup);
 
-        // Control Matrix & Registers (Dynamic Energy Orange - Ingenuity)
-        const controlUnit = buildStageBlock(2.2, 1.2, 0.3, -1.8, -1.2, 0.2, 0x24140a, 0xff6b00);
-        const registerFile = buildStageBlock(2.2, 1.2, 0.3, 1.6, -1.2, 0.2, 0x24140a, 0xff6b00);
+        // -------------------------------------------------------------
+        // SUB-SYSTEM 2: FPGA SoC BOARD (RIGHT HALF - SYSTEM DEV BOARD)
+        // -------------------------------------------------------------
+        const fpgaGroup = new THREE.Group();
+        fpgaGroup.position.set(2.2, 0, -0.5);
+        // Rotate board into a sleek profile skew mapping
+        fpgaGroup.rotation.set(0.2, -0.4, 0.1);
 
-        const pipelineStages = [fetchStage, decodeStage, aluComplex, controlUnit, registerFile];
+        // Green Soldermask PCB Chassis Plate
+        const pcbBase = new THREE.Mesh(new THREE.BoxGeometry(4.2, 5.2, 0.15), new THREE.MeshStandardMaterial({
+            color: 0x02170e, roughness: 0.5, metalness: 0.6
+        }));
+        fpgaGroup.add(pcbBase);
 
-        // 3. High-Speed 3D Data Bus Interconnect Systems
-        const busLines = [];
-        const busCoordinates = [
-            { sx: -1.8, sy: 1.4, ex: -1.8, ey: 1.1 },  // Fetch -> Decode Channel
-            { sx: -0.7, sy: 0.5, ex: 0.3, ey: 0.5 },   // Decode -> ALU Bus
-            { sx: 1.6, sy: -0.1, ex: 1.6, ey: -0.6 },  // ALU -> RegFile Path
-            { sx: -0.7, sy: -1.2, ex: 0.5, ey: -1.2 }  // Control -> RegFile Line
+        // Core Xilinx Zynq Processor Package Unit
+        const zynqPackage = new THREE.Mesh(new THREE.BoxGeometry(1.8, 1.8, 0.25), new THREE.MeshStandardMaterial({
+            color: 0x0e0e14, roughness: 0.2, metalness: 0.9, emissive: 0x8b5cf6, emissiveIntensity: 0.2
+        }));
+        zynqPackage.position.set(0, 0.4, 0.18);
+        fpgaGroup.add(zynqPackage);
+
+        // Outer Metallic Heat-Spreader Framing Ring for Zynq Package
+        const frameWire = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.85, 1.85, 0.26)), new THREE.LineBasicMaterial({ color: 0x00f3ff }));
+        frameWire.position.set(0, 0.4, 0.18);
+        fpgaGroup.add(frameWire);
+
+        // Parallel SDRAM Storage Packages
+        for(let i = 0; i < 2; i++) {
+            const dram = new THREE.Mesh(new THREE.BoxGeometry(0.7, 1.1, 0.15), new THREE.MeshStandardMaterial({ color: 0x121217, roughness: 0.4 }));
+            dram.position.set(-1.2 + (i * 2.4), -1.2, 0.12);
+            fpgaGroup.add(dram);
+        }
+
+        // Discrete Substrate Capacitors Grid Blocks
+        for(let row = 0; row < 3; row++) {
+            for(let col = 0; col < 2; col++) {
+                const cap = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.25, 0.1), new THREE.MeshStandardMaterial({ color: 0xff5500, emissive: 0xff5500, emissiveIntensity: 0.2 }));
+                cap.position.set(-0.3 + (col * 0.6), 1.6 + (row * 0.4), 0.1);
+                fpgaGroup.add(cap);
+            }
+        }
+
+        hardwareSystem.add(fpgaGroup);
+
+        // -------------------------------------------------------------
+        // INTERCONNECT DATA TRAFFIC: SYSTEM BUSES AND ANIMATED PARTICLES
+        // -------------------------------------------------------------
+        const systemTracks = [
+            { sx: -2.2 - 0.8, sy: 1.4, ex: -2.2 - 0.8, ey: 0.2, c: 0x00f3ff }, // Die: Fetch -> Decode
+            { sx: -2.2 - 0.1, sy: 0.2, ex: -2.2 + 0.1, ey: 0.8, c: 0xff5500 }, // Die: Decode -> ALU
+            { sx: 2.2, sy: 0.4, ex: 2.2 - 1.2, ey: -1.2, c: 0x8b5cf6 },       // Board: SoC -> SDRAM
+            // Central Global Interconnect Highway System (AXI-Stream from core to FPGA chip space)
+            { sx: -2.2 + 0.8, sy: 0.2, ex: 2.2 - 0.5, ey: 0.4, c: 0x00f3ff }
         ];
 
-        busCoordinates.forEach(coords => {
-            const dx = coords.ex - coords.sx;
-            const dy = coords.ey - coords.sy;
-            const distance = Math.sqrt(dx*dx + dy*dy);
-            
-            const lineGeo = new THREE.BoxGeometry(dx === 0 ? 0.06 : distance, dy === 0 ? 0.06 : distance, 0.05);
-            const lineMat = new THREE.MeshBasicMaterial({
-                color: 0x00f3ff,
-                transparent: true,
-                opacity: 0.8
-            });
-            const busLine = new THREE.Mesh(lineGeo, lineMat);
-            busLine.position.set(coords.sx + dx/2, coords.sy + dy/2, 0.38);
-            rvvProcessor.add(busLine);
-            busLines.push(busLine);
+        const activeParticles = [];
+        const particleGeo = new THREE.SphereGeometry(0.04, 6, 6);
+
+        systemTracks.forEach(track => {
+            const pMesh = new THREE.Mesh(particleGeo, new THREE.MeshBasicMaterial({ color: track.c }));
+            hardwareSystem.add(pMesh);
+            activeParticles.push({ mesh: pMesh, route: track, step: Math.random() });
         });
 
-        scene.add(rvvProcessor);
+        scene.add(hardwareSystem);
 
-        // Advanced Color Theory Lighting Design
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
+        // -------------------------------------------------------------
+        // STUDIO SCENE COLOR THEORY LIGHTING MATRIX SETUP
+        // -------------------------------------------------------------
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
         scene.add(ambientLight);
 
-        // Brilliant Purple Overhead Focus
-        const purpleLight = new THREE.DirectionalLight(0x8b5cf6, 2.5);
-        purpleLight.position.set(4, 8, 6);
-        scene.add(purpleLight);
+        // Caliber Dominant Purple Overhead Main Focus
+        const mainPurpleLight = new THREE.DirectionalLight(0x8b5cf6, 3.0);
+        mainPurpleLight.position.set(4, 9, 6);
+        scene.add(mainPurpleLight);
 
-        // Energy Orange Fill Glow
-        const orangeLight = new THREE.PointLight(0xff6b00, 2.0, 25);
-        orangeLight.position.set(-6, -4, 4);
-        scene.add(orangeLight);
+        // Youth/Ingenuity Cyan Side Fill
+        const leftCyanLight = new THREE.PointLight(0x00f3ff, 2.0, 25);
+        leftCyanLight.position.set(-6, 4, 3);
+        scene.add(leftCyanLight);
 
-        // Youthful Cyan Counter Balance
-        const cyanLight = new THREE.PointLight(0x00f3ff, 1.5, 20);
-        cyanLight.position.set(-2, 6, 5);
-        scene.add(cyanLight);
+        // Dynamic Orange Base Tracker Glow
+        const rightOrangeLight = new THREE.PointLight(0xff5500, 1.5, 20);
+        rightOrangeLight.position.set(3, -5, 4);
+        scene.add(rightOrangeLight);
 
-        // Mouse Tracker Interpolation
+        // -------------------------------------------------------------
+        // ANIMATION RUNTIME ENGINE LOOPS
+        // -------------------------------------------------------------
         let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX / window.innerWidth) - 0.5;
             mouseY = (e.clientY / window.innerHeight) - 0.5;
         });
 
-        // Parallax Vector Scroll Tracking
         let scrollYTarget = 0;
         window.addEventListener('scroll', () => {
             scrollYTarget = window.scrollY;
         });
 
-        // Continuous Render Computation Engine
-        function renderLoop() {
-            requestAnimationFrame(renderLoop);
+        function renderEngineLoop() {
+            requestAnimationFrame(renderEngineLoop);
 
-            // Subtle mechanical hover pitch
-            rvvProcessor.rotation.z = Math.sin(Date.now() * 0.0005) * 0.05;
+            // Subtle continuous architectural drift rotation
+            hardwareSystem.rotation.z = Math.sin(Date.now() * 0.0003) * 0.02;
 
-            // Interactive Mouse Follow Matrix Transformation
-            const targetXRotation = mouseY * 1.3;
-            const targetYRotation = mouseX * 1.3 + 0.4; // Fixed profile skew angle
+            // Interactive Multi-axis Mouse Orientation Tracking Matrix
+            const targetXRot = mouseY * 1.1;
+            const targetYRot = mouseX * 1.1 + 0.2; // Fixed layout viewing profile alignment skew
+            hardwareSystem.rotation.x += (targetXRot - hardwareSystem.rotation.x) * 0.05;
+            hardwareSystem.rotation.y += (targetYRot - hardwareSystem.rotation.y) * 0.05;
 
-            rvvProcessor.rotation.x += (targetXRotation - rvvProcessor.rotation.x) * 0.06;
-            rvvProcessor.rotation.y += (targetYRotation - rvvProcessor.rotation.y) * 0.06;
+            // Fluid Parallax Displacement Mapping
+            const targetYPos = (scrollYTarget * 0.0068);
+            hardwareSystem.position.y = THREE.MathUtils.lerp(hardwareSystem.position.y, -1.3 + targetYPos, 0.08);
 
-            // Fluid Parallax Displacement
-            const targetYPosition = (scrollYTarget * 0.0065);
-            rvvProcessor.position.y = THREE.MathUtils.lerp(rvvProcessor.position.y, -1.8 + targetYPosition, 0.08);
+            // Compute Flight Path for Active Interconnect Pipeline Data Particles
+            activeParticles.forEach(p => {
+                p.step += 0.007;
+                if(p.step > 1) p.step = 0;
+                p.mesh.position.x = THREE.MathUtils.lerp(p.route.sx, p.route.ex, p.step);
+                p.mesh.position.y = THREE.MathUtils.lerp(p.route.sy, p.route.ey, p.step);
+                // Curve slightly into the background along Z for cross-device bus route (AXI line)
+                p.mesh.position.z = p.route.ex > 0 ? THREE.MathUtils.lerp(0.2, -0.2, p.step) : 0.2;
+            });
 
-            // Internal Silicon Module Emissive Pulse Calculations
-            const stagePulse = Math.sin(Date.now() * 0.0025) * 0.15 + 0.35;
-            pipelineStages.forEach(stage => stage.material.emissiveIntensity = stagePulse);
-
-            // Bus Interconnect Routing Stream Pulse Animation
-            const busPulse = Math.sin(Date.now() * 0.005) * 0.3 + 0.7;
-            busLines.forEach(line => line.material.opacity = busPulse);
+            // Silicon Clock-Cycle Pulse Calculations for Internal Emissive Core Networks
+            const clockPulse = Math.sin(Date.now() * 0.0028) * 0.15 + 0.35;
+            chipActiveModules.forEach(m => m.material.emissiveIntensity = clockPulse);
+            zynqPackage.material.emissiveIntensity = Math.sin(Date.now() * 0.002) * 0.1 + 0.25;
 
             renderer.render(scene, camera);
         }
 
-        renderLoop();
+        renderEngineLoop();
 
-        // Screen Adaptation Event Listener
+        // Responsive Engine Monitor Resizer
         window.addEventListener('resize', () => {
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
