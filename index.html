@@ -652,19 +652,15 @@
         const zynqTextMap = createSilkscreenTexture("ZYNQ");
         const riscvTextMap = createSilkscreenTexture("RISC-V");
 
-        // Interactive mouse tracking positions
+        // Unified mouse tracking configuration
         let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX / window.innerWidth) - 0.5;
             mouseY = (e.clientY / window.innerHeight) - 0.5;
         });
 
-        // Shared Shared Materials across Hardware Engines
-        const capSilverMat = new THREE.MeshStandardMaterial({ color: 0xdcdcdf, metalness: 0.8, roughness: 0.2 });
-        const resistorBlackMat = new THREE.MeshStandardMaterial({ color: 0x202024, roughness: 0.6 });
-
         // -------------------------------------------------------------
-        // ENGINE CONTEXT 1: ACCURATE DETAILED PYNQ-Z2 BOARD WITH ZYNQ
+        // CONTEXT 1 ENGINE SETUP: HIGH-FIDELITY PYNQ-Z2 BOARD WITH ZYNQ
         // -------------------------------------------------------------
         const pynqContainer = document.getElementById('pynq-canvas');
         const pynqScene = new THREE.Scene();
@@ -683,6 +679,7 @@
         const pynqSubstrate = new THREE.Mesh(new THREE.BoxGeometry(3.2, 4.4, 0.14), pynqResinMat);
         pynqGroup.add(pynqSubstrate);
 
+        // [FRONT SIDE LAYOUTS]
         const zynqDie = new THREE.Mesh(new THREE.BoxGeometry(1.25, 1.25, 0.16), new THREE.MeshStandardMaterial({ color: 0x121215, roughness: 0.3, metalness: 0.8 }));
         zynqDie.position.set(0, 0.4, 0.11);
         pynqGroup.add(zynqDie);
@@ -711,6 +708,7 @@
         zynqLabelPlate.renderOrder = 999;
         pynqGroup.add(zynqLabelPlate);
 
+        // IO Brackets & Shield Rails
         const metalMat = new THREE.MeshStandardMaterial({ color: 0xadb2b9, metalness: 0.9, roughness: 0.2 });
         const blockMat = new THREE.MeshStandardMaterial({ color: 0x19191e, roughness: 0.5 });
         const pinMat = new THREE.MeshStandardMaterial({ color: 0xffaa00, metalness: 0.9, roughness: 0.1 });
@@ -732,12 +730,23 @@
             pynqGroup.add(pin);
         }
 
+        // [BOTTOM SIDE LAYOUTS] - Restored from previous specifications
+        const capSilverMat = new THREE.MeshStandardMaterial({ color: 0xdcdcdf, metalness: 0.8, roughness: 0.2 });
+        const resistorBlackMat = new THREE.MeshStandardMaterial({ color: 0x202024, roughness: 0.6 });
+        const copperTraceMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
+
         for(let x = 0; x < 4; x++) {
             for(let y = 0; y < 5; y++) {
                 const smd = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.12, 0.05), (x+y)%2 === 0 ? capSilverMat : resistorBlackMat);
-                smd.position.set(-0.7 + (x * 0.45), -0.8 + (y * 0.45), 0.09);
+                smd.position.set(-0.7 + (x * 0.45), -0.8 + (y * 0.45), -0.09);
                 pynqGroup.add(smd);
             }
+        }
+        for(let t = 0; t < 6; t++) {
+            const bottomTrace = new THREE.Mesh(new THREE.PlaneGeometry(0.03, 1.8), copperTraceMat);
+            bottomTrace.position.set(0.6 - (t * 0.25), 0.8, -0.072);
+            bottomTrace.rotation.y = Math.PI;
+            pynqGroup.add(bottomTrace);
         }
 
         pynqScene.add(new THREE.AmbientLight(0xffffff, 0.42));
@@ -745,7 +754,7 @@
         const pynqCyan = new THREE.PointLight(0x00f3ff, 2.2, 15); pynqCyan.position.set(-4, 3, 3); pynqScene.add(pynqCyan);
 
         // -------------------------------------------------------------
-        // ENGINE CONTEXT 2: HIGH-FIDELITY TRANSLUCENT FR-4 RISC-V CORE WITH RESTORED DETAILS
+        // ENGINE CONTEXT 2: HIGH-FIDELITY TRANSLUCENT FR-4 RISC-V CORE
         // -------------------------------------------------------------
         const riscvContainer = document.getElementById('riscv-canvas');
         const riscvScene = new THREE.Scene();
@@ -764,6 +773,7 @@
         const fr4Substrate = new THREE.Mesh(new THREE.BoxGeometry(3.1, 4.4, 0.14), fr4Mat);
         riscvGroup.add(fr4Substrate);
 
+        // [FRONT SIDE LAYOUTS]
         const RISC_VDie = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.4, 0.18), new THREE.MeshStandardMaterial({ color: 0x0f0f13, roughness: 0.3, metalness: 0.8 }));
         RISC_VDie.position.set(0, 0.5, 0.12);
         riscvGroup.add(RISC_VDie);
@@ -773,7 +783,7 @@
         riscvLabelPlate.renderOrder = 999;
         riscvGroup.add(riscvLabelPlate);
 
-        // RESTORED: Microarchitectural circuit details for the RISC-V compute board
+        // [BOTTOM SIDE LAYOUTS] - Restored and implemented for RISC-V compute board
         for(let i = 0; i < 9; i++) {
             const goldTrack = new THREE.Mesh(new THREE.PlaneGeometry(0.03, 1.2), new THREE.MeshStandardMaterial({ color: 0xe0bc4f, metalness: 0.9 }));
             goldTrack.position.set(-0.75 + (i * 0.18), -0.4, 0.08);
@@ -784,12 +794,19 @@
             extMem.position.set(-0.6 + (m * 0.6), -1.3, 0.1);
             riscvGroup.add(extMem);
         }
-        for(let x = 0; x < 3; x++) {
-            for(let y = 0; y < 4; y++) {
-                const smd = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.12, 0.05), (x+y)%2 === 0 ? capSilverMat : resistorBlackMat);
-                smd.position.set(-0.5 + (x * 0.5), 1.4 + (y * 0.22), 0.08);
-                riscvGroup.add(smd);
-            }
+        // Microcap array grids on underside
+        for(let c = 0; c < 12; c++) {
+            const capComp = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, 0.05), capSilverMat);
+            capComp.position.set(-0.9 + (c * 0.16), 0.2, -0.09);
+            capComp.rotation.y = Math.PI;
+            riscvGroup.add(capComp);
+        }
+        // Surface copper ground pour tracks on back layer
+        for(let t = 0; t < 5; t++) {
+            const backPour = new THREE.Mesh(new THREE.PlaneGeometry(0.04, 1.4), copperTraceMat);
+            backPour.position.set(0.7 - (t * 0.3), -0.6, -0.072);
+            backPour.rotation.y = Math.PI;
+            riscvGroup.add(backPour);
         }
 
         riscvScene.add(new THREE.AmbientLight(0xffffff, 0.42));
@@ -800,7 +817,7 @@
         riscvGroup.rotation.set(0.2, -0.3, -0.05);
 
         // -------------------------------------------------------------
-        // UNIFIED ENGINE MASTER RENDER LOOP
+        // UNIFIED ENGINE MASTER RENDER LOOP with Maximum Smooth Movement
         // -------------------------------------------------------------
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
@@ -812,6 +829,8 @@
             // PYNQ Board track runtime
             let page1Progress = window.scrollY / (page1Rect.height || 1);
             page1Progress = Math.max(0, Math.min(1, page1Progress));
+            
+            // Linear flip mappings across scroll sweep for ultra smooth transformation transitions
             pynqGroup.rotation.x = 0.3 + (page1Progress * Math.PI * 2.0) + (mouseY * 0.3);
             pynqGroup.rotation.y = -0.4 + (page1Progress * Math.PI * 1.5) + (mouseX * 0.3);
             pynqGroup.rotation.z = 0.05 + (Math.sin(time * 0.4) * 0.04);
@@ -819,22 +838,27 @@
             // RISC-V compute core track runtime
             let page2Progress = (window.scrollY - page1Rect.height) / (page2Rect.height || 1);
             page2Progress = Math.max(0, Math.min(1, page2Progress));
+            
+            // Linear flip mappings safely locked within frame bounds while processing visible path tracks
             riscvGroup.rotation.x = 0.2 + (page2Progress * Math.PI * 2.0) + (mouseY * 0.3);
             riscvGroup.rotation.y = -0.3 + (page2Progress * Math.PI * 1.5) + (mouseX * 0.3);
             riscvGroup.rotation.z = -0.05 + (Math.cos(time * 0.4) * 0.04);
 
+            // Context-specific draw render execution updates
             pynqRenderer.render(pynqScene, pynqCamera);
             riscvRenderer.render(riscvScene, riscvCamera);
         }
 
         masterRenderEngineLoop();
 
-        // Screen Adaptations Handler
+        // Global Layout Adaption Window Resize Listener
         window.addEventListener('resize', () => {
+            // Adaptive configuration Context 1
             pynqCamera.aspect = pynqContainer.clientWidth / pynqContainer.clientHeight;
             pynqCamera.updateProjectionMatrix();
             pynqRenderer.setSize(pynqContainer.clientWidth, pynqContainer.clientHeight);
 
+            // Adaptive configuration Context 2
             riscvCamera.aspect = riscvContainer.clientWidth / riscvContainer.clientHeight;
             riscvCamera.updateProjectionMatrix();
             riscvRenderer.setSize(riscvContainer.clientWidth, riscvContainer.clientHeight);
