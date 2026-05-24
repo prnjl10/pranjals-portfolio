@@ -14,6 +14,7 @@
             --accent-cyan: #00f3ff;   /* Ingenuity & Youth */
             --accent-orange: #ff5500; /* High Energy & Innovation */
             --accent-purple: #8b5cf6; /* Brilliance & High Caliber */
+            --pynq-pink: #d12a5e;     /* Authentic PYNQ-Z2 Soldermask */
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
         }
@@ -403,21 +404,21 @@
         const scene = new THREE.Scene();
 
         const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.set(0, 0, 13);
+        camera.position.set(0, 0, 11);
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(renderer.domElement);
 
-        // Individual Transform Groups for layout splitting
-        const riscvPCB = new THREE.Group();
-        const fpgaPCB = new THREE.Group();
+        // Individual Separate Layout Transform Isolation Containers
+        const pynqBoardGroup = new THREE.Group();
+        const riscvBoardGroup = new THREE.Group();
 
-        scene.add(riscvPCB);
-        scene.add(fpgaPCB);
+        scene.add(pynqBoardGroup);
+        scene.add(riscvBoardGroup);
 
-        // Canvas Dynamic Text Texture Creator for the RISC-V Silkscreen Label
+        // Vector Font Text Texture Pipeline for the Custom Core Silkscreen Typography
         function makeLabelTexture(text) {
             const canvas = document.createElement('canvas');
             canvas.width = 256;
@@ -425,7 +426,7 @@
             const ctx = canvas.getContext('2d');
             ctx.fillStyle = "rgba(0,0,0,0)";
             ctx.fillRect(0,0,256,64);
-            ctx.font = "bold 42px monospace";
+            ctx.font = "bold 44px monospace";
             ctx.fillStyle = "#ffffff";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
@@ -435,125 +436,130 @@
         const riscvTexture = makeLabelTexture("RISC-V");
 
         // -------------------------------------------------------------
-        // BOARD 1: CUSTOM PROCESSOR PCB (FR-4 TRANSLUCENT FIBERGLASS COLOR)
+        // HIGH-DETAILED SPECIFICATION GRAPHIC 1: ACCURATE XILINX PYNQ-Z2
         // -------------------------------------------------------------
-        riscvPCB.position.set(-1.8, 0.5, 0);
+        pynqBoardGroup.position.set(1.4, 0, 0);
 
-        // FR-4 Substrate Board Material (Classic semi-translucent yellow-green/amber weave)
-        const fr4Material = new THREE.MeshStandardMaterial({
-            color: 0x6b663b, 
-            roughness: 0.5,
-            metalness: 0.2,
-            transparent: true,
-            opacity: 0.9
-        });
-        const fr4Substrate = new THREE.Mesh(new THREE.BoxGeometry(3.2, 4.6, 0.15), fr4Material);
-        riscvPCB.add(fr4Substrate);
+        // Pink/Magenta soldermask substrate
+        const pynqResinMat = new THREE.MeshStandardMaterial({ color: 0xc12253, roughness: 0.35, metalness: 0.2 });
+        const pynqSubstrate = new THREE.Mesh(new THREE.BoxGeometry(3.6, 5.0, 0.14), pynqResinMat);
+        pynqBoardGroup.add(pynqSubstrate);
 
-        // Main RISC-V Processor Die Package
-        const riscvProcessor = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 0.2), new THREE.MeshStandardMaterial({
-            color: 0x141419, roughness: 0.3, metalness: 0.7
-        }));
-        riscvProcessor.position.set(0, 0.4, 0.16);
-        riscvPCB.add(riscvProcessor);
+        // Central Zynq SoC Package Die Base
+        const zynqDie = new THREE.Mesh(new THREE.BoxGeometry(1.3, 1.3, 0.18), new THREE.MeshStandardMaterial({ color: 0x111115, roughness: 0.4, metalness: 0.8 }));
+        zynqDie.position.set(0, 0.4, 0.14);
+        pynqBoardGroup.add(zynqDie);
 
-        // Silkscreen "RISC-V" Label Placement Layer
-        const labelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 0.32), new THREE.MeshBasicMaterial({
-            map: riscvTexture, transparent: true
-        }));
-        labelPlate.position.set(0, 0.4, 0.27);
-        riscvPCB.add(labelPlate);
+        // Raised Passively Cooled Black Anodized Extrusion Heatsink
+        const heatsinkGroup = new THREE.Group();
+        heatsinkGroup.position.set(0, 0.4, 0.23);
+        const basePlate = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 0.08), new THREE.MeshStandardMaterial({ color: 0x1a1a1f, roughness: 0.2, metalness: 0.9 }));
+        heatsinkGroup.add(basePlate);
 
-        // Surrounding Gold Trace Lines on the FR-4 Substrate
-        for(let i = 0; i < 8; i++) {
-            const trace = new THREE.Mesh(new THREE.PlaneGeometry(0.04, 1.0), new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.9 }));
-            trace.position.set(-0.6 + (i * 0.18), -0.8, 0.081);
-            riscvPCB.add(trace);
+        // Discrete Heatsink Cooling Fin Elements
+        for(let f = 0; f < 6; f++) {
+            const fin = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1.1, 0.25), new THREE.MeshStandardMaterial({ color: 0x15151a, roughness: 0.2, metalness: 0.9 }));
+            fin.position.set(-0.45 + (f * 0.18), 0, 0.14);
+            heatsinkGroup.add(fin);
+        }
+        pynqBoardGroup.add(heatsinkGroup);
+
+        // Multi-Row Female Pin Extension Header Block Arrays (Arduino & Pi Rails)
+        const blockMat = new THREE.MeshStandardMaterial({ color: 0x1d1d22, roughness: 0.5 });
+        const pinMat = new THREE.MeshStandardMaterial({ color: 0xffbb00, metalness: 0.9, roughness: 0.1 });
+
+        const headerLeft = new THREE.Mesh(new THREE.BoxGeometry(0.2, 3.2, 0.35), blockMat);
+        headerLeft.position.set(-1.5, -0.2, 0.2);
+        pynqBoardGroup.add(headerLeft);
+
+        for(let p = 0; p < 12; p++) {
+            const pin = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.2), pinMat);
+            pin.position.set(-1.5, -1.4 + (p * 0.25), 0.4);
+            pynqBoardGroup.add(pin);
         }
 
-        // Dedicated DDR Memory Chips
-        for(let i = 0; i < 2; i++) {
-            const mem = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.0, 0.12), new THREE.MeshStandardMaterial({ color: 0x111116, roughness: 0.4 }));
-            mem.position.set(-0.7 + (i * 1.4), -1.5, 0.12);
-            riscvPCB.add(mem);
+        const headerRight = new THREE.Mesh(new THREE.BoxGeometry(0.2, 2.2, 0.35), blockMat);
+        headerRight.position.set(1.5, 0.6, 0.2);
+        pynqBoardGroup.add(headerRight);
+
+        // Hardware Peripherals IO Block Cages (Ethernet, Dual USB Brackets)
+        const metalCageMat = new THREE.MeshStandardMaterial({ color: 0xb0b5bc, metalness: 0.9, roughness: 0.2 });
+        
+        const rj45Cage = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.0, 0.6), metalCageMat);
+        rj45Cage.position.set(-1.1, -2.0, 0.35);
+        pynqBoardGroup.add(rj45Cage);
+
+        const usbCage = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.9, 0.55), metalCageMat);
+        usbCage.position.set(-0.1, -2.05, 0.32);
+        pynqBoardGroup.add(usbCage);
+
+        // Gold External Board Edge Boundary Pads
+        for(let e = 0; e < 15; e++) {
+            const pad = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.2), new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.9 }));
+            pad.position.set(-1.4 + (e * 0.2), -2.42, 0.072);
+            pad.rotation.x = Math.PI / 2;
+            pynqBoardGroup.add(pad);
         }
 
         // -------------------------------------------------------------
-        // BOARD 2: FPGA SoC DEVELOPMENT BOARD (DARK SOLDERSMASK GREEN)
+        // HIGH-DETAILED SPECIFICATION GRAPHIC 2: CORE PROCESSOR FR-4 PCB
         // -------------------------------------------------------------
-        fpgaPCB.position.set(2.0, -0.5, -0.5);
+        // Positioned safely completely outside view, dynamically drawn up on scroll parameters
+        riscvBoardGroup.position.set(1.4, -8.0, 0);
 
-        // Classic Deep Green Soldermask Material
-        const greenSoldermask = new THREE.MeshStandardMaterial({
-            color: 0x031f12, roughness: 0.4, metalness: 0.3
-        });
-        const fpgaSubstrate = new THREE.Mesh(new THREE.BoxGeometry(3.5, 4.8, 0.15), greenSoldermask);
-        fpgaPCB.add(fpgaSubstrate);
+        // Translucent Amber/Green Composite Base Resin Material Layer
+        const fr4ResinMat = new THREE.MeshStandardMaterial({ color: 0x5d5832, roughness: 0.45, metalness: 0.1, transparent: true, opacity: 0.92 });
+        const fr4Substrate = new THREE.Mesh(new THREE.BoxGeometry(3.5, 4.8, 0.14), fr4ResinMat);
+        riscvBoardGroup.add(fr4Substrate);
 
-        // Central FPGA SoC Package (Zynq Style)
-        const fpgaPackage = new THREE.Mesh(new THREE.BoxGeometry(1.7, 1.7, 0.22), new THREE.MeshStandardMaterial({
-            color: 0x0a0a0f, roughness: 0.2, metalness: 0.9, emissive: 0x8b5cf6, emissiveIntensity: 0.2
-        }));
-        fpgaPackage.position.set(0, 0.2, 0.18);
-        fpgaPCB.add(fpgaPackage);
+        // Primary Processing Package Core
+        const processorPackage = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.6, 0.18), new THREE.MeshStandardMaterial({ color: 0x0f0f13, roughness: 0.3, metalness: 0.8 }));
+        processorPackage.position.set(0, 0.6, 0.14);
+        riscvBoardGroup.add(processorPackage);
 
-        // Gold External Board Interface Pin Header Rows
-        const headerGeo = new THREE.BoxGeometry(0.1, 0.1, 0.4);
-        const headerMat = new THREE.MeshStandardMaterial({ color: 0xffaa00, metalness: 0.9, roughness: 0.1 });
-        for(let i = 0; i < 10; i++) {
-            const leftPin = new THREE.Mesh(headerGeo, headerMat);
-            leftPin.position.set(-1.6, -2.0 + (i * 0.4), 0.2);
-            fpgaPCB.add(leftPin);
+        // Vector Typographic Label Overlay Placement
+        const labelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.35, 0.34), new THREE.MeshBasicMaterial({ map: riscvTexture, transparent: true }));
+        labelPlate.position.set(0, 0.6, 0.24);
+        riscvBoardGroup.add(labelPlate);
+
+        // Outer BGA Trace Bus Infrastructure Network
+        for(let t = 0; t < 12; t++) {
+            const goldTrace = new THREE.Mesh(new THREE.PlaneGeometry(0.03, 1.2), new THREE.MeshStandardMaterial({ color: 0xe5c158, metalness: 0.9, roughness: 0.2 }));
+            goldTrace.position.set(-0.9 + (t * 0.16), -0.5, 0.072);
+            riscvBoardGroup.add(goldTrace);
         }
 
-        // On-Board Surface Mount Capacitors
-        for(let r = 0; r < 4; r++) {
-            const cap = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.22, 0.1), new THREE.MeshStandardMaterial({
-                color: 0xff5500, emissive: 0xff5500, emissiveIntensity: 0.2
-            }));
-            cap.position.set(-0.6 + (r * 0.4), 1.5, 0.12);
-            fpgaPCB.add(cap);
+        // Secondary Discrete High-Density Storage Components Array
+        for(let m = 0; m < 4; m++) {
+            const memoryDie = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.1), new THREE.MeshStandardMaterial({ color: 0x141418, roughness: 0.4 }));
+            memoryDie.position.set(-0.9 + (m * 0.6), -1.5, 0.1);
+            riscvBoardGroup.add(memoryDie);
         }
 
-        // Peripheral Controller IC
-        const flashController = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.12), new THREE.MeshStandardMaterial({ color: 0x18181f }));
-        flashController.position.set(1.0, -1.2, 0.12);
-        fpgaPCB.add(flashController);
-
-        // Set initial baseline idle rotations
-        riscvPCB.rotation.set(0.2, -0.3, 0.05);
-        fpgaPCB.rotation.set(0.15, -0.4, -0.05);
+        // Set initial baseline idle coordinates
+        pynqBoardGroup.rotation.set(0.3, -0.4, 0.05);
+        riscvBoardGroup.rotation.set(0.2, -0.3, -0.05);
 
         // -------------------------------------------------------------
-        // BUS TRAFFIC LINES & PARTICLES
+        // SCENE COLOR THEORY STUDIO LIGHTING MATRIX
         // -------------------------------------------------------------
-        const crossTrack = { sx: -1.8, sy: 0.9, ex: 2.0, ey: -0.3 };
-        const particleGeo = new THREE.SphereGeometry(0.05, 6, 6);
-        const particleMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff });
-        const dataPulse = new THREE.Mesh(particleGeo, particleMat);
-        scene.add(dataPulse);
-        let pulseProgress = 0;
-
-        // -------------------------------------------------------------
-        // LIGHTING MATRIX
-        // -------------------------------------------------------------
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.32);
         scene.add(ambientLight);
 
-        const purpleSpot = new THREE.DirectionalLight(0x8b5cf6, 3.8);
-        purpleSpot.position.set(6, 8, 5);
+        const purpleSpot = new THREE.DirectionalLight(0x8b5cf6, 4.0);
+        purpleSpot.position.set(5, 7, 6);
         scene.add(purpleSpot);
 
-        const cyanFill = new THREE.PointLight(0x00f3ff, 2.5, 30);
-        cyanFill.position.set(-7, 4, 4);
+        const cyanFill = new THREE.PointLight(0x00f3ff, 2.2, 25);
+        cyanFill.position.set(-6, 3, 5);
         scene.add(cyanFill);
 
         const orangeFill = new THREE.PointLight(0xff5500, 1.8, 20);
-        orangeFill.position.set(3, -5, 4);
+        orangeFill.position.set(4, -4, 4);
         scene.add(orangeFill);
 
         // -------------------------------------------------------------
-        // ANIMATION RUNTIME EXECUTION ENGINE
+        // SCROLL REACTION CONTROLLER RUNTIME RUNTIME ENGINE
         // -------------------------------------------------------------
         let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
@@ -570,40 +576,40 @@
             requestAnimationFrame(systemRenderLoop);
 
             const time = Date.now() * 0.001;
-
-            // Normalize current scroll ratio
+            
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             const scrollRatio = maxScroll > 0 ? scrollYTarget / maxScroll : 0;
 
-            // --- RISC-V BOARD DYNAMIC SCROLL ACTIONS ---
-            riscvPCB.position.y = (0.5 - (scrollRatio * 3.5)) + (mouseY * 0.5);
-            riscvPCB.position.x = (-1.8 + (scrollRatio * 0.6)) + (mouseX * 0.5);
-            riscvPCB.rotation.y = -0.3 + (Math.sin(time * 0.5) * 0.05) + (mouseX * 0.4);
-
-            // --- FPGA SoC BOARD DYNAMIC FLIP SCROLL ACTIONS ---
-            fpgaPCB.position.y = (-0.5 - (scrollRatio * 3.5)) + (mouseY * 0.5);
-            fpgaPCB.position.x = (2.0 - (scrollRatio * 0.4)) + (mouseX * 0.5);
+            // --- PYNQ-Z2 HERO HARDWARE SYSTEM OPERATIONS ---
+            // Tumbling 360 flip transformation mapping sweep across page scroll parameters
+            pynqBoardGroup.rotation.x = 0.3 + (scrollRatio * Math.PI * 2.0) + (mouseY * 0.3);
+            pynqBoardGroup.rotation.y = -0.4 + (scrollRatio * Math.PI * 1.0) + (mouseX * 0.3);
             
-            // Execute the full structural 3D flip transformation over scroll progression
-            fpgaPCB.rotation.x = 0.15 + (scrollRatio * Math.PI * 2) + (mouseY * 0.4);
-            fpgaPCB.rotation.y = -0.4 + (scrollRatio * Math.PI * 0.5) + (mouseX * 0.4);
+            // Seamlessly slide target out of frame view as section transitions depth
+            pynqBoardGroup.position.y = (scrollRatio * -6.0) + (mouseY * 0.3);
+            pynqBoardGroup.position.x = 1.4 + (scrollRatio * 2.5) + (mouseX * 0.3);
 
-            // Animate Cross-System Bus Interconnect Lines
-            pulseProgress += 0.009;
-            if(pulseProgress > 1) pulseProgress = 0;
-            dataPulse.position.x = THREE.MathUtils.lerp(riscvPCB.position.x, fpgaPCB.position.x, pulseProgress);
-            dataPulse.position.y = THREE.MathUtils.lerp(riscvPCB.position.y, fpgaPCB.position.y, pulseProgress);
-            dataPulse.position.z = THREE.MathUtils.lerp(0.2, -0.1, pulseProgress);
-
-            // Clock Emissive Intensities
-            fpgaPackage.material.emissiveIntensity = Math.sin(time * 3) * 0.15 + 0.3;
+            // --- CUSTOM CORE RISC-V PROTOTYPE SYSTEM OPERATIONS ---
+            // Transition up into screen layout view parameters safely inside projects bounds
+            if(scrollRatio > 0.25) {
+                const targetProjectRatio = (scrollRatio - 0.25) / 0.75; // Normalize bounds
+                riscvBoardGroup.position.y = THREE.MathUtils.lerp(-7.0, 0.0, targetProjectRatio) + (mouseY * 0.3);
+                riscvBoardGroup.position.x = THREE.MathUtils.lerp(3.5, 1.4, targetProjectRatio) + (mouseX * 0.3);
+                
+                // Fine dynamic weave drift loops
+                riscvBoardGroup.rotation.y = -0.3 + (Math.sin(time * 0.6) * 0.12) + (mouseX * 0.3);
+                riscvBoardGroup.rotation.x = 0.2 + (Math.cos(time * 0.4) * 0.08) + (mouseY * 0.3);
+            } else {
+                // Return below bounds cleanly out of view safely
+                riscvBoardGroup.position.y = -7.0;
+            }
 
             renderer.render(scene, camera);
         }
 
         systemRenderLoop();
 
-        // Screen Adaption Listener
+        // Screen Adaption Layout Listener
         window.addEventListener('resize', () => {
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
