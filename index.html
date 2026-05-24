@@ -42,10 +42,10 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.12; /* Barely visible dark gray stream formatting */
+            opacity: 0.28; /* Increased visibility for the gray bit streams */
             font-family: monospace;
-            font-size: 11px;
-            color: #334155;
+            font-size: 13px;
+            color: #475569;
             overflow: hidden;
         }
 
@@ -201,8 +201,9 @@
         .btn-more {
             margin-top: 1rem;
             align-self: flex-start;
-            border-color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
             color: var(--accent-cyan);
+            background: transparent;
             box-shadow: 0 0 15px rgba(0, 243, 255, 0.05);
         }
         .btn-more:hover {
@@ -314,6 +315,54 @@
             border: 1px solid rgba(255,255,255,0.05);
         }
 
+        /* Modal Sub-Page Architectures */
+        .project-subpage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-deep);
+            z-index: 500;
+            overflow-y: auto;
+            padding: 6rem 10% 4rem 10%;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-subpage.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 2rem;
+            right: 4rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            z-index: 600;
+        }
+        .close-btn:hover {
+            border-color: var(--accent-orange);
+            background: rgba(255, 85, 0, 0.1);
+        }
+
+        .subpage-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            max-width: 900px;
+        }
+
         footer {
             padding: 4rem 8%;
             background-color: #010103;
@@ -333,6 +382,7 @@
             .canvas-3d-panel { position: relative; margin-top: 2rem; }
             .canvas-viewport { height: 50vh; }
             h1 { font-size: 3rem; }
+            .close-btn { right: 2rem; }
         }
     </style>
 </head>
@@ -399,18 +449,7 @@
                         </div>
                     </div>
 
-                    <div class="project-card">
-                        <div class="project-meta">Hardware Acceleration // Compute Cores</div>
-                        <h3>Accelerated Quantized Neural Network Engine</h3>
-                        <p>
-                            Implemented a quantized neural network tailored for MNIST classification mapping across a PYNQ-Z2 board, scaling computing processing performance metrics by ~10×. Designed layout processing layers utilizing High-Level Synthesis (C++ HLS) natively tied together via AXI-Stream configurations to maximize pipeline execution parameters across the Zynq-7000 SoC architecture.
-                        </p>
-                        <div class="tag-group">
-                            <span class="tag">C++ HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq-7000 SoC</span>
-                        </div>
-                    </div>
-
-                    <a href="javascript:void(0)" onclick="alert('Routing engine redirected to: Standalone Core RTL & Verification Subsystem Dashboard File.')" class="btn btn-secondary btn-more">View Full Silicon Dashboard &rarr;</a>
+                    <button onclick="openSubpage('silicon-dashboard')" class="btn btn-secondary btn-more">View Full Silicon Dashboard &rarr;</button>
                 </div>
             </div>
             
@@ -435,18 +474,7 @@
                         </div>
                     </div>
 
-                    <div class="project-card">
-                        <div class="project-meta">Physical Systems Integration // Board Bring-Up</div>
-                        <h3>4-Layer ESP32 System Design & Testing</h3>
-                        <p>
-                            Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts, voltage validations, and bus signaling communications (UART, I2C) using oscilloscopes and logic analyzers. Implemented layout balancing techniques including controlled impedance track routing and effective ground plane isolation.
-                        </p>
-                        <div class="tag-group">
-                            <span class="tag">PCB Design Layout</span><span class="tag">Signal Integrity</span><span class="tag">Hardware Testing</span>
-                        </div>
-                    </div>
-
-                    <a href="javascript:void(0)" onclick="alert('Routing engine redirected to: Standalone Miscellaneous Systems Portfolio File.')" class="btn btn-secondary btn-more">View Miscellaneous Portfolio &rarr;</a>
+                    <button onclick="openSubpage('misc-dashboard')" class="btn btn-secondary btn-more">View Miscellaneous Portfolio &rarr;</button>
                 </div>
             </div>
 
@@ -456,23 +484,94 @@
         </div>
     </main>
 
+    <div id="silicon-dashboard" class="project-subpage">
+        <button onclick="closeSubpage('silicon-dashboard')" class="close-btn">&larr; Back to Home</button>
+        <div class="hero-tag">Core Registry</div>
+        <h2 class="section-title" style="font-size: 2.8rem;">RTL, Design Verification & FPGA Subsystems</h2>
+        <p style="color: var(--text-secondary); max-width: 700px; line-height: 1.6;">
+            A rigorous log of microarchitectural design choices, complete bus structures, testing infrastructure parameters, and hardware calibration routines.
+        </p>
+        
+        <div class="subpage-grid">
+            <div class="project-card" style="border-left-color: var(--accent-cyan);">
+                <div class="project-meta">Hardware Acceleration // Compute Cores</div>
+                <h3>Accelerated Quantized Neural Network Engine (MNIST)</h3>
+                <p>Designed layer modules in C++ (HLS) and integrated them via AXI-Stream for end-to-end hardware-accelerated inference. Optimized pipeline latency and FPGA fabric resource usage on the Xilinx Zynq-7000 SoC, achieving 10x throughput scaling for real-time edge processing classification metrics.</p>
+                <div class="tag-group">
+                    <span class="tag">Vivado HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq Processing System</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-meta">SoC Systems Interfacing // Memory Architecture</div>
+                <h3>Avalon-MM Integration Pipeline</h3>
+                <p>Interfaced the RISC-V compute core with a dual-port 32 KB instruction and 32 KB data SRAM. Integrated functional UART, GPIO, and timer hardware blocks to monitor realistic CPU-SoC interface parameters and round-trip IO latency profiles.</p>
+                <div class="tag-group">
+                    <span class="tag">Avalon Bus</span><span class="tag">SRAM Controllers</span><span class="tag">SoC Interfacing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="misc-dashboard" class="project-subpage">
+        <button onclick="closeSubpage('misc-dashboard')" class="close-btn">&larr; Back to Home</button>
+        <div class="hero-tag">Extended Registry</div>
+        <h2 class="section-title" style="font-size: 2.8rem;">Miscellaneous Engineering Projects</h2>
+        <p style="color: var(--text-secondary); max-width: 700px; line-height: 1.6;">
+            Deep dives into firmware drivers, hardware profiling instrumentation scripts, and physical board assembly/testing.
+        </p>
+
+        <div class="subpage-grid">
+            <div class="project-card" style="border-left-color: var(--accent-orange);">
+                <div class="project-meta">Physical Systems Integration // Board Bring-Up</div>
+                <h3>4-Layer ESP32 System Design & Testing</h3>
+                <p>Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts, voltage validations, and bus signaling communications (UART, I2C) using oscilloscopes and logic analyzers.</p>
+                <div class="tag-group">
+                    <span class="tag">4-Layer PCB Layout</span><span class="tag">Signal Integrity</span><span class="tag">Oscilloscope Verification</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-meta">Performance Automation // Profiling Scripts</div>
+                <h3>GPU Performance Verification Framework</h3>
+                <p>Developed custom CUDA micro-benchmarks to evaluate multi-core performance metrics against theoretical bandwidth. Created automated Python scripts to instrument L1/L2 cache structures, main memory, and atomic-ops latency parameters using NVprof and Nsight profiling tools.</p>
+                <div class="tag-group">
+                    <span class="tag">CUDA Benchmarks</span><span class="tag">Python Automation</span><span class="tag">NVprof / Nsight</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 Pranjal Trivedi.</p>
         <p>Built with Pure Dual-Engine WebGL Frame-Locking</p>
     </footer>
 
     <script>
+        // Subpage navigation route switches
+        function openSubpage(id) {
+            const page = document.getElementById(id);
+            page.style.display = 'block';
+            setTimeout(() => page.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSubpage(id) {
+            const page = document.getElementById(id);
+            page.classList.remove('active');
+            setTimeout(() => page.style.display = 'none', 400);
+            document.body.style.overflow = 'auto';
+        }
+
         // -------------------------------------------------------------
         // BACKGROUND DESCRIPTOR GENERATOR: DYNAMIC BINARY MATRIX STREAM
         // -------------------------------------------------------------
         const binaryBg = document.getElementById('binary-stream-bg');
-        const totalColumns = Math.floor(window.innerWidth / 32);
-        const columnHeights = Array(totalColumns).fill(0);
+        const totalColumns = Math.floor(window.innerWidth / 30);
 
         for (let i = 0; i < totalColumns; i++) {
             const streamEl = document.createElement('div');
             streamEl.style.position = 'absolute';
-            streamEl.style.left = `${i * 32}px`;
+            streamEl.style.left = `${i * 30}px`;
             streamEl.style.top = `${Math.random() * -100}px`;
             streamEl.style.whiteSpace = 'pre';
             streamEl.id = `bin-col-${i}`;
@@ -484,27 +583,25 @@
                 const el = document.getElementById(`bin-col-${i}`);
                 if (!el) continue;
                 
-                // Add random bit elements slowly
                 let currentText = el.innerText.split('\n');
-                if (currentText.length > 35) currentText.shift();
+                if (currentText.length > 40) currentText.shift();
                 
                 currentText.push(Math.random() > 0.5 ? "1" : "0");
                 el.innerText = currentText.join('\n');
                 
-                // Drift position downward softly
                 let currentTop = parseFloat(el.style.top || 0);
-                if (currentTop > window.innerHeight + 500) {
-                    el.style.top = `${-200}px`;
+                if (currentTop > window.innerHeight + 600) {
+                    el.style.top = `${-300}px`;
                     el.innerText = "";
                 } else {
-                    el.style.top = `${currentTop + 1.2}px`;
+                    el.style.top = `${currentTop + 1.8}px`; /* Smoother, highly visible drift velocity */
                 }
             }
-            setTimeout(runBinaryClockStream, 55);
+            setTimeout(runBinaryClockStream, 45);
         }
         runBinaryClockStream();
 
-        // Shared typography texture generation pipeline
+        // Canvas element texture rendering engine
         function createSilkscreenTexture(text) {
             const canvas = document.createElement('canvas');
             canvas.width = 256;
@@ -512,7 +609,7 @@
             const ctx = canvas.getContext('2d');
             ctx.fillStyle = "rgba(0,0,0,0)";
             ctx.fillRect(0,0,256,64);
-            ctx.font = "bold 44px monospace";
+            ctx.font = "bold 52px monospace";
             ctx.fillStyle = "#ffffff";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
@@ -556,11 +653,6 @@
         zynqDie.position.set(0, 0.4, 0.11);
         pynqGroup.add(zynqDie);
 
-        // Custom ZYNQ Silkscreen Type Plate Layer
-        const zynqLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.25), new THREE.MeshBasicMaterial({ map: zynqTextMap, transparent: true }));
-        zynqLabelPlate.position.set(0, 0.4, 0.20);
-        pynqGroup.add(zynqLabelPlate);
-
         // Extruded Black Passive Aluminum Cooling Fin System
         const heatsink = new THREE.Group();
         heatsink.position.set(0, 0.4, 0.21);
@@ -572,6 +664,15 @@
             heatsink.add(fin);
         }
         pynqGroup.add(heatsink);
+
+        // FIXED ZYNQ SILKSCREEN SIGNATURE LAYER (Forced Depth Testing Override Rendering)
+        const zynqLabelPlate = new THREE.Mesh(
+            new THREE.PlaneGeometry(1.0, 0.25), 
+            new THREE.MeshBasicMaterial({ map: zynqTextMap, transparent: true, depthTest: false })
+        );
+        zynqLabelPlate.position.set(0, 0.4, 0.42); /* Positioned cleanly over front face geometries */
+        zynqLabelPlate.renderOrder = 999;
+        pynqGroup.add(zynqLabelPlate);
 
         // IO Brackets & Shield Rails Cages
         const metalMat = new THREE.MeshStandardMaterial({ color: 0xadb2b9, metalness: 0.9, roughness: 0.2 });
@@ -637,8 +738,9 @@
         RISC_VDie.position.set(0, 0.5, 0.12);
         riscvGroup.add(RISC_VDie);
 
-        const riscvLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.3), new THREE.MeshBasicMaterial({ map: riscvTextMap, transparent: true }));
+        const riscvLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.3), new THREE.MeshBasicMaterial({ map: riscvTextMap, transparent: true, depthTest: false }));
         riscvLabelPlate.position.set(0, 0.5, 0.22);
+        riscvLabelPlate.renderOrder = 999;
         riscvGroup.add(riscvLabelPlate);
 
         // Bus trace logic pipelines
@@ -671,19 +773,17 @@
         const riscvSpot = new THREE.DirectionalLight(0x8b5cf6, 3.8); riscvSpot.position.set(5, 6, 5); riscvScene.add(riscvSpot);
         const riscvOrange = new THREE.PointLight(0xff5500, 2.2, 15); riscvOrange.position.set(4, -3, 3); riscvScene.add(riscvOrange);
 
-        // Set baseline rotation indices
         pynqGroup.rotation.set(0.3, -0.4, 0.05);
         riscvGroup.rotation.set(0.2, -0.3, -0.05);
 
         // -------------------------------------------------------------
-        // UNIFIED ENGINE BLACKBOX SCROLL RUNTIME INTERACTION ENGINE
+        // UNIFIED ENGINE MASTER RENDER LOOP
         // -------------------------------------------------------------
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
 
             const time = Date.now() * 0.001;
 
-            // Extract real-time screen coordinates per page container bounds
             const page1Rect = document.getElementById('core-silicon-page').getBoundingClientRect();
             const page2Rect = document.getElementById('miscellaneous-page').getBoundingClientRect();
 
@@ -703,7 +803,6 @@
             riscvGroup.rotation.y = -0.3 + (page2Progress * Math.PI * 1.5) + (mouseX * 0.3);
             riscvGroup.rotation.z = -0.05 + (Math.cos(time * 0.4) * 0.04);
 
-            // Draw graphic updates to screens
             pynqRenderer.render(pynqScene, pynqCamera);
             riscvRenderer.render(riscvScene, riscvCamera);
         }
