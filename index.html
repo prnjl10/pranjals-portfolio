@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pranjal Trivedi | Hardware & Verification Engineer</title>
+    <title>Pranjal Trivedi | Silicon Architecture & Verification</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* Tamal Sen Inspired Core Styles */
+        /* Tamal Sen / VS Code IDE Color Profile */
         :root {
-            --bg-color: #0a0a0c;
-            --card-bg: #121216;
-            --accent-color: #00f3ff; /* Neon Silicon Cyan */
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --border-color: #222229;
+            --ide-bg: #1e1e24;
+            --ide-sidebar: #18181c;
+            --ide-accent: #00f3ff; /* Silicon Neon Cyan */
+            --ide-text: #d4d4d4;
+            --ide-keyword: #569cd6;
+            --ide-string: #ce9178;
+            --ide-comment: #6a9955;
             --font-mono: 'Fira Code', 'Courier New', monospace;
         }
 
@@ -23,334 +25,362 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
-            line-height: 1.6;
-            padding: 0 2rem;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        /* Header / Navbar */
-        header {
+            background-color: var(--ide-bg);
+            color: var(--ide-text);
+            font-family: var(--font-mono);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .logo {
-            font-family: var(--font-mono);
-            font-weight: bold;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 6rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .hero-mono {
-            font-family: var(--font-mono);
-            color: var(--accent-color);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            font-weight: bold;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 243, 255, 0.4);
-        }
-
-        .btn-secondary {
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--card-bg);
-            border-color: var(--accent-color);
-        }
-
-        /* Skills/Tech Grid */
-        .skills-section {
-            padding: 4rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .section-title {
-            font-family: var(--font-mono);
-            color: var(--accent-color);
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 1rem;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            text-align: center;
-        }
-
-        /* Projects Section */
-        .projects-section {
-            padding: 4rem 0;
-        }
-
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .project-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            border-radius: 6px;
-            position: relative;
+            height: 100vh;
             overflow: hidden;
         }
 
-        .project-card::before {
-            content: '';
+        /* 3D Canvas Styling */
+        #canvas3d {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background-color: var(--accent-color);
+            right: 0;
+            width: 40vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: auto;
         }
 
-        .project-num {
-            font-family: var(--font-mono);
-            color: var(--accent-color);
+        /* IDE Sidebar Layout */
+        .sidebar {
+            width: 260px;
+            background-color: var(--ide-sidebar);
+            border-right: 1px solid #2b2b36;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #808080;
+            border-bottom: 1px solid #2b2b36;
+        }
+
+        .file-tree {
+            padding: 1rem;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 0.4rem 0.5rem;
             font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            cursor: pointer;
+            color: #bcbcbc;
+            text-decoration: none;
+        }
+
+        .file-item:hover {
+            background-color: #2a2a32;
+            color: var(--ide-accent);
+        }
+
+        .file-icon {
+            margin-right: 8px;
+            color: #e5c07b;
+        }
+
+        /* Main Workspace Content Area */
+        .workspace {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+            z-index: 5;
+            padding-right: 40vw; /* Keep clear from 3D graphic */
+        }
+
+        .editor-tabs {
+            background-color: var(--ide-sidebar);
+            display: flex;
+            border-bottom: 1px solid #2b2b36;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--ide-bg);
+            border-right: 1px solid #2b2b36;
+            font-size: 0.85rem;
+            color: var(--ide-accent);
+            display: flex;
+            align-items: center;
+        }
+
+        .editor-container {
+            padding: 2.5rem;
+            max-width: 850px;
+        }
+
+        /* Code-like Syntax Text Framing */
+        .line {
+            margin-bottom: 0.4rem;
+            line-height: 1.6;
+        }
+
+        .keyword { color: var(--ide-keyword); }
+        .string { color: var(--ide-string); }
+        .comment { color: var(--ide-comment); display: block; margin-bottom: 0.5rem; }
+        .var-name { color: #9cdcfe; }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin: 1rem 0;
+        }
+
+        .section-block {
+            margin-top: 3.5rem;
+            border-left: 2px solid #2b2b36;
+            padding-left: 1.5rem;
+        }
+
+        .project-card {
+            background-color: rgba(24, 24, 28, 0.7);
+            border: 1px solid #2b2b36;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
         }
 
         .project-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
         }
 
         .project-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
+            margin-top: 1rem;
         }
 
         .tag {
-            font-family: var(--font-mono);
             font-size: 0.75rem;
-            background-color: rgba(0, 243, 255, 0.05);
-            color: var(--accent-color);
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 243, 255, 0.1);
+            background-color: #2a2a32;
+            color: var(--ide-accent);
+            padding: 0.2rem 0.5rem;
+            margin-right: 0.4rem;
+            border-radius: 2px;
         }
 
-        .project-links a {
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
+        .social-links a {
+            color: var(--ide-accent);
             text-decoration: none;
-            margin-right: 1rem;
-            border-bottom: 1px dashed var(--accent-color);
+            margin-right: 1.5rem;
+            font-size: 0.9rem;
         }
 
-        .project-links a:hover {
-            color: var(--accent-color);
+        .social-links a:hover {
+            text-decoration: underline;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 4rem 0;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
-        }
+        /* Custom Scrollbar for IDE flow */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--ide-sidebar); }
+        ::-webkit-scrollbar-thumb { background: #42424f; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <a href="#" class="logo">PRANJAL_TRIVEDI //</a>
-            <nav>
-                <a href="#skills">.skills()</a>
-                <a href="#projects">.projects()</a>
-                <a href="mailto:prtrivedi@ucdavis.edu">.contact()</a>
-            </nav>
-        </header>
+    <div id="canvas3d"></div>
 
-        <section class="hero">
-            <div class="hero-mono">⚡ hardware verification & systems engineer</div>
-            <h1>Hi, I'm Pranjal. I design, verify, and accelerate silicon architectures.</h1>
-            <p>
-                Master's student at UC Davis specializing in computer architecture, UVM testbench engineering, and FPGA-SoC acceleration. From writing robust assertions to optimizing hardware accelerators, I bridge the gap between software algorithms and physical execution units.
-            </p>
-            <div class="btn-group">
-                <a href="mailto:prtrivedi@ucdavis.edu" class="btn btn-primary">Hire Me</a>
-                <a href="https://github.com/prnjl10" target="_blank" class="btn btn-secondary">GitHub Profile</a>
-                <a href="https://www.linkedin.com/in/pranjal-trivedi/" target="_blank" class="btn btn-secondary">LinkedIn</a>
-            </div>
-        </section>
-
-        <section class="skills-section" id="skills">
-            <div class="section-title">> system.getCoreSkills()</div>
-            <div class="skills-grid">
-                <div class="skill-card">SystemVerilog / UVM</div>
-                <div class="skill-card">Verilog RTL</div>
-                <div class="skill-card">FPGA / Xilinx SoC</div>
-                <div class="skill-card">RISC-V Architecture</div>
-                <div class="skill-card">Embedded Firmware</div>
-                <div class="skill-card">DMA / AXI Protocols</div>
-                <div class="skill-card">Hardware ML/HLS</div>
-                <div class="skill-card">PCB Design & Testing</div>
-            </div>
-        </section>
-
-        <section class="projects-section" id="projects">
-            <div class="section-title">> system.loadFeaturedProjects()</div>
-            <div class="project-list">
-                
-                <div class="project-card">
-                    <div class="project-num">01 // VERIFICATION ENGINE</div>
-                    <h3>RISC-V UVM Verification Ecosystem</h3>
-                    <p>
-                        Designed a robust, modular Universal Verification Methodology (UVM) ecosystem for a 32-bit RV32I core processor. Engineered a dynamic Register Abstraction Layer (RAL) with integrated TLM transaction tracking and dynamic coverage mapping. Successfully handled edge-case sign extensions and hazard loops, boosting overall regression automated test throughput by 30%.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">SystemVerilog</span>
-                        <span class="tag">UVM</span>
-                        <span class="tag">RAL</span>
-                        <span class="tag">TLM Flow</span>
-                        <span class="tag">Automation</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/prnjl10" target="_blank">> View Source Code</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-num">02 // RTL & ARCHITECTURE</div>
-                    <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
-                    <p>
-                        Implemented a single-issue, in-order 4-stage pipelined 32-bit RISC-V CPU on an Intel DE10-Lite FPGA platform. Optimized instruction flow execution by implementing branch/jump decode bypass mechanics and hazard-mitigating data forwarding. Interfaced the core natively over an Avalon-MM system configuration featuring custom UART and storage SRAM modules.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Verilog RTL</span>
-                        <span class="tag">RISC-V</span>
-                        <span class="tag">Intel DE10-Lite FPGA</span>
-                        <span class="tag">Avalon-MM Bus</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/prnjl10" target="_blank">> View Source Code</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-num">03 // HARDWARE ACCELERATION</div>
-                    <h3>Quantized Neural Network Accelerator on FPGA-SoC</h3>
-                    <p>
-                        Architected an end-to-end hardware-accelerated inferencing engine for the MNIST architecture implemented on a PYNQ-Z2 board. Hand-coded optimized compute layers utilizing High-Level Synthesis (C++ HLS) integrated natively over AXI-Stream pipelines to achieve a 10x throughput scaling factor on resource-constrained silicon layout constraints.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">C++ HLS</span>
-                        <span class="tag">AXI-Stream</span>
-                        <span class="tag">Zynq-7000 SoC</span>
-                        <span class="tag">PYNQ-Z2</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/prnjl10" target="_blank">> View Source Code</a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <footer>
-            <p>Built with minimal semantic HTML/CSS // Designed for Silicon Recruiters</p>
-            <p style="margin-top: 0.5rem; color: #444452;">&copy; 2026 Pranjal Trivedi. All rights reserved.</p>
-        </footer>
+    <div class="sidebar">
+        <div class="sidebar-header">Explorations [PT]</div>
+        <div class="file-tree">
+            <a href="#hero" class="file-item"><span class="file-icon">⚡</span>PranjalTrivedi.sv</a>
+            <a href="#skills" class="file-item"><span class="file-icon">📁</span>tech_stack.json</a>
+            <a href="#projects" class="file-item"><span class="file-icon">📁</span>silicon_projects.v</a>
+        </div>
     </div>
 
+    <div class="workspace">
+        <div class="editor-tabs">
+            <div class="tab">PranjalTrivedi.sv</div>
+        </div>
+
+        <div class="editor-container">
+            
+            <section id="hero">
+                <span class="comment">// Computer Architecture & IC Verification Portfolio</span>
+                <div class="line"><span class="keyword">module</span> <span class="var-name">PranjalTrivedi</span> (</div>
+                <h1 style="padding-left: 2rem;">Hi, I'm Pranjal Trivedi.</h1>
+                <p style="padding-left: 2rem; color: #a9a9b3; margin-bottom: 1.5rem; max-width: 650px;">
+                    Electrical and Computer Engineering Master's graduate from UC Davis. I specialize in SystemVerilog/UVM automated verification, pipeline CPU microarchitectures, and high-performance FPGA-SoC physical hardware implementations.
+                </p>
+                <div class="line" style="padding-left: 2rem;">
+                    <span class="keyword">input</span> wire email = <span class="string">"prtrivedi@ucdavis.edu"</span>;
+                </div>
+                <div class="line" style="padding-left: 2rem; margin-bottom: 2rem;">
+                    <span class="keyword">input</span> wire location = <span class="string">"UC Davis, CA"</span>;
+                </div>
+                <div class="social-links" style="padding-left: 2rem;">
+                    <a href="https://github.com/prnjl10" target="_blank">> GitHub</a>
+                    <a href="https://www.linkedin.com/in/pranjal-trivedi/" target="_blank">> LinkedIn</a>
+                </div>
+            </section>
+
+            <section id="skills" class="section-block">
+                <span class="comment">// system.getCoreSkills() compilation matrix</span>
+                <div class="line"><span class="keyword">const</span> <span class="var-name">HardwareStack</span> = [</div>
+                <p style="padding-left: 2rem; color: #ce9178;">
+                    "SystemVerilog / UVM", "Verilog RTL Architecture", "FPGA Synthesis (Intel DE10 / PYNQ)", <br>
+                    "RISC-V Pipelining", "AXI-Stream / Avalon-MM Buses", "High-Level Synthesis (HLS C++)", <br>
+                    "4-Layer PCB Layout & Pathways", "Hardware Testing (Oscilloscopes/DMM)"
+                </p>
+                <div class="line">];</div>
+            </section>
+
+            <section id="projects" class="section-block">
+                <span class="comment">// Loading explicit non-software structural logic projects...</span>
+                <h2 style="color: #ffffff; margin-bottom: 1.5rem;">Featured Core Hardware Engineering Projects</h2>
+
+                <div class="project-card">
+                    <span class="comment">// 01 // Verification Framework</span>
+                    <h3>RISC-V UVM Verification Ecosystem</h3>
+                    <p style="color: #a9a9b3; font-size: 0.9rem;">
+                        Designed a complete, modular Universal Verification Methodology (UVM) ecosystem (including custom sequencers, driver agents, monitors, and scoreboards) for a 32-bit RV32I core layout. Integrated a dynamic Register Abstraction Layer (RAL) supporting front/back-door access structures. Achieved >98% functional coverage parameters via automated loop regressions.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">SystemVerilog</span><span class="tag">UVM Testing</span><span class="tag">RAL Logic</span><span class="tag">Functional Coverage</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="comment">// 02 // Structural RTL Design</span>
+                    <h3>32-Bit Pipelined RISC-V CPU on FPGA</h3>
+                    <p style="color: #a9a9b3; font-size: 0.9rem;">
+                        Engineered a single-issue, in-order 4-stage pipelined 32-bit RISC-V physical core utilizing Verilog RTL on the Intel DE10-Lite FPGA platform. Integrated data hazard forwarding mechanisms and execution bypass engines to cut down stall cycles. Interfaced components natively over an Avalon-MM hardware bus with dual-port 32KB configuration layouts.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon Bus</span><span class="tag">FPGA Mapping</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="comment">// 03 // Logic Acceleration Matrix</span>
+                    <h3>Accelerated Quantized Neural Network Engine</h3>
+                    <p style="color: #a9a9b3; font-size: 0.9rem;">
+                        Architected a high-throughput, quantized inferencing computing engine mapped across the Zynq-7000 SoC fabric using a PYNQ-Z2 deployment pipeline. Designed high-performance compute blocks utilizing High-Level Synthesis (C++ HLS) natively tied together using AXI-Stream configurations to scale hardware inference speed up to 10× faster.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">C++ HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq Processing System</span><span class="tag">Real-Time ML</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="comment">// 04 // Artificial Intelligence Hardware Interface</span>
+                    <h3>ML-Based PCB Auto-Routing Pipeline</h3>
+                    <p style="color: #a9a9b3; font-size: 0.9rem;">
+                        Developed and validated a machine learning-guided physical PCB trace router using structural U-Net segmentation models combined with complex A* pathfinding engines. Effectively automated layouts to achieve structural optimization improvements across overall baseline trace density distributions.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Python Design</span><span class="tag">OpenCV Data</span><span class="tag">PCB Trace Optimization</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="comment">// 05 // Hardware Prototyping & Bring-Up</span>
+                    <h3>4-Layer ESP32 System Design & Verification</h3>
+                    <p style="color: #a9a9b3; font-size: 0.9rem;">
+                        Designed, laid out, and fully assembled an operational 4-layer physical PCB integrating standard microcontrollers and diagnostic data streams. Handled physical bring-up processes including pathing verifications, controlled impedance track balancing, and bus signaling debugging using real hardware oscilloscope and logic analytics configurations.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">PCB Design Layout</span><span class="tag">Hardware Bring-Up</span><span class="tag">Signal Integrity</span>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Setup Three.js environment variables
+        const container = document.getElementById('canvas3d');
+        const scene = new THREE.Scene();
+        
+        // Setup Perspective Camera targeting modern layout
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.z = 15;
+
+        // WebGL Render Settings
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        // Construct 3D representation of a Silicon Integrated Circuit Wafers/Chips
+        const chipGroup = new THREE.Group();
+
+        // Main Flat Substrate Base Plate (Die Silicon)
+        const baseGeo = new THREE.BoxGeometry(5, 5, 0.2);
+        const baseMat = new THREE.MeshStandardMaterial({ 
+            color: 0x111115, 
+            roughness: 0.2, 
+            metalness: 0.8,
+            bumpScale: 0.05 
+        });
+        const chipBase = new THREE.Mesh(baseGeo, baseMat);
+        chipGroup.add(chipBase);
+
+        // Construct Grid Trace Pins Layout (Inner Micro-Architecture lines)
+        const trackCount = 14;
+        for(let i = 0; i < trackCount; i++) {
+            const size = 0.15 + (Math.random() * 0.1);
+            const pinGeo = new THREE.BoxGeometry(size, size, 0.1);
+            const pinMat = new THREE.MeshStandardMaterial({ 
+                color: 0x00f3ff, // Primary Silicon Neon Cyan Accent Color
+                emissive: 0x00a2ff,
+                roughness: 0.1
+            });
+            const microPin = new THREE.Mesh(pinGeo, pinMat);
+            microPin.position.set((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4, 0.11);
+            chipGroup.add(microPin);
+        }
+
+        scene.add(chipGroup);
+
+        // Core Lighting Setup
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0x00f3ff, 2, 50);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        // Capture Mouse Tracking Coordinates to make the canvas interactive
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) - 0.5;
+            mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+
+        // 3D Frame Rendering Animation Engine Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Passive continuous rotation simulation
+            chipGroup.rotation.y += 0.005;
+
+            // Interactive response matrix logic mapping to tracking angles
+            chipGroup.rotation.x += (mouseY * 2 - chipGroup.rotation.x) * 0.1;
+            chipGroup.rotation.y += (mouseX * 2 - chipGroup.rotation.y) * 0.1;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive Resizing Event Watcher
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    </script>
 </body>
 </html>
