@@ -6,376 +6,549 @@
     <title>Pranjal Trivedi | Silicon Architecture & Verification</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* Tamal Sen / VS Code IDE Color Profile */
+        /* Modern Premium Dark/Neon Palette */
         :root {
-            --ide-bg: #1e1e24;
-            --ide-sidebar: #18181c;
-            --ide-accent: #00f3ff; /* Silicon Neon Cyan */
-            --ide-text: #d4d4d4;
-            --ide-keyword: #569cd6;
-            --ide-string: #ce9178;
-            --ide-comment: #6a9955;
-            --font-mono: 'Fira Code', 'Courier New', monospace;
+            --bg-deep: #050508;
+            --bg-surface: #0c0c12;
+            --bg-card: #12121a;
+            --accent-cyan: #00f3ff;
+            --accent-blue: #0066ff;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-glow: rgba(0, 243, 255, 0.15);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--ide-bg);
-            color: var(--ide-text);
-            font-family: var(--font-mono);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
         }
 
-        /* 3D Canvas Styling */
-        #canvas3d {
-            position: absolute;
+        /* 3D Fixed Background Canvas */
+        #canvas3d-container {
+            position: fixed;
             top: 0;
             right: 0;
-            width: 40vw;
+            width: 50vw;
             height: 100vh;
             z-index: 1;
-            pointer-events: auto;
+            pointer-events: none;
         }
 
-        /* IDE Sidebar Layout */
-        .sidebar {
-            width: 260px;
-            background-color: var(--ide-sidebar);
-            border-right: 1px solid #2b2b36;
+        /* Fixed Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
-            flex-direction: column;
-            z-index: 10;
-        }
-
-        .sidebar-header {
-            padding: 1rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #808080;
-            border-bottom: 1px solid #2b2b36;
-        }
-
-        .file-tree {
-            padding: 1rem;
-        }
-
-        .file-item {
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 0.4rem 0.5rem;
-            font-size: 0.9rem;
-            cursor: pointer;
-            color: #bcbcbc;
+            padding: 1.5rem 4rem;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5,5,8,0.8), rgba(5,5,8,0));
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ffffff;
             text-decoration: none;
         }
+        .logo span { color: var(--accent-cyan); }
 
-        .file-item:hover {
-            background-color: #2a2a32;
-            color: var(--ide-accent);
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            transition: color 0.3s;
         }
+        nav a:hover { color: var(--accent-cyan); }
 
-        .file-icon {
-            margin-right: 8px;
-            color: #e5c07b;
-        }
-
-        /* Main Workspace Content Area */
-        .workspace {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
+        /* Main Scrolling Container with Parallax Triggers */
+        main {
             position: relative;
-            z-index: 5;
-            padding-right: 40vw; /* Keep clear from 3D graphic */
+            z-index: 2;
+            width: 100%;
         }
 
-        .editor-tabs {
-            background-color: var(--ide-sidebar);
-            display: flex;
-            border-bottom: 1px solid #2b2b36;
-        }
-
-        .tab {
-            padding: 0.75rem 1.5rem;
-            background-color: var(--ide-bg);
-            border-right: 1px solid #2b2b36;
-            font-size: 0.85rem;
-            color: var(--ide-accent);
+        section {
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            padding: 0 8% 0 8%;
+            position: relative;
         }
 
-        .editor-container {
-            padding: 2.5rem;
-            max-width: 850px;
+        /* Parallax Layer Positioning */
+        .content-layer {
+            max-width: 55vw;
+            position: relative;
+            z-index: 5;
+            transform: translateZ(0); /* Hardware accelerated smoothing */
         }
 
-        /* Code-like Syntax Text Framing */
-        .line {
-            margin-bottom: 0.4rem;
-            line-height: 1.6;
+        /* Hero Layout */
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            background: rgba(0, 243, 255, 0.03);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
         }
-
-        .keyword { color: var(--ide-keyword); }
-        .string { color: var(--ide-string); }
-        .comment { color: var(--ide-comment); display: block; margin-bottom: 0.5rem; }
-        .var-name { color: #9cdcfe; }
 
         h1 {
-            font-size: 2.2rem;
-            color: #ffffff;
-            margin: 1rem 0;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .section-block {
-            margin-top: 3.5rem;
-            border-left: 2px solid #2b2b36;
-            padding-left: 1.5rem;
+        .hero-desc {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.9rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: var(--bg-deep);
+            box-shadow: 0 4px 25px rgba(0, 243, 255, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0, 243, 255, 0.45);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(5px);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 243, 255, 0.02);
+            transform: translateY(-3px);
+        }
+
+        /* Grid Framework for Skills & Projects */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-cyan);
+        }
+
+        /* Skills Layout Matrix */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 1.2rem 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+        .skill-item:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 243, 255, 0.01);
+            transform: translateX(5px);
+        }
+
+        .skill-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        /* Project Cards Stack */
+        #projects {
+            padding: 12rem 8% 12rem 8%;
+        }
+
+        .project-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            width: 100%;
+            max-width: 52vw;
         }
 
         .project-card {
-            background-color: rgba(24, 24, 28, 0.7);
-            border: 1px solid #2b2b36;
-            padding: 1.5rem;
-            border-radius: 4px;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(4px);
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-surface));
+            border: 1px solid rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-blue);
+            padding: 2.5rem;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-left-color: var(--accent-cyan);
+            border-color: rgba(0, 243, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .project-meta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
         }
 
         .project-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
             color: #ffffff;
-            margin-bottom: 0.5rem;
         }
 
-        .project-tags {
-            margin-top: 1rem;
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag-group {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
         }
 
         .tag {
             font-size: 0.75rem;
-            background-color: #2a2a32;
-            color: var(--ide-accent);
-            padding: 0.2rem 0.5rem;
-            margin-right: 0.4rem;
-            border-radius: 2px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.03);
+            color: #cbd5e1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .social-links a {
-            color: var(--ide-accent);
-            text-decoration: none;
-            margin-right: 1.5rem;
-            font-size: 0.9rem;
+        footer {
+            padding: 4rem 8%;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #475569;
+            font-size: 0.85rem;
+            background: var(--bg-deep);
+            position: relative;
+            z-index: 10;
         }
 
-        .social-links a:hover {
-            text-decoration: underline;
+        /* Responsive Fixes */
+        @media (max-width: 1024px) {
+            #canvas3d-container { display: none; }
+            .content-layer, .project-stack { max-width: 100%; }
+            h1 { font-size: 3rem; }
         }
-
-        /* Custom Scrollbar for IDE flow */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--ide-sidebar); }
-        ::-webkit-scrollbar-thumb { background: #42424f; }
     </style>
 </head>
 <body>
 
-    <div id="canvas3d"></div>
+    <div id="canvas3d-container"></div>
 
-    <div class="sidebar">
-        <div class="sidebar-header">EXPLORER // PRANJAL</div>
-        <div class="file-tree">
-            <a href="#hero" class="file-item"><span class="file-icon">⚡</span>PranjalTrivedi.sv</a>
-            <a href="#skills" class="file-item"><span class="file-icon">⚙️</span>tech_stack.json</a>
-            <a href="#projects" class="file-item"><span class="file-icon">📁</span>hardware_projects.v</a>
-        </div>
-    </div>
+    <header>
+        <a href="#" class="logo">PRANJAL<span>.</span></a>
+        <nav>
+            <a href="#expertise">Expertise</a>
+            <a href="#projects">Silicon Architecture</a>
+            <a href="mailto:prtrivedi@ucdavis.edu">Contact</a>
+        </nav>
+    </header>
 
-    <div class="workspace">
-        <div class="editor-tabs">
-            <div class="tab">PranjalTrivedi.sv</div>
-        </div>
-
-        <div class="editor-container">
-            
-            <section id="hero">
-                <span class="comment">// IC Custom Verification & System Architectures</span>
-                <div class="line"><span class="keyword">module</span> <span class="var-name">PranjalTrivedi</span> (</div>
-                <h1 style="padding-left: 2rem;">Hi, I'm Pranjal Trivedi.</h1>
-                <p style="padding-left: 2rem; color: #a9a9b3; margin-bottom: 1.5rem; max-width: 650px;">
-                    Electrical and Computer Engineering Master's student at UC Davis[cite: 4]. I specialize in SystemVerilog/UVM automated verification environments, digital pipeline CPU design architectures, and hardware accelerator design pipelines[cite: 19, 23, 28].
+    <main>
+        <section id="hero">
+            <div class="content-layer">
+                <div class="hero-tag">Silicon Engineering & Verification</div>
+                <h1>Architecting High-Performance IC Microarchitectures.</h1>
+                <p class="hero-desc">
+                    Electrical and Computer Engineering Master’s student at UC Davis. Specializing in SystemVerilog/UVM verification ecosystems, pipeline processor design, and physical FPGA-SoC hardware acceleration pipelines.
                 </p>
-                <div class="line" style="padding-left: 2rem;">
-                    <span class="keyword">input</span> wire email = <span class="string">"prtrivedi@ucdavis.edu"</span>; [cite: 2]
+                <div class="cta-group">
+                    <a href="mailto:prtrivedi@ucdavis.edu" class="btn btn-primary">Connect</a>
+                    <a href="https://github.com/prnjl10" target="_blank" class="btn btn-secondary">GitHub</a>
+                    <a href="https://www.linkedin.com/in/pranjal-trivedi/" target="_blank" class="btn btn-secondary">LinkedIn</a>
                 </div>
-                <div class="line" style="padding-left: 2rem; margin-bottom: 2rem;">
-                    <span class="keyword">input</span> wire location = <span class="string">"UC Davis, CA"</span>; [cite: 4]
-                </div>
-                <div class="social-links" style="padding-left: 2rem;">
-                    <a href="https://github.com/prnjl10" target="_blank">> GitHub</a>
-                    <a href="https://www.linkedin.com/in/pranjal-trivedi/" target="_blank">> LinkedIn</a>
-                </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="skills" class="section-block">
-                <span class="comment">// system.getCoreSkills() matrix compilation</span>
-                <div class="line"><span class="keyword">const</span> <span class="var-name">HardwareStack</span> = [</div>
-                <p style="padding-left: 2rem; color: #ce9178;">
-                    "SystemVerilog / UVM", "Verilog RTL Design", "FPGA Implementation (DE10-Lite / PYNQ-Z2)", <br>
-                    "RISC-V Pipelining & Branch Prediction", "AXI-Stream / Avalon-MM Buses", "High-Level Synthesis (C++ HLS)", <br>
-                    "4-Layer Controlled Impedance PCB Layout", "Oscilloscopes & Logic Analyzers Diagnostic Bring-up"
-                </p>
-                <div class="line">];</div>
-            </section>
+        <section id="expertise">
+            <div class="content-layer">
+                <h2 class="section-title">Technical Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-item"><div class="skill-dot"></div>SystemVerilog / UVM</div>
+                    <div class="skill-item"><div class="skill-dot"></div>Verilog RTL Chip Design</div>
+                    <div class="skill-item"><div class="skill-dot"></div>FPGA (Intel DE10 / PYNQ-Z2)</div>
+                    <div class="skill-item"><div class="skill-dot"></div>RISC-V Architectures</div>
+                    <div class="skill-item"><div class="skill-dot"></div>AXI-Stream & Avalon Buses</div>
+                    <div class="skill-item"><div class="skill-dot"></div>High-Level Synthesis (C++ HLS)</div>
+                    <div class="skill-item"><div class="skill-dot"></div>Impedance Controlled PCB Design</div>
+                    <div class="skill-item"><div class="skill-dot"></div>Oscilloscopes & HW Verification</div>
+                </div>
+            </div>
+        </section>
 
-            <section id="projects" class="section-block">
-                <span class="comment">// executing hardware_projects.v parsing sequences...</span>
-                <h2 style="color: #ffffff; margin-bottom: 1.5rem;">Core Hardware Architecture & PCB Projects</h2>
+        <section id="projects">
+            <div class="project-stack">
+                <h2 class="section-title">Core Silicon Projects</h2>
 
                 <div class="project-card">
-                    <span class="comment">// 01 // IC Verification & Coverage Matrix</span>
+                    <div class="project-meta">Verification Framework // SystemVerilog</div>
                     <h3>RISC-V UVM Verification Ecosystem</h3>
-                    <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Designed a modular UVM environment containing verification infrastructure components (uvm_env, sequencer/driver/monitor agents, and scoreboards) targeting a 32-bit RV32I core structure[cite: 19]. Developed a Register Abstraction Layer (RAL) supporting front-door/back-door access sequences alongside TLM-based transaction tracking[cite: 20]. Achieved >98% functional coverage parameters, debugging sign-extension and control-flow failures to improve test regression automation throughput by 30%[cite: 21].
+                    <p>
+                        Designed a modular UVM environment containing verification infrastructure components (uvm_env, sequencer/driver/monitor agents, and scoreboards) targeting a 32-bit RV32I core structure. Developed a Register Abstraction Layer (RAL) supporting front-door/back-door access sequences alongside TLM-based transaction tracking. Achieved >98% functional coverage parameters, debugging sign-extension and control-flow failures to improve test regression automation throughput by 30%.
                     </p>
-                    <div class="project-tags">
-                        <span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL</span><span class="tag">TLM Flows</span><span class="tag">Functional Coverage</span>
+                    <div class="tag-group">
+                        <span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL Verification</span><span class="tag">Coverage Mapping</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 02 // Core Microarchitecture RTL Layout</span>
+                    <div class="project-meta">RTL Architecture // Design & Integration</div>
                     <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
-                    <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Designed and implemented a 32-bit RISC-V processor in Verilog using an in-order 4-stage pipeline execution path onto an Intel DE10-Lite FPGA platform[cite: 23]. Engineered hazard mitigation loops, EX/MEM/WB hardware bypassing configurations, and decode-stage branch/jump ALU processing structures to minimize performance stall penalties[cite: 24]. Interfaced the core system across a memory-mapped Avalon-MM bus topology with dual-port 32 KB instructions and custom UART/timer configuration logic blocks[cite: 25].
+                    <p>
+                        Designed and implemented a 32-bit RISC-V processor in Verilog using an in-order 4-stage pipeline execution path onto an Intel DE10-Lite FPGA platform. Engineered hazard mitigation loops, EX/MEM/WB hardware bypassing configurations, and decode-stage branch/jump ALU processing structures to minimize performance stall penalties. Interfaced the core system across a memory-mapped Avalon-MM bus topology with dual-port 32 KB instructions and custom UART/timer configuration logic blocks.
                     </p>
-                    <div class="project-tags">
-                        <span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon-MM Bus</span><span class="tag">FPGA Realization</span>
+                    <div class="tag-group">
+                        <span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon-MM</span><span class="tag">FPGA Deployment</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 03 // Logic Hardware Acceleration Subsystems</span>
+                    <div class="project-meta">Hardware Acceleration // Compute Cores</div>
                     <h3>Accelerated Quantized Neural Network Engine</h3>
-                    <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Implemented a quantized neural network tailored for MNIST classification mapping across a PYNQ-Z2 board, scaling computing processing performance metrics by ~10×[cite: 27]. Designed discrete layout processing layers utilizing High-Level Synthesis (C++ HLS) natively tied together via AXI-Stream configurations to maximize pipeline layout performance and FPGA fabric resource usage parameters across the Zynq-7000 SoC architecture[cite: 28].
+                    <p>
+                        Implemented a quantized neural network tailored for MNIST classification mapping across a PYNQ-Z2 board, scaling computing processing performance metrics by ~10×. Designed discrete layout processing layers utilizing High-Level Synthesis (C++ HLS) natively tied together via AXI-Stream configurations to maximize pipeline layout performance and FPGA fabric resource usage parameters across the Zynq-7000 SoC architecture.
                     </p>
-                    <div class="project-tags">
-                        <span class="tag">C++ HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq-7000 SoC</span><span class="tag">Hardware Acceleration</span>
+                    <div class="tag-group">
+                        <span class="tag">C++ HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq-7000 SoC</span><span class="tag">NN Compute Matrix</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 04 // AI Layout Routing Algorithms</span>
+                    <div class="project-meta">EDA Algorithms // Optimization Automation</div>
                     <h3>ML-Based PCB Auto-Routing Pipeline</h3>
-                    <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Implemented and validated an ML-guided PCB auto-routing pipeline utilizing customized U-Net computer vision segmentation models backed by integrated A* search route navigation pathfinders within Python and OpenCV environments[cite: 51]. Successfully adjusted routing paths across various testing layouts to yield a 5% optimization improvement metric in baseline trace density lengths and overall layer via counts[cite: 52].
+                    <p>
+                        Implemented and validated an ML-guided PCB auto-routing pipeline utilizing customized U-Net computer vision segmentation models backed by integrated A* search route navigation pathfinders within Python and OpenCV environments. Successfully adjusted routing paths across various testing layouts to yield a 5% optimization improvement metric in baseline trace length and overall layer via counts.
                     </p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span><span class="tag">OpenCV Data</span><span class="tag">U-Net Topology</span><span class="tag">A* Pathfinding</span>
+                    <div class="tag-group">
+                        <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">U-Net Segmentation</span><span class="tag">A* Routing</span>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="comment">// 05 // Hardware Bring-Up & Signal Integrity Engineering</span>
+                    <div class="project-meta">Physical Systems Integration // Board Bring-Up</div>
                     <h3>4-Layer ESP32 System Design & Testing</h3>
-                    <p style="color: #a9a9b3; font-size: 0.9rem;">
-                        Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams[cite: 55]. Handled physical hardware bring-up procedures, tracking pathing checkouts, voltage validations, and bus signaling communications (UART, I2C) using oscilloscopes and logic analyzers[cite: 55, 56]. Implemented layout balancing techniques including controlled impedance track routing and effective ground plane isolate isolation[cite: 57].
+                    <p>
+                        Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts, voltage validations, and bus signaling communications (UART, I2C) using oscilloscopes and logic analyzers. Implemented layout balancing techniques including controlled impedance track routing and effective ground plane isolation.
                     </p>
-                    <div class="project-tags">
-                        <span class="tag">PCB Layout Design</span><span class="tag">Signal Integrity</span><span class="tag">Hardware Bring-Up</span><span class="tag">Impedance Control</span>
+                    <div class="tag-group">
+                        <span class="tag">PCB Design Layout</span><span class="tag">Signal Integrity</span><span class="tag">Hardware Testing</span><span class="tag">Impedance Matching</span>
                     </div>
                 </div>
 
-            </section>
-        </div>
-    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Pranjal Trivedi. Mapped to Silicon Architecture.</p>
+        <p>Built with Pure WebGL Parallax Mechanics</p>
+    </footer>
 
     <script>
-        // Setup Three.js environment variables
-        const container = document.getElementById('canvas3d');
+        const container = document.getElementById('canvas3d-container');
         const scene = new THREE.Scene();
-        
-        // Setup Perspective Camera targeting modern layout
-        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.z = 15;
 
-        // WebGL Render Settings
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(0, 0, 14);
+
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(renderer.domElement);
 
-        // Construct 3D representation of a Silicon Integrated Circuit Wafers/Chips
+        // Core Microarchitecture Logic Block (Silicon Die Group)
         const chipGroup = new THREE.Group();
 
-        // Main Flat Substrate Base Plate (Die Silicon)
-        const baseGeo = new THREE.BoxGeometry(5, 5, 0.2);
-        const baseMat = new THREE.MeshStandardMaterial({ 
-            color: 0x111115, 
-            roughness: 0.2, 
-            metalness: 0.8,
-            bumpScale: 0.05 
+        // Layer 1: Substrate Base Die Platform
+        const substrateGeo = new THREE.BoxGeometry(6, 6, 0.3);
+        const substrateMat = new THREE.MeshStandardMaterial({
+            color: 0x0a0a0f,
+            roughness: 0.3,
+            metalness: 0.9,
+            side: THREE.DoubleSide
         });
-        const chipBase = new THREE.Mesh(baseGeo, baseMat);
-        chipGroup.add(chipBase);
+        const substrate = new THREE.Mesh(substrateGeo, substrateMat);
+        chipGroup.add(substrate);
 
-        // Construct Grid Trace Pins Layout (Inner Micro-Architecture lines)
-        const trackCount = 14;
-        for(let i = 0; i < trackCount; i++) {
-            const size = 0.15 + (Math.random() * 0.1);
-            const pinGeo = new THREE.BoxGeometry(size, size, 0.1);
-            const pinMat = new THREE.MeshStandardMaterial({ 
-                color: 0x00f3ff, // Primary Silicon Neon Cyan Accent Color
-                emissive: 0x00a2ff,
-                roughness: 0.1
+        // Layer 2: Core ALU Compute Complex Blocks
+        const coreBlocks = [];
+        const blockPositions = [
+            [-1.6, 1.6], [1.6, 1.6], [-1.6, -1.6], [1.6, -1.6],
+            [0, 0] // Main Execution Unit
+        ];
+
+        blockPositions.forEach((pos, idx) => {
+            const size = idx === 4 ? 2.2 : 1.8;
+            const blockGeo = new THREE.BoxGeometry(size, size, 0.25);
+            const blockMat = new THREE.MeshStandardMaterial({
+                color: 0x11111a,
+                roughness: 0.1,
+                metalness: 0.95,
+                emissive: 0x002b4d,
+                emissiveIntensity: 0.2
             });
-            const microPin = new THREE.Mesh(pinGeo, pinMat);
-            microPin.position.set((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4, 0.11);
-            chipGroup.add(microPin);
+            const block = new THREE.Mesh(blockGeo, blockMat);
+            block.position.set(pos[0], pos[1], 0.25);
+            chipGroup.add(block);
+            coreBlocks.push(block);
+        });
+
+        // Layer 3: High-Density Signal Interconnect Circuit Lines
+        const trackGroup = new THREE.Group();
+        const lineCount = 30;
+        for (let i = 0; i < lineCount; i++) {
+            const sizeX = Math.random() > 0.5 ? 0.05 : 1.5;
+            const sizeY = sizeX === 0.05 ? 1.5 : 0.05;
+            const lineGeo = new THREE.BoxGeometry(sizeX, sizeY, 0.05);
+            const lineMat = new THREE.MeshBasicMaterial({
+                color: Math.random() > 0.4 ? 0x00f3ff : 0x0066ff,
+                transparent: true,
+                opacity: 0.7
+            });
+            const trace = new THREE.Mesh(lineGeo, lineMat);
+            trace.position.set((Math.random() - 0.5) * 5.5, (Math.random() - 0.5) * 5.5, 0.4);
+            trackGroup.add(trace);
         }
+        chipGroup.add(trackGroup);
 
         scene.add(chipGroup);
 
-        // Core Lighting Setup
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        // Advanced Studio Lighting Design
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
         scene.add(ambientLight);
 
-        const pointLight = new THREE.PointLight(0x00f3ff, 2, 50);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
+        const neonLightTop = new THREE.DirectionalLight(0x00f3ff, 2.5);
+        neonLightTop.position.set(5, 10, 7);
+        scene.add(neonLightTop);
 
-        // Capture Mouse Tracking Coordinates to make the canvas interactive
+        const sideFillLight = new THREE.PointLight(0x0066ff, 1.5, 30);
+        sideFillLight.position.set(-8, -4, 5);
+        scene.add(sideFillLight);
+
+        // Continuous Mouse Tracking Analytics
         let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX / window.innerWidth) - 0.5;
             mouseY = (e.clientY / window.innerHeight) - 0.5;
         });
 
-        // 3D Frame Rendering Animation Engine Loop
-        function animate() {
-            requestAnimationFrame(animate);
+        // Smooth Dynamic Parallax Scroll Vector Capture
+        let scrollYTarget = 0;
+        window.addEventListener('scroll', () => {
+            scrollYTarget = window.scrollY;
+        });
 
-            // Passive continuous rotation simulation
-            chipGroup.rotation.y += 0.003;
+        // Frame Computation Loop Engine
+        function renderLoop() {
+            requestAnimationFrame(renderLoop);
 
-            // Interactive response matrix logic mapping to tracking angles
-            chipGroup.rotation.x += (mouseY * 2 - chipGroup.rotation.x) * 0.1;
-            chipGroup.rotation.y += (mouseX * 2 - chipGroup.rotation.y) * 0.1;
+            // 1. Structural Continuous Spin
+            chipGroup.rotation.z += 0.0015;
+
+            // 2. Interactive Mouse Orientation Matrix Tracking
+            const targetXRotation = mouseY * 1.5;
+            const targetYRotation = mouseX * 1.5 + 0.3; // Slight angle offset
+
+            chipGroup.rotation.x += (targetXRotation - chipGroup.rotation.x) * 0.05;
+            chipGroup.rotation.y += (targetYRotation - chipGroup.rotation.y) * 0.05;
+
+            // 3. True Vertical Parallax Engine Translation Mapping
+            // As the recruiter scrolls down, the 3D Chip cleanly glides vertically over sections
+            const targetYPosition = (scrollYTarget * 0.006);
+            chipGroup.position.y = THREE.MathUtils.lerp(chipGroup.position.y, -2 + targetYPosition, 0.08);
+
+            // 4. Subtle Interconnect Pulse Effect (Alive Emissive Tracking)
+            const pulse = Math.sin(Date.now() * 0.002) * 0.15 + 0.25;
+            coreBlocks.forEach(b => b.material.emissiveIntensity = pulse);
 
             renderer.render(scene, camera);
         }
 
-        animate();
+        renderLoop();
 
-        // Responsive Resizing Event Watcher
+        // Responsive Engine Auto-Scaler
         window.addEventListener('resize', () => {
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
