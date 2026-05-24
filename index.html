@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pranjal Trivedi | Silicon Architecture & Verification Portfolio</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
@@ -377,13 +377,68 @@
             z-index: 20;
         }
 
+        /* -------------------------------------------------------------
+           INTELLIGENT RESPONSIVE MOBILE FIX MEDIA QUERY 
+           ------------------------------------------------------------- */
         @media (max-width: 1024px) {
-            .section-container { flex-direction: column; padding: 4rem 5%; }
-            .text-panel, .canvas-3d-panel { width: 100%; height: auto; }
-            .canvas-3d-panel { position: relative; margin-top: 2rem; }
-            .canvas-viewport { height: 50vh; }
-            h1 { font-size: 3rem; }
-            .close-btn { right: 2rem; }
+            header {
+                padding: 1.2rem 1.5rem;
+            }
+            nav a {
+                margin-left: 1.2rem;
+                font-size: 0.8rem;
+            }
+            .section-container { 
+                flex-direction: column; 
+                padding: 6rem 5% 2rem 5%; 
+            }
+            .text-panel { 
+                width: 100%; 
+                padding-right: 0;
+            }
+            .canvas-3d-panel { 
+                width: 100%; 
+                height: 45vh; 
+                position: relative; 
+                margin-top: 1rem;
+                margin-bottom: 2rem;
+            }
+            .canvas-viewport { 
+                height: 100%; 
+            }
+            h1 { 
+                font-size: 2.4rem; 
+            }
+            .hero-desc {
+                margin-bottom: 1.8rem;
+                font-size: 1.05rem;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .project-stack {
+                padding: 3rem 0;
+                gap: 2rem;
+            }
+            .project-card {
+                padding: 1.5rem;
+            }
+            .project-subpage {
+                padding: 5rem 5% 2rem 5%;
+            }
+            .close-btn { 
+                top: 1rem;
+                right: 1.5rem; 
+                padding: 0.4rem 1rem;
+                font-size: 0.85rem;
+            }
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                padding: 2.5rem 5%;
+            }
         }
     </style>
 </head>
@@ -461,7 +516,7 @@
 
         <div class="section-container" id="miscellaneous-page">
             <div class="text-panel">
-                <div class="project-stack" style="padding: 10rem 0;">
+                <div class="project-stack" style="padding: 2rem 0 6rem 0;">
                     <h2 class="section-title">Miscellaneous Systems Projects</h2>
 
                     <div class="project-card">
@@ -600,17 +655,22 @@
         // FULL WIDTH COV-LAYER GENERATOR: DYNAMIC BINARY MATRIX DRIFT ARRAYS
         // ----------------------------------------------------------------------
         const binaryBg = document.getElementById('binary-stream-bg');
-        const totalColumns = Math.floor(window.innerWidth / 20);
+        let totalColumns = Math.floor(window.innerWidth / 20);
 
-        for (let i = 0; i < totalColumns; i++) {
-            const streamEl = document.createElement('div');
-            streamEl.style.position = 'absolute';
-            streamEl.style.left = `${i * 20}px`;
-            streamEl.style.top = `${Math.random() * -300}px`;
-            streamEl.style.whiteSpace = 'pre';
-            streamEl.id = `bin-col-${i}`;
-            binaryBg.appendChild(streamEl);
+        function generateBinaryColumns() {
+            binaryBg.innerHTML = '';
+            totalColumns = Math.floor(window.innerWidth / 20);
+            for (let i = 0; i < totalColumns; i++) {
+                const streamEl = document.createElement('div');
+                streamEl.style.position = 'absolute';
+                streamEl.style.left = `${i * 20}px`;
+                streamEl.style.top = `${Math.random() * -300}px`;
+                streamEl.style.whiteSpace = 'pre';
+                streamEl.id = `bin-col-${i}`;
+                binaryBg.appendChild(streamEl);
+            }
         }
+        generateBinaryColumns();
 
         function runBinaryClockStream() {
             for (let i = 0; i < totalColumns; i++) {
@@ -618,7 +678,7 @@
                 if (!el) continue;
                 
                 let currentText = el.innerText.split('\n');
-                if (currentText.length > 55) currentText.shift();
+                if (currentText.length > (window.innerWidth < 768 ? 25 : 55)) currentText.shift();
                 
                 currentText.push(Math.random() > 0.5 ? "1" : "0");
                 el.innerText = currentText.join('\n');
@@ -652,12 +712,22 @@
         const zynqTextMap = createSilkscreenTexture("ZYNQ");
         const riscvTextMap = createSilkscreenTexture("RISC-V");
 
-        // Unified mouse tracking configuration
+        // Unified mouse and touch tracking configuration for Maximum Smooth Movement
         let mouseX = 0, mouseY = 0;
+        let targetMouseX = 0, targetMouseY = 0;
+
         window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) - 0.5;
-            mouseY = (e.clientY / window.innerHeight) - 0.5;
+            targetMouseX = (e.clientX / window.innerWidth) - 0.5;
+            targetMouseY = (e.clientY / window.innerHeight) - 0.5;
         });
+
+        // Smooth orientation updates on mobile touch tracking
+        window.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                targetMouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
+                targetMouseY = (e.touches[0].clientY / window.innerHeight) - 0.5;
+            }
+        }, { passive: true });
 
         // -------------------------------------------------------------
         // CONTEXT 1 ENGINE SETUP: HIGH-FIDELITY PYNQ-Z2 BOARD WITH ZYNQ
@@ -826,22 +896,26 @@
             const page1Rect = document.getElementById('core-silicon-page').getBoundingClientRect();
             const page2Rect = document.getElementById('miscellaneous-page').getBoundingClientRect();
 
+            // Linear Interpolation (LERP) for mouse/touch coordinates to eliminate jitter
+            mouseX += (targetMouseX - mouseX) * 0.08;
+            mouseY += (targetMouseY - mouseY) * 0.08;
+
             // PYNQ Board track runtime
             let page1Progress = window.scrollY / (page1Rect.height || 1);
             page1Progress = Math.max(0, Math.min(1, page1Progress));
             
             // Linear flip mappings across scroll sweep for ultra smooth transformation transitions
-            pynqGroup.rotation.x = 0.3 + (page1Progress * Math.PI * 2.0) + (mouseY * 0.3);
-            pynqGroup.rotation.y = -0.4 + (page1Progress * Math.PI * 1.5) + (mouseX * 0.3);
+            pynqGroup.rotation.x = 0.3 + (page1Progress * Math.PI * 2.0) + (mouseY * 0.4);
+            pynqGroup.rotation.y = -0.4 + (page1Progress * Math.PI * 1.5) + (mouseX * 0.4);
             pynqGroup.rotation.z = 0.05 + (Math.sin(time * 0.4) * 0.04);
 
             // RISC-V compute core track runtime
-            let page2Progress = (window.scrollY - page1Rect.height) / (page2Rect.height || 1);
+            let page2Progress = (window.scrollY - (page1Rect.height + window.innerHeight * 0.2)) / (page2Rect.height || 1);
             page2Progress = Math.max(0, Math.min(1, page2Progress));
             
             // Linear flip mappings safely locked within frame bounds while processing visible path tracks
-            riscvGroup.rotation.x = 0.2 + (page2Progress * Math.PI * 2.0) + (mouseY * 0.3);
-            riscvGroup.rotation.y = -0.3 + (page2Progress * Math.PI * 1.5) + (mouseX * 0.3);
+            riscvGroup.rotation.x = 0.2 + (page2Progress * Math.PI * 2.0) + (mouseY * 0.4);
+            riscvGroup.rotation.y = -0.3 + (page2Progress * Math.PI * 1.5) + (mouseX * 0.4);
             riscvGroup.rotation.z = -0.05 + (Math.cos(time * 0.4) * 0.04);
 
             // Context-specific draw render execution updates
@@ -853,6 +927,8 @@
 
         // Global Layout Adaption Window Resize Listener
         window.addEventListener('resize', () => {
+            generateBinaryColumns();
+
             // Adaptive configuration Context 1
             pynqCamera.aspect = pynqContainer.clientWidth / pynqContainer.clientHeight;
             pynqCamera.updateProjectionMatrix();
