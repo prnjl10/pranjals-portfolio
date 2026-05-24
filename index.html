@@ -34,33 +34,16 @@
         }
 
         #binary-stream-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.35; 
-            font-family: monospace;
-            font-size: 13px;
-            color: #475569;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 1; pointer-events: none; opacity: 0.35; 
+            font-family: monospace; font-size: 13px; color: #475569; overflow: hidden;
         }
 
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 4rem;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(2,2,5,0.8), rgba(2,2,5,0));
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            position: fixed; top: 0; left: 0; width: 100%; display: flex;
+            justify-content: space-between; align-items: center; padding: 1.5rem 4rem;
+            z-index: 100; background: linear-gradient(to bottom, rgba(2,2,5,0.8), rgba(2,2,5,0));
+            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; color: #ffffff; text-decoration: none; }
@@ -70,14 +53,7 @@
 
         main { position: relative; z-index: 2; width: 100%; }
 
-        .section-container {
-            min-height: 100vh;
-            display: flex;
-            position: relative;
-            padding: 0 4% 0 8%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
+        .section-container { min-height: 100vh; display: flex; position: relative; padding: 0 4% 0 8%; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
         .text-panel { width: 50vw; display: flex; flex-direction: column; justify-content: center; padding-right: 2rem; z-index: 10; }
         .canvas-3d-panel { width: 42vw; height: 100vh; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; z-index: 5; pointer-events: none; }
         .canvas-viewport { width: 100%; height: 85vh; }
@@ -116,7 +92,6 @@
         .tag-group { display: flex; gap: 0.6rem; flex-wrap: wrap; }
         .tag { font-size: 0.75rem; background: rgba(255,255,255,0.02); color: #cbd5e1; padding: 0.3rem 0.8rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* Overlay Sub-Pages */
         .project-subpage { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(2, 2, 5, 0.98); z-index: 500; overflow-y: auto; padding: 6rem 10% 4rem 10%; display: none; opacity: 0; transition: opacity 0.4s ease; }
         .project-subpage.active { display: block; opacity: 1; }
         .close-btn { position: fixed; top: 2rem; right: 4rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; padding: 0.6rem 1.5rem; border-radius: 4px; cursor: pointer; font-weight: 600; transition: all 0.2s; z-index: 600; }
@@ -159,28 +134,22 @@
                 <div class="hero-tag">Silicon Engineering & Verification</div>
                 <h1>Working on hardware verification, FPGA Development, ML acceleration, PCB Design & more.</h1>
                 <p class="hero-desc">
-                    Recent M.S. Graduate in Electrical and Computer Engineering from UC Davis. Specializing in Design Verification, FPGA development, Hardware acceleration, PCB design and Hardware testing. I love building and verifying digital hardware systems. Other interests include Embedded Systems, Machine Learning and Signal Processing.
+                    Recent M.S. Graduate in Electrical and Computer Engineering from UC Davis. Specializing in Design Verification, FPGA development, Hardware acceleration, PCB design and Hardware testing. I love building and verifying digital hardware systems.
                 </p>
                 
                 <h2 class="section-title">Technical Skills</h2>
                 <div class="skills-container">
                     <div class="skills-category-block">
                         <div class="category-title"><div class="category-dot"></div>Hardware Stack</div>
-                        <div class="category-tokens">
-                            <span class="token">RISC-V</span><span class="token">ARM Cortex</span><span class="token">Xilinx Zynq SoC</span><span class="token">Intel DE10 SoC</span><span class="token">STM32</span>
-                        </div>
+                        <div class="category-tokens"><span class="token">RISC-V</span><span class="token">ARM Cortex</span><span class="token">Xilinx Zynq SoC</span><span class="token">Intel DE10 SoC</span><span class="token">STM32</span></div>
                     </div>
                     <div class="skills-category-block">
                         <div class="category-title"><div class="category-dot"></div>HDL Stack</div>
-                        <div class="category-tokens">
-                            <span class="token">Verilog</span><span class="token">SystemVerilog</span><span class="token">VHDL</span><span class="token">UVM</span><span class="token">PyUVM</span>
-                        </div>
+                        <div class="category-tokens"><span class="token">Verilog</span><span class="token">SystemVerilog</span><span class="token">VHDL</span><span class="token">UVM</span><span class="token">PyUVM</span></div>
                     </div>
                     <div class="skills-category-block">
                         <div class="category-title"><div class="category-dot"></div>Coding Stack</div>
-                        <div class="category-tokens">
-                            <span class="token">C</span><span class="token">C++</span><span class="token">HLS</span><span class="token">Python</span><span class="token">Java</span><span class="token">MATLAB</span><span class="token">TCL</span>
-                        </div>
+                        <div class="category-tokens"><span class="token">C</span><span class="token">C++</span><span class="token">HLS</span><span class="token">Python</span><span class="token">MATLAB</span></div>
                     </div>
                 </div>
 
@@ -195,10 +164,8 @@
                     <div class="project-card">
                         <div class="project-meta">Verification Framework // SystemVerilog</div>
                         <h3>RISC-V UVM Verification Ecosystem</h3>
-                        <p>Designed a modular UVM environment containing verification infrastructure components targeting a 32-bit RV32I core structure. Developed a Register Abstraction Layer (RAL) supporting front-door/back-door access sequences alongside TLM-based transaction tracking. Achieved >98% functional coverage parameters, improving test regression automation throughput by 30%.</p>
-                        <div class="tag-group">
-                            <span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL Verification</span>
-                        </div>
+                        <p>Designed a modular UVM environment containing verification infrastructure components targeting a 32-bit RV32I core structure. Achieved >98% functional coverage parameters.</p>
+                        <div class="tag-group"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">RAL</span></div>
                     </div>
                     <button onclick="openSubpage('silicon-dashboard')" class="btn btn-secondary btn-more">View Full Silicon Dashboard &rarr;</button>
                 </div>
@@ -214,12 +181,10 @@
                 <div class="project-stack" style="padding: 2rem 0 6rem 0;">
                     <h2 class="section-title">Miscellaneous Systems Projects</h2>
                     <div class="project-card">
-                        <div class="project-meta">EDA Algorithms // Optimization Automation</div>
+                        <div class="project-meta">EDA Algorithms // Optimization</div>
                         <h3>ML-Based PCB Auto-Routing Pipeline</h3>
-                        <p>Implemented and validated an ML-guided PCB auto-routing pipeline utilizing customized U-Net computer vision segmentation models backed by integrated A* search route navigation pathfinders within Python and OpenCV environments. Successfully adjusted routing paths across various testing layouts to yield a 5% optimization improvement metric.</p>
-                        <div class="tag-group">
-                            <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">U-Net Segmentation</span><span class="tag">A* Routing</span>
-                        </div>
+                        <p>Implemented and validated an ML-guided PCB auto-routing pipeline utilizing customized U-Net computer vision segmentation models backed by A* search route navigation.</p>
+                        <div class="tag-group"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">A* Routing</span></div>
                     </div>
                     <button onclick="openSubpage('misc-dashboard')" class="btn btn-secondary btn-more">View Miscellaneous Portfolio &rarr;</button>
                 </div>
@@ -239,20 +204,14 @@
             <div class="project-card">
                 <div class="project-meta">RTL & Verification // SystemVerilog & UVM</div>
                 <h3>RISC-V UVM Verification Ecosystem</h3>
-                <p>Designed a modular UVM environment containing verification infrastructure components targeting a 32-bit RV32I core structure. Developed a Register Abstraction Layer (RAL) supporting front-door/back-door access sequences alongside TLM-based transaction tracking.</p>
+                <p>Designed a modular UVM environment containing verification infrastructure components targeting a 32-bit RV32I core structure.</p>
                 <div class="tag-group"><span class="tag">SystemVerilog</span><span class="tag">UVM</span></div>
             </div>
             <div class="project-card">
                 <div class="project-meta">RTL // SystemVerilog</div>
                 <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
                 <p>Designed and implemented a 32-bit RISC-V processor in Verilog using an in-order 4-stage pipeline execution path onto an Intel DE10-Lite FPGA platform.</p>
-                <div class="tag-group"><span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span></div>
-            </div>
-            <div class="project-card" style="border-left-color: var(--accent-cyan);">
-                <div class="project-meta">Hardware Acceleration // Compute Cores</div>
-                <h3>Accelerated Quantized Neural Network Engine (MNIST)</h3>
-                <p>Designed layer modules in C++ (HLS) and integrated them via AXI-Stream for end-to-end hardware-accelerated inference on the Xilinx Zynq-7000 SoC.</p>
-                <div class="tag-group"><span class="tag">Vivado HLS</span><span class="tag">AXI-Stream</span></div>
+                <div class="tag-group"><span class="tag">Verilog RTL</span><span class="tag">Avalon-MM</span></div>
             </div>
         </div>
     </div>
@@ -265,14 +224,8 @@
             <div class="project-card" style="border-left-color: var(--accent-orange);">
                 <div class="project-meta">Physical Systems Integration // Board Bring-Up</div>
                 <h3>4-Layer ESP32 System Design & Testing</h3>
-                <p>Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts, voltage validations, and bus signaling communications.</p>
+                <p>Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts.</p>
                 <div class="tag-group"><span class="tag">4-Layer PCB Layout</span><span class="tag">Signal Integrity</span></div>
-            </div>
-            <div class="project-card">
-                <div class="project-meta">Performance Automation // Profiling Scripts</div>
-                <h3>GPU Performance Verification Framework</h3>
-                <p>Developed custom CUDA micro-benchmarks to evaluate multi-core performance metrics against theoretical bandwidth using Python and NVprof.</p>
-                <div class="tag-group"><span class="tag">CUDA Benchmarks</span><span class="tag">Python Automation</span></div>
             </div>
         </div>
     </div>
@@ -283,19 +236,19 @@
     </footer>
 
     <script>
+        // Overlay Logic
         function openSubpage(id) {
-            const page = document.getElementById(id);
-            page.style.display = 'block';
-            setTimeout(() => page.classList.add('active'), 10);
+            document.getElementById(id).style.display = 'block';
+            setTimeout(() => document.getElementById(id).classList.add('active'), 10);
             document.body.style.overflow = 'hidden';
         }
         function closeSubpage(id) {
-            const page = document.getElementById(id);
-            page.classList.remove('active');
-            setTimeout(() => page.style.display = 'none', 400);
+            document.getElementById(id).classList.remove('active');
+            setTimeout(() => document.getElementById(id).style.display = 'none', 400);
             document.body.style.overflow = 'auto';
         }
 
+        // Binary Stream Logic
         const binaryBg = document.getElementById('binary-stream-bg');
         let totalColumns = Math.floor(window.innerWidth / 20);
 
@@ -324,8 +277,7 @@
                 el.innerText = currentText.join('\n');
                 let currentTop = parseFloat(el.style.top || 0);
                 if (currentTop > window.innerHeight + 400) {
-                    el.style.top = `${-400}px`;
-                    el.innerText = "";
+                    el.style.top = `${-400}px`; el.innerText = "";
                 } else {
                     el.style.top = `${currentTop + 2.4}px`;
                 }
@@ -334,25 +286,19 @@
         }
         runBinaryClockStream();
 
+        // Texture Mapping
         function createSilkscreenTexture(text) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 128;
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0,0,512,128);
-            ctx.font = "bold 90px monospace";
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(text, 256, 64);
+            const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 128;
+            const ctx = canvas.getContext('2d'); ctx.clearRect(0,0,512,128);
+            ctx.font = "bold 90px monospace"; ctx.fillStyle = "#ffffff"; ctx.textAlign = "center";
+            ctx.textBaseline = "middle"; ctx.fillText(text, 256, 64);
             return new THREE.CanvasTexture(canvas);
         }
         const zynqTextMap = createSilkscreenTexture("ZYNQ");
         const riscvTextMap = createSilkscreenTexture("RISC-V");
 
-        let mouseX = 0, mouseY = 0;
-        let targetMouseX = 0, targetMouseY = 0;
-
+        // Mouse Parallax Data
+        let mouseX = 0, mouseY = 0; let targetMouseX = 0, targetMouseY = 0;
         window.addEventListener('mousemove', (e) => {
             targetMouseX = (e.clientX / window.innerWidth) - 0.5;
             targetMouseY = (e.clientY / window.innerHeight) - 0.5;
@@ -364,41 +310,32 @@
             }
         }, { passive: true });
 
-        // Materials
+        // Component Materials
         const capSilverMat = new THREE.MeshStandardMaterial({ color: 0xdcdcdf, metalness: 0.8, roughness: 0.2 });
         const resistorBlackMat = new THREE.MeshStandardMaterial({ color: 0x202024, roughness: 0.6 });
         const copperTraceMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
         const metalMat = new THREE.MeshStandardMaterial({ color: 0xadb2b9, metalness: 0.9, roughness: 0.2 });
         const blockMat = new THREE.MeshStandardMaterial({ color: 0x19191e, roughness: 0.5 });
         const buttonMat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.7 });
+        const ledMat = new THREE.MeshStandardMaterial({ color: 0x00ff00, emissive: 0x00aa00 });
         const icMat = new THREE.MeshStandardMaterial({ color: 0x121215, roughness: 0.3, metalness: 0.8 });
 
-        // -- PROCEDURAL MANHATTAN COPPER TRACE GENERATOR --
-        // Creates dense, randomized PCB trace lines to add authenticity to top/bottom layers
+        // Procedural Manhattan Traces
         function generateCopperTraces(group, zOffset, isBottomLayer, numTraces) {
             for(let i = 0; i < numTraces; i++) {
                 const length = 0.1 + Math.random() * 0.8;
                 const trace = new THREE.Mesh(new THREE.PlaneGeometry(0.015, length), copperTraceMat);
-                
-                // Random position within board limits
-                const xPos = -1.3 + Math.random() * 2.6;
-                const yPos = -2.0 + Math.random() * 4.0;
+                const xPos = -1.3 + Math.random() * 2.6; const yPos = -2.0 + Math.random() * 4.0;
                 trace.position.set(xPos, yPos, zOffset);
-                
                 if (isBottomLayer) trace.rotation.y = Math.PI;
-                
-                // 50% chance to be horizontal vs vertical (Manhattan routing style)
-                if(Math.random() > 0.5) {
-                    trace.rotation.z = Math.PI / 2;
-                }
-                
+                if(Math.random() > 0.5) trace.rotation.z = Math.PI / 2;
                 group.add(trace);
             }
         }
 
-        // -------------------------------------------------------------
-        // CONTEXT 1 ENGINE SETUP: HIGH-FIDELITY PYNQ-Z2 BOARD 
-        // -------------------------------------------------------------
+        // =============================================================
+        // CONTEXT 1: PYNQ-Z2 BOARD WITH TRACES & FULL COMPONENTS
+        // =============================================================
         const pynqContainer = document.getElementById('pynq-canvas');
         const pynqScene = new THREE.Scene();
         const pynqCamera = new THREE.PerspectiveCamera(40, pynqContainer.clientWidth / pynqContainer.clientHeight, 0.1, 1000);
@@ -416,34 +353,76 @@
         const pynqSubstrate = new THREE.Mesh(new THREE.BoxGeometry(3.2, 4.4, 0.14), pynqResinMat);
         pynqGroup.add(pynqSubstrate);
 
-        // Generate dynamic PCB traces on Top and Bottom
-        generateCopperTraces(pynqGroup, 0.071, false, 80); // Front Traces
-        generateCopperTraces(pynqGroup, -0.071, true, 120); // Back Traces
+        // Traces Layered directly on surface
+        generateCopperTraces(pynqGroup, 0.071, false, 80);
+        generateCopperTraces(pynqGroup, -0.071, true, 120);
 
-        // Front Components
+        // [FRONT COMPONENTS RESTORED]
         const zynqDie = new THREE.Mesh(new THREE.BoxGeometry(1.25, 1.25, 0.16), icMat); zynqDie.position.set(0, -0.2, 0.11); pynqGroup.add(zynqDie);
-        const zynqLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.28), new THREE.MeshBasicMaterial({ map: zynqTextMap, transparent: true, depthTest: false, blending: THREE.NormalBlending }));
-        zynqLabelPlate.position.set(0, -0.2, 0.2); zynqLabelPlate.renderOrder = 999; pynqGroup.add(zynqLabelPlate);
-
-        const rj45Cage = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.85, 0.5), metalMat); rj45Cage.position.set(-1.0, 1.7, 0.32); pynqGroup.add(rj45Cage);
-        const usbCage = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.55), metalMat); usbCage.position.set(-0.2, 1.75, 0.34); pynqGroup.add(usbCage);
-        const rpiHeader = new THREE.Mesh(new THREE.BoxGeometry(0.25, 2.5, 0.25), blockMat); rpiHeader.position.set(-1.3, -0.2, 0.15); pynqGroup.add(rpiHeader);
         
+        const heatsink = new THREE.Group(); heatsink.position.set(0, -0.2, 0.21);
+        const hsBase = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.08), new THREE.MeshStandardMaterial({ color: 0x16161b, roughness: 0.2, metalness: 0.9 })); heatsink.add(hsBase);
+        for(let i = 0; i < 5; i++) {
+            const fin = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.8, 0.2), new THREE.MeshStandardMaterial({ color: 0x121216, roughness: 0.2, metalness: 0.9 }));
+            fin.position.set(-0.32 + (i * 0.16), 0, 0.1); heatsink.add(fin);
+        }
+        pynqGroup.add(heatsink);
+
+        const zynqLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.28), new THREE.MeshBasicMaterial({ map: zynqTextMap, transparent: true, depthTest: false, blending: THREE.NormalBlending }));
+        zynqLabelPlate.position.set(0, -0.2, 0.46); zynqLabelPlate.renderOrder = 999; pynqGroup.add(zynqLabelPlate);
+
         for(let i = 0; i < 2; i++) {
             const ramChip = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.5, 0.1), icMat); ramChip.position.set(-0.8 + (i * 1.6), 0.2, 0.1); pynqGroup.add(ramChip);
         }
 
-        // Backside ICs 
+        const rj45Cage = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.85, 0.5), metalMat); rj45Cage.position.set(-1.0, 1.7, 0.32); pynqGroup.add(rj45Cage);
+        const usbCage = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.55), metalMat); usbCage.position.set(-0.2, 1.75, 0.34); pynqGroup.add(usbCage);
+        const hdmiIn = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.4, 0.25), metalMat); hdmiIn.position.set(0.5, 1.9, 0.19); pynqGroup.add(hdmiIn);
+        const hdmiOut = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.4, 0.25), metalMat); hdmiOut.position.set(1.1, 1.9, 0.19); pynqGroup.add(hdmiOut);
+        
+        const rpiHeader = new THREE.Mesh(new THREE.BoxGeometry(0.25, 2.5, 0.25), blockMat); rpiHeader.position.set(-1.3, -0.2, 0.15); pynqGroup.add(rpiHeader);
+        const arduinoH1 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.9, 0.2), blockMat); arduinoH1.position.set(1.3, -0.8, 0.15); pynqGroup.add(arduinoH1);
+        const arduinoH2 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.9, 0.2), blockMat); arduinoH2.position.set(1.3, 0.2, 0.15); pynqGroup.add(arduinoH2);
+        const arduinoH3 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.7, 0.2), blockMat); arduinoH3.position.set(1.3, 1.1, 0.15); pynqGroup.add(arduinoH3);
+
+        for(let i = 0; i < 2; i++) {
+            const microUsb = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.25, 0.15), metalMat); microUsb.position.set(-1.4, 1.0 + (i * 0.4), 0.14); pynqGroup.add(microUsb);
+        }
+
+        for(let i = 0; i < 4; i++) {
+            const btn = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.15, 0.1), buttonMat); btn.position.set(-0.8 + (i * 0.25), -1.8, 0.12); pynqGroup.add(btn);
+            const led = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.06, 0.06), ledMat); led.position.set(-0.8 + (i * 0.25), -1.4, 0.1); pynqGroup.add(led);
+        }
+        for(let i = 0; i < 2; i++) {
+            const sw = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.25, 0.12), blockMat); sw.position.set(-1.2 + (i * 0.3), -1.8, 0.13); pynqGroup.add(sw);
+        }
+        for(let x = 0; x < 3; x++) {
+            for(let y = 0; y < 4; y++) {
+                const smd = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.12, 0.05), (x+y)%2 === 0 ? capSilverMat : resistorBlackMat);
+                smd.position.set(0.6 + (x * 0.2), -1.0 + (y * 0.2), 0.09); pynqGroup.add(smd);
+            }
+        }
+
+        // [BOTTOM COMPONENTS RESTORED]
+        for(let i = 0; i < 20; i++) {
+            const smd = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.12, 0.04), (i % 3 === 0) ? resistorBlackMat : capSilverMat);
+            smd.position.set(-1.2 + (Math.random() * 2.4), -1.8 + (Math.random() * 3.6), -0.09); pynqGroup.add(smd);
+        }
         const pmicIC = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.06), icMat); pmicIC.position.set(0.8, -1.2, -0.1); pynqGroup.add(pmicIC);
         const pynqFlashIC = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.5, 0.06), icMat); pynqFlashIC.position.set(-0.5, 1.2, -0.1); pynqGroup.add(pynqFlashIC);
+        
+        for(let t = 0; t < 3; t++) {
+            const pad = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 0.2), copperTraceMat);
+            pad.position.set(1.1, 1.0 - (t * 0.4), -0.075); pad.rotation.y = Math.PI; pynqGroup.add(pad);
+        }
 
         pynqScene.add(new THREE.AmbientLight(0xffffff, 0.42));
         const pynqSpot = new THREE.DirectionalLight(0x8b5cf6, 3.8); pynqSpot.position.set(5, 6, 5); pynqScene.add(pynqSpot);
         const pynqCyan = new THREE.PointLight(0x00f3ff, 2.2, 15); pynqCyan.position.set(-4, 3, 3); pynqScene.add(pynqCyan);
 
-        // -------------------------------------------------------------
-        // ENGINE CONTEXT 2: HIGH-FIDELITY TRANSLUCENT FR-4 RISC-V CORE
-        // -------------------------------------------------------------
+        // =============================================================
+        // CONTEXT 2: RISC-V CORE WITH FR-4 COLOR & FULL COMPONENTS
+        // =============================================================
         const riscvContainer = document.getElementById('riscv-canvas');
         const riscvScene = new THREE.Scene();
         const riscvCamera = new THREE.PerspectiveCamera(40, riscvContainer.clientWidth / riscvContainer.clientHeight, 0.1, 1000);
@@ -457,60 +436,73 @@
         const riscvGroup = new THREE.Group();
         riscvScene.add(riscvGroup);
 
-        const fr4Mat = new THREE.MeshStandardMaterial({ color: 0x5e5a32, roughness: 0.4, metalness: 0.1, transparent: true, opacity: 0.92 });
+        // [FR-4 MATERIAL APPLIED HERE: Raw translucent yellowish-green fiberglass]
+        const fr4Mat = new THREE.MeshStandardMaterial({ color: 0x8b9338, roughness: 0.5, metalness: 0.1, transparent: true, opacity: 0.85 });
         const fr4Substrate = new THREE.Mesh(new THREE.BoxGeometry(3.1, 4.4, 0.14), fr4Mat);
         riscvGroup.add(fr4Substrate);
 
-        // Generate dynamic PCB traces on Top and Bottom for RISC-V
-        generateCopperTraces(riscvGroup, 0.071, false, 90); // Front Traces
-        generateCopperTraces(riscvGroup, -0.071, true, 130); // Back Traces
+        // Traces Layered
+        generateCopperTraces(riscvGroup, 0.071, false, 90);
+        generateCopperTraces(riscvGroup, -0.071, true, 130);
 
+        // [FRONT COMPONENTS RESTORED]
         const RISC_VDie = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.4, 0.18), new THREE.MeshStandardMaterial({ color: 0x0f0f13, roughness: 0.3, metalness: 0.8 }));
         RISC_VDie.position.set(0, 0.5, 0.12); riscvGroup.add(RISC_VDie);
 
         const riscvLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.3), new THREE.MeshBasicMaterial({ map: riscvTextMap, transparent: true, depthTest: false }));
         riscvLabelPlate.position.set(0, 0.5, 0.22); riscvLabelPlate.renderOrder = 999; riscvGroup.add(riscvLabelPlate);
 
+        for(let i = 0; i < 9; i++) {
+            const goldTrack = new THREE.Mesh(new THREE.PlaneGeometry(0.03, 1.2), new THREE.MeshStandardMaterial({ color: 0xe0bc4f, metalness: 0.9 }));
+            goldTrack.position.set(-0.75 + (i * 0.18), -0.4, 0.08); riscvGroup.add(goldTrack);
+        }
         for(let m = 0; m < 3; m++) {
             const extMem = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.1), new THREE.MeshStandardMaterial({ color: 0x141419, roughness: 0.4 }));
             extMem.position.set(-0.6 + (m * 0.6), -1.3, 0.1); riscvGroup.add(extMem);
         }
+        for(let c = 0; c < 12; c++) {
+            const capComp = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, 0.05), capSilverMat);
+            capComp.position.set(-0.9 + (c * 0.16), 0.2, -0.09); capComp.rotation.y = Math.PI; riscvGroup.add(capComp);
+        }
 
-        // Backside RISC-V Components
+        // [BOTTOM COMPONENTS RESTORED]
+        for(let i = 0; i < 10; i++) {
+            const tp = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.02, 8), copperTraceMat);
+            tp.rotation.x = Math.PI / 2; tp.position.set(-1.0 + (i * 0.22), -1.8, -0.08); riscvGroup.add(tp);
+        }
         const debugIC = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.08), icMat); debugIC.position.set(0.2, -0.5, -0.11); riscvGroup.add(debugIC);
+        
+        for(let i = 0; i < 15; i++) {
+            const smd = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.1, 0.04), capSilverMat);
+            smd.position.set(0.2 + (Math.random() * 0.8), -0.8 + (Math.random() * 0.6), -0.09);
+            smd.rotation.y = Math.PI; riscvGroup.add(smd);
+        }
 
         riscvScene.add(new THREE.AmbientLight(0xffffff, 0.42));
         const riscvSpot = new THREE.DirectionalLight(0x8b5cf6, 3.8); riscvSpot.position.set(5, 6, 5); riscvScene.add(riscvSpot);
         const riscvOrange = new THREE.PointLight(0xff5500, 2.2, 15); riscvOrange.position.set(4, -3, 3); riscvScene.add(riscvOrange);
 
-        // -------------------------------------------------------------
-        // REWRITTEN PHYSICS: SMOOTH 180-DEGREE INSPECTION FLIPS
-        // -------------------------------------------------------------
+        // =============================================================
+        // SMOOTH 180-DEGREE INSPECTION LOOP
+        // =============================================================
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
             
-            // Linear Interpolation (LERP) for smooth parallax tracking
             mouseX += (targetMouseX - mouseX) * 0.08;
             mouseY += (targetMouseY - mouseY) * 0.08;
 
-            // Calculate exact scroll percentage of the total page
             const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
             let scrollProgress = window.scrollY / maxScroll;
 
-            // --- Board 1 (PYNQ) Inspection Physics ---
-            // Completes its 180-degree turn (Math.PI) about 55% down the page
+            // Board 1 (PYNQ)
             let page1Progress = Math.min(1, scrollProgress * 1.8); 
-            
-            // Starts tilted slightly up/left, smoothly flips horizontally (Y-axis) to reveal back, flattens out (X-axis)
             pynqGroup.rotation.x = 0.4 - (page1Progress * 0.4) + (mouseY * 0.3);
             pynqGroup.rotation.y = -0.2 + (page1Progress * Math.PI) + (mouseX * 0.3);
             pynqGroup.rotation.z = 0.05;
 
-            // --- Board 2 (RISC-V) Inspection Physics ---
-            // Starts its flip sequence when scrolled 30% down, finishes perfectly at the bottom
+            // Board 2 (RISC-V)
             let page2Progress = Math.max(0, (scrollProgress - 0.3) * 1.42); 
             page2Progress = Math.min(1, page2Progress);
-            
             riscvGroup.rotation.x = 0.4 - (page2Progress * 0.4) + (mouseY * 0.3);
             riscvGroup.rotation.y = -0.2 + (page2Progress * Math.PI) + (mouseX * 0.3);
             riscvGroup.rotation.z = -0.05;
@@ -525,12 +517,10 @@
         window.addEventListener('resize', () => {
             generateBinaryColumns();
             pynqCamera.aspect = pynqContainer.clientWidth / pynqContainer.clientHeight;
-            pynqCamera.updateProjectionMatrix();
-            pynqRenderer.setSize(pynqContainer.clientWidth, pynqContainer.clientHeight);
+            pynqCamera.updateProjectionMatrix(); pynqRenderer.setSize(pynqContainer.clientWidth, pynqContainer.clientHeight);
 
             riscvCamera.aspect = riscvContainer.clientWidth / riscvContainer.clientHeight;
-            riscvCamera.updateProjectionMatrix();
-            riscvRenderer.setSize(riscvContainer.clientWidth, riscvContainer.clientHeight);
+            riscvCamera.updateProjectionMatrix(); riscvRenderer.setSize(riscvContainer.clientWidth, riscvContainer.clientHeight);
         });
     </script>
 </body>
