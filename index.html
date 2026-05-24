@@ -79,7 +79,7 @@
             display: flex;
             position: relative;
             padding: 0 4% 0 8%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .text-panel {
@@ -309,14 +309,14 @@
     <header>
         <a href="#" class="logo">PRANJAL<span>.</span></a>
         <nav>
-            <a href="#hero-section">Expertise</a>
-            <a href="#projects-section">Silicon Architecture</a>
+            <a href="#core-silicon-page">Silicon Ecosystem</a>
+            <a href="#miscellaneous-page">Miscellaneous Cores</a>
             <a href="mailto:prtrivedi@ucdavis.edu">Contact</a>
         </nav>
     </header>
 
     <main>
-        <div class="section-container" id="hero-section">
+        <div class="section-container" id="core-silicon-page">
             <div class="text-panel">
                 <div class="hero-tag">Silicon Engineering & Verification</div>
                 <h1>Architecting High-Performance IC Microarchitectures.</h1>
@@ -324,7 +324,7 @@
                     Electrical and Computer Engineering Master’s student at UC Davis. Specializing in SystemVerilog/UVM verification ecosystems, pipeline processor design, and physical FPGA-SoC hardware acceleration pipelines.
                 </p>
                 
-                <h2 class="section-title" style="margin-top: 2rem;">Technical Expertise</h2>
+                <h2 class="section-title">Technical Expertise</h2>
                 <div class="skills-grid">
                     <div class="skill-item"><div class="skill-dot"></div>SystemVerilog / UVM</div>
                     <div class="skill-item"><div class="skill-dot"></div>Verilog RTL Chip Design</div>
@@ -333,22 +333,9 @@
                     <div class="skill-item"><div class="skill-dot"></div>AXI-Stream & Avalon Buses</div>
                     <div class="skill-item"><div class="skill-dot"></div>High-Level Synthesis (C++ HLS)</div>
                 </div>
-                
-                <div class="cta-group" style="margin-bottom: 4rem;">
-                    <a href="mailto:prtrivedi@ucdavis.edu" class="btn btn-primary">Connect</a>
-                    <a href="https://github.com/prnjl10" target="_blank" class="btn btn-secondary">GitHub</a>
-                </div>
-            </div>
-            
-            <div class="canvas-3d-panel">
-                <div id="pynq-canvas" class="canvas-viewport"></div>
-            </div>
-        </div>
 
-        <div class="section-container" id="projects-section">
-            <div class="text-panel">
                 <div class="project-stack">
-                    <h2 class="section-title">Core Silicon Projects</h2>
+                    <h2 class="section-title">Silicon Verification & Deployment</h2>
 
                     <div class="project-card">
                         <div class="project-meta">Verification Framework // SystemVerilog</div>
@@ -365,7 +352,7 @@
                         <div class="project-meta">RTL Architecture // Design & Integration</div>
                         <h3>32-Bit Pipelined RISC-V Processor on FPGA</h3>
                         <p>
-                            Designed and implemented a 32-bit RISC-V processor in Verilog using an in-order 4-stage pipeline execution path onto an Intel DE10-Lite FPGA platform. Engineered hazard mitigation loops, EX/MEM/WB hardware bypassing configurations, and decode-stage branch/jump ALU processing structures to minimize performance stall penalties.
+                            Designed and implemented a 32-bit RISC-V processor in Verilog using an in-order 4-stage pipeline execution path onto an Intel DE10-Lite FPGA platform. Engineered hazard mitigation loops, EX/MEM/WB hardware bypassing configurations, and decode-stage branch/jump ALU processing structures to minimize performance stall penalties. Interfaced core via memory-mapped Avalon-MM SoC tracks.
                         </p>
                         <div class="tag-group">
                             <span class="tag">Verilog RTL</span><span class="tag">Computer Architecture</span><span class="tag">Avalon-MM</span>
@@ -376,10 +363,44 @@
                         <div class="project-meta">Hardware Acceleration // Compute Cores</div>
                         <h3>Accelerated Quantized Neural Network Engine</h3>
                         <p>
-                            Implemented a quantized neural network tailored for MNIST classification mapping across a PYNQ-Z2 board, scaling computing processing performance metrics by ~10×. Designed layout processing layers utilizing High-Level Synthesis (C++ HLS) natively tied together via AXI-Stream configurations.
+                            Implemented a quantized neural network tailored for MNIST classification mapping across a PYNQ-Z2 board, scaling computing processing performance metrics by ~10×. Designed layout processing layers utilizing High-Level Synthesis (C++ HLS) natively tied together via AXI-Stream configurations to maximize pipeline execution parameters across the Zynq-7000 SoC architecture.
                         </p>
                         <div class="tag-group">
                             <span class="tag">C++ HLS</span><span class="tag">AXI-Stream</span><span class="tag">Zynq-7000 SoC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="canvas-3d-panel">
+                <div id="pynq-canvas" class="canvas-viewport"></div>
+            </div>
+        </div>
+
+        <div class="section-container" id="miscellaneous-page">
+            <div class="text-panel">
+                <div class="project-stack" style="padding: 10rem 0;">
+                    <h2 class="section-title">Miscellaneous Systems Projects</h2>
+
+                    <div class="project-card">
+                        <div class="project-meta">EDA Algorithms // Optimization Automation</div>
+                        <h3>ML-Based PCB Auto-Routing Pipeline</h3>
+                        <p>
+                            Implemented and validated an ML-guided PCB auto-routing pipeline utilizing customized U-Net computer vision segmentation models backed by integrated A* search route navigation pathfinders within Python and OpenCV environments. Successfully adjusted routing paths across various testing layouts to yield a 5% optimization improvement metric in baseline trace length and overall layer via counts.
+                        </p>
+                        <div class="tag-group">
+                            <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">U-Net Segmentation</span><span class="tag">A* Routing</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-meta">Physical Systems Integration // Board Bring-Up</div>
+                        <h3>4-Layer ESP32 System Design & Testing</h3>
+                        <p>
+                            Designed and assembled a 4-layer ESP32-based functional PCB integrated with on-board sensor data streams. Handled physical hardware bring-up procedures, tracking pathing checkouts, voltage validations, and bus signaling communications (UART, I2C) using oscilloscopes and logic analyzers. Implemented layout balancing techniques including controlled impedance track routing and effective ground plane isolation.
+                        </p>
+                        <div class="tag-group">
+                            <span class="tag">PCB Design Layout</span><span class="tag">Signal Integrity</span><span class="tag">Hardware Testing</span>
                         </div>
                     </div>
                 </div>
@@ -397,8 +418,8 @@
     </footer>
 
     <script>
-        // Common shared texture pipeline generator for silkscreen typography
-        function makeLabelTexture(text) {
+        // Shared typography texture generation pipeline
+        function createSilkscreenTexture(text) {
             const canvas = document.createElement('canvas');
             canvas.width = 256;
             canvas.height = 64;
@@ -412,9 +433,10 @@
             ctx.fillText(text, 128, 32);
             return new THREE.CanvasTexture(canvas);
         }
-        const riscvTexture = makeLabelTexture("RISC-V");
+        const zynqTextMap = createSilkscreenTexture("ZYNQ");
+        const riscvTextMap = createSilkscreenTexture("RISC-V");
 
-        // Global Interactive State Tracking Vectors
+        // Interactive mouse state tracking vectors
         let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX / window.innerWidth) - 0.5;
@@ -422,7 +444,7 @@
         });
 
         // -------------------------------------------------------------
-        // CONTEXT 1 ENGINE SETUP: HIGH-FIDELITY PYNQ-Z2 FPGA BOARD
+        // ENGINE CONTEXT 1: ACCURATE DETAILED PYNQ-Z2 BOARD WITH ZYNQ
         // -------------------------------------------------------------
         const pynqContainer = document.getElementById('pynq-canvas');
         const pynqScene = new THREE.Scene();
@@ -434,87 +456,77 @@
         pynqRenderer.setSize(pynqContainer.clientWidth, pynqContainer.clientHeight);
         pynqContainer.appendChild(pynqRenderer.domElement);
 
-        const pynqBoardGroup = new THREE.Group();
-        pynqScene.add(pynqBoardGroup);
+        const pynqGroup = new THREE.Group();
+        pynqScene.add(pynqGroup);
 
-        // FRONT & BACK STRUCTURES FOR PYNQ-Z2
-        // Substrate Base Board Layer (PYNQ Pink/Magenta Soldermask)
-        const pynqResinMat = new THREE.MeshStandardMaterial({ color: 0xbf1b4d, roughness: 0.35, metalness: 0.2 });
+        // Core Magenta PYNQ-Z2 Base Soldermask Layer
+        const pynqResinMat = new THREE.MeshStandardMaterial({ color: 0xbe1c4c, roughness: 0.35, metalness: 0.2 });
         const pynqSubstrate = new THREE.Mesh(new THREE.BoxGeometry(3.2, 4.4, 0.14), pynqResinMat);
-        pynqBoardGroup.add(pynqSubstrate);
+        pynqGroup.add(pynqSubstrate);
 
-        // [FRONT SIDE COMPONENTS]
-        // Central Zynq SoC Package Base Die
-        const zynqDie = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 0.16), new THREE.MeshStandardMaterial({ color: 0x121216, roughness: 0.3, metalness: 0.8 }));
-        zynqDie.position.set(0, 0.3, 0.12);
-        pynqBoardGroup.add(zynqDie);
+        // [FRONT SIDE LAYOUTS]
+        // Processing SoC Die
+        const zynqDie = new THREE.Mesh(new THREE.BoxGeometry(1.25, 1.25, 0.16), new THREE.MeshStandardMaterial({ color: 0x121215, roughness: 0.3, metalness: 0.8 }));
+        zynqDie.position.set(0, 0.4, 0.11);
+        pynqGroup.add(zynqDie);
 
-        // Raised Black Aluminum Passive Extrusion Heatsink Fins
-        const heatsinkGroup = new THREE.Group();
-        heatsinkGroup.position.set(0, 0.3, 0.2);
-        const hsBase = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.1, 0.08), new THREE.MeshStandardMaterial({ color: 0x18181d, roughness: 0.2, metalness: 0.9 }));
-        heatsinkGroup.add(hsBase);
-        for(let f = 0; f < 6; f++) {
-            const fin = new THREE.Mesh(new THREE.BoxGeometry(0.05, 1.0, 0.22), new THREE.MeshStandardMaterial({ color: 0x131317, roughness: 0.2, metalness: 0.9 }));
-            fin.position.set(-0.4 + (f * 0.16), 0, 0.12);
-            heatsinkGroup.add(fin);
+        // Custom ZYNQ Silkscreen Type Plate Layer
+        const zynqLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.25), new THREE.MeshBasicMaterial({ map: zynqTextMap, transparent: true }));
+        zynqLabelPlate.position.set(0, 0.4, 0.20);
+        pynqGroup.add(zynqLabelPlate);
+
+        // Extruded Black Passive Aluminum Cooling Fin System
+        const heatsink = new THREE.Group();
+        heatsink.position.set(0, 0.4, 0.21);
+        const hsBase = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.08), new THREE.MeshStandardMaterial({ color: 0x16161b, roughness: 0.2, metalness: 0.9 }));
+        heatsink.add(hsBase);
+        for(let i = 0; i < 5; i++) {
+            const fin = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.8, 0.2), new THREE.MeshStandardMaterial({ color: 0x121216, roughness: 0.2, metalness: 0.9 }));
+            fin.position.set(-0.32 + (i * 0.16), 0, 0.1);
+            heatsink.add(fin);
         }
-        pynqBoardGroup.add(heatsinkGroup);
+        pynqGroup.add(heatsink);
 
-        // Header Extensions & IO Blocks Cages (Pins, Ethernet, USB Host)
-        const blockMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1f, roughness: 0.5 });
+        // IO Brackets & Shield Rails Cages
+        const metalMat = new THREE.MeshStandardMaterial({ color: 0xadb2b9, metalness: 0.9, roughness: 0.2 });
+        const blockMat = new THREE.MeshStandardMaterial({ color: 0x19191e, roughness: 0.5 });
         const pinMat = new THREE.MeshStandardMaterial({ color: 0xffaa00, metalness: 0.9, roughness: 0.1 });
-        const metalCageMat = new THREE.MeshStandardMaterial({ color: 0xacb1b9, metalness: 0.9, roughness: 0.2 });
 
-        const headerLeft = new THREE.Mesh(new THREE.BoxGeometry(0.18, 2.8, 0.3), blockMat);
-        headerLeft.position.set(-1.3, -0.2, 0.16);
-        pynqBoardGroup.add(headerLeft);
+        const rj45Cage = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.85, 0.5), metalMat);
+        rj45Cage.position.set(-0.9, -1.6, 0.28);
+        pynqGroup.add(rj45Cage);
 
-        for(let p = 0; p < 10; p++) {
-            const pin = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.18), pinMat);
-            pin.position.set(-1.3, -1.1 + (p * 0.24), 0.32);
-            pynqBoardGroup.add(pin);
+        const usbCage = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.75, 0.45), metalMat);
+        usbCage.position.set(-0.1, -1.65, 0.26);
+        pynqGroup.add(usbCage);
+
+        const femaleHeader = new THREE.Mesh(new THREE.BoxGeometry(0.16, 2.6, 0.28), blockMat);
+        femaleHeader.position.set(-1.3, 0.1, 0.15);
+        pynqGroup.add(femaleHeader);
+        for(let p = 0; p < 9; p++) {
+            const pin = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.15), pinMat);
+            pin.position.set(-1.3, -0.8 + (p * 0.22), 0.28);
+            pynqGroup.add(pin);
         }
 
-        const rj45Cage = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.9, 0.55), metalCageMat);
-        rj45Cage.position.set(-0.9, -1.7, 0.3);
-        pynqBoardGroup.add(rj45Cage);
-
-        const usbCage = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.8, 0.5), metalCageMat);
-        usbCage.position.set(-0.1, -1.75, 0.28);
-        pynqBoardGroup.add(usbCage);
-
-        // [BOTTOM SIDE COMPONENTS - HIGH SPECIFICATION EXTENSIONS]
-        const capSilverMat = new THREE.MeshStandardMaterial({ color: 0xdddddf, metalness: 0.8, roughness: 0.2 });
-        const resistorBlackMat = new THREE.MeshStandardMaterial({ color: 0x222226, roughness: 0.6 });
-
-        // Build array grids of micro decoupling components across the underside plate
+        // [BOTTOM SIDE LAYOUTS]
+        const capSilverMat = new THREE.MeshStandardMaterial({ color: 0xdcdcdf, metalness: 0.8, roughness: 0.2 });
+        const resistorBlackMat = new THREE.MeshStandardMaterial({ color: 0x202024, roughness: 0.6 });
         for(let x = 0; x < 4; x++) {
             for(let y = 0; y < 5; y++) {
-                const isCap = (x + y) % 2 === 0;
-                const smdComp = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.08, 0.14, 0.06), 
-                    isCap ? capSilverMat : resistorBlackMat
-                );
-                smdComp.position.set(-0.8 + (x * 0.5), -1.0 + (y * 0.5), -0.1);
-                pynqBoardGroup.add(smdComp);
+                const smd = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.12, 0.05), (x+y)%2 === 0 ? capSilverMat : resistorBlackMat);
+                smd.position.set(-0.7 + (x * 0.45), -0.8 + (y * 0.45), -0.09);
+                pynqGroup.add(smd);
             }
-        }
-        // Gold trace balancing tracks on back layer
-        for(let i = 0; i < 6; i++) {
-            const backTrace = new THREE.Mesh(new THREE.PlaneGeometry(0.04, 1.5), new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8 }));
-            backTrace.position.set(0.6 - (i * 0.25), 0.8, -0.072);
-            backTrace.rotation.y = Math.PI;
-            pynqBoardGroup.add(backTrace);
         }
 
         // Lighting Matrix Context 1
-        pynqScene.add(new THREE.AmbientLight(0xffffff, 0.4));
-        const pynqSpot = new THREE.DirectionalLight(0x8b5cf6, 3.5); pynqSpot.position.set(5, 6, 5); pynqScene.add(pynqSpot);
-        const pynqCyan = new THREE.PointLight(0x00f3ff, 2.0, 15); pynqCyan.position.set(-4, 3, 3); pynqScene.add(pynqCyan);
+        pynqScene.add(new THREE.AmbientLight(0xffffff, 0.42));
+        const pynqSpot = new THREE.DirectionalLight(0x8b5cf6, 3.8); pynqSpot.position.set(5, 6, 5); pynqScene.add(pynqSpot);
+        const pynqCyan = new THREE.PointLight(0x00f3ff, 2.2, 15); pynqCyan.position.set(-4, 3, 3); pynqScene.add(pynqCyan);
 
         // -------------------------------------------------------------
-        // CONTEXT 2 ENGINE SETUP: HARDWARE DETAILED FR-4 RISC-V CORE
+        // ENGINE CONTEXT 2: HIGH-FIDELITY TRANSLUCENT FR-4 RISC-V CORE
         // -------------------------------------------------------------
         const riscvContainer = document.getElementById('riscv-canvas');
         const riscvScene = new THREE.Scene();
@@ -526,106 +538,98 @@
         riscvRenderer.setSize(riscvContainer.clientWidth, riscvContainer.clientHeight);
         riscvContainer.appendChild(riscvRenderer.domElement);
 
-        const riscvBoardGroup = new THREE.Group();
-        riscvScene.add(riscvBoardGroup);
+        const riscvGroup = new THREE.Group();
+        riscvScene.add(riscvGroup);
 
-        // FR-4 Translucent Amber Base Substrate Material Resin Layer
-        const fr4ResinMat = new THREE.MeshStandardMaterial({ color: 0x625d34, roughness: 0.4, metalness: 0.1, transparent: true, opacity: 0.9 });
-        const fr4Substrate = new THREE.Mesh(new THREE.BoxGeometry(3.1, 4.4, 0.14), fr4ResinMat);
-        riscvBoardGroup.add(fr4Substrate);
+        // Translucent Amber/Green Composite FR-4 Fiberglass Layer Matrix
+        const fr4Mat = new THREE.MeshStandardMaterial({ color: 0x5e5a32, roughness: 0.4, metalness: 0.1, transparent: true, opacity: 0.92 });
+        const fr4Substrate = new THREE.Mesh(new THREE.BoxGeometry(3.1, 4.4, 0.14), fr4Mat);
+        riscvGroup.add(fr4Substrate);
 
-        // [FRONT SIDE RISC-V COMPONENTS]
-        const processorDie = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.4, 0.18), new THREE.MeshStandardMaterial({ color: 0x111115, roughness: 0.3, metalness: 0.8 }));
-        processorDie.position.set(0, 0.5, 0.12);
-        riscvBoardGroup.add(processorDie);
+        // [FRONT SIDE LAYOUTS]
+        const RISC_VDie = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.4, 0.18), new THREE.MeshStandardMaterial({ color: 0x0f0f13, roughness: 0.3, metalness: 0.8 }));
+        RISC_VDie.position.set(0, 0.5, 0.12);
+        riscvGroup.add(RISC_VDie);
 
-        const labelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.3), new THREE.MeshBasicMaterial({ map: riscvTexture, transparent: true }));
-        labelPlate.position.set(0, 0.5, 0.22);
-        riscvBoardGroup.add(labelPlate);
+        const riscvLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.3), new THREE.MeshBasicMaterial({ map: riscvTextMap, transparent: true }));
+        riscvLabelPlate.position.set(0, 0.5, 0.22);
+        riscvGroup.add(riscvLabelPlate);
 
-        // Concentric Peripheral Gold Logic Buses Routing Tracks
-        for(let i = 0; i < 10; i++) {
-            const track = new THREE.Mesh(new THREE.PlaneGeometry(0.03, 1.1), new THREE.MeshStandardMaterial({ color: 0xdfba4e, metalness: 0.9 }));
-            track.position.set(-0.8 + (i * 0.18), -0.5, 0.072);
-            riscvBoardGroup.add(track);
+        // Bus trace logic pipelines
+        for(let i = 0; i < 9; i++) {
+            const goldTrack = new THREE.Mesh(new THREE.PlaneGeometry(0.03, 1.2), new THREE.MeshStandardMaterial({ color: 0xe0bc4f, metalness: 0.9 }));
+            goldTrack.position.set(-0.75 + (i * 0.18), -0.4, 0.072);
+            riscvGroup.add(goldTrack);
         }
         for(let m = 0; m < 3; m++) {
-            const memIC = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.75, 0.1), new THREE.MeshStandardMaterial({ color: 0x15151a, roughness: 0.4 }));
-            memIC.position.set(-0.7 + (m * 0.7), -1.4, 0.1);
-            riscvBoardGroup.add(memIC);
+            const extMem = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.1), new THREE.MeshStandardMaterial({ color: 0x141419, roughness: 0.4 }));
+            extMem.position.set(-0.6 + (m * 0.6), -1.3, 0.1);
+            riscvGroup.add(extMem);
         }
 
-        // [BOTTOM SIDE RISC-V COMPONENTS]
-        // Reverse Sided Storage IC Packages & Decoupling Network Arrays
+        // [BOTTOM SIDE LAYOUTS]
         for(let m = 0; m < 2; m++) {
-            const backMem = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.75, 0.1), new THREE.MeshStandardMaterial({ color: 0x121216, roughness: 0.4 }));
-            backMem.position.set(-0.4 + (m * 0.8), 0.5, -0.1);
-            backMem.rotation.y = Math.PI;
-            riscvBoardGroup.add(backMem);
+            const backIC = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.1), new THREE.MeshStandardMaterial({ color: 0x111115, roughness: 0.4 }));
+            backIC.position.set(-0.4 + (m * 0.8), 0.5, -0.1);
+            backIC.rotation.y = Math.PI;
+            riscvGroup.add(backIC);
         }
-        for(let c = 0; c < 12; c++) {
+        for(let c = 0; c < 10; c++) {
             const backCap = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, 0.05), capSilverMat);
-            backCap.position.set(-0.9 + (c * 0.16), -1.0, -0.09);
-            riscvBoardGroup.add(backCap);
+            backCap.position.set(-0.75 + (c * 0.16), -0.8, -0.09);
+            riscvGroup.add(backCap);
         }
 
         // Lighting Matrix Context 2
-        riscvScene.add(new THREE.AmbientLight(0xffffff, 0.4));
-        const riscvSpot = new THREE.DirectionalLight(0x8b5cf6, 3.5); riscvSpot.position.set(5, 6, 5); riscvScene.add(riscvSpot);
-        const riscvOrange = new THREE.PointLight(0xff5500, 2.0, 15); riscvOrange.position.set(4, -3, 3); riscvScene.add(riscvOrange);
+        riscvScene.add(new THREE.AmbientLight(0xffffff, 0.42));
+        const riscvSpot = new THREE.DirectionalLight(0x8b5cf6, 3.8); riscvSpot.position.set(5, 6, 5); riscvScene.add(riscvSpot);
+        const riscvOrange = new THREE.PointLight(0xff5500, 2.2, 15); riscvOrange.position.set(4, -3, 3); riscvScene.add(riscvOrange);
 
-        // Set baseline idle angles
-        pynqBoardGroup.rotation.set(0.3, -0.4, 0.05);
-        riscvBoardGroup.rotation.set(0.2, -0.3, -0.05);
+        // Set baseline rotation indices
+        pynqGroup.rotation.set(0.3, -0.4, 0.05);
+        riscvGroup.rotation.set(0.2, -0.3, -0.05);
 
         // -------------------------------------------------------------
-        // UNIFIED ENGINE EXECUTION RENDER LOOP
+        // UNIFIED ENGINE MASTER RENDER LOOP
         // -------------------------------------------------------------
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
 
             const time = Date.now() * 0.001;
 
-            // Compute precise scroll bounding metrics individually per section track container
-            const heroRect = document.getElementById('hero-section').getBoundingClientRect();
-            const projectRect = document.getElementById('projects-section').getBoundingClientRect();
-            const viewHeight = window.innerHeight;
+            // Extract real-time screen coordinates per page container bounds
+            const page1Rect = document.getElementById('core-silicon-page').getBoundingClientRect();
+            const page2Rect = document.getElementById('miscellaneous-page').getBoundingClientRect();
 
-            // --- PYNQ-Z2 HARDWARE FRAME ROTATION RUNTIMES ---
-            // Maps the progress across Section 1 to calculate continuous rolling factors
-            let heroProgress = (window.scrollY) / (heroRect.height || 1);
-            heroProgress = Math.max(0, Math.min(1, heroProgress));
+            // --- CONTEXT 1: PYNQ-Z2 SCROLL TRACK RUNTIMES ---
+            let page1Progress = window.scrollY / (page1Rect.height || 1);
+            page1Progress = Math.max(0, Math.min(1, page1Progress));
 
-            // Continuous frame-locked full 360 geometric flip loops matching scroll metrics
-            pynqBoardGroup.rotation.x = 0.3 + (heroProgress * Math.PI * 2.0) + (mouseY * 0.3);
-            pynqBoardGroup.rotation.y = -0.4 + (heroProgress * Math.PI * 1.5) + (mouseX * 0.3);
-            pynqBoardGroup.rotation.z = 0.05 + (Math.sin(time * 0.4) * 0.05);
+            pynqGroup.rotation.x = 0.3 + (page1Progress * Math.PI * 2.0) + (mouseY * 0.3);
+            pynqGroup.rotation.y = -0.4 + (page1Progress * Math.PI * 1.5) + (mouseX * 0.3);
+            pynqGroup.rotation.z = 0.05 + (Math.sin(time * 0.4) * 0.04);
 
-            // --- RISC-V COMPOSITE HARDWARE ROTATION RUNTIMES ---
-            // Maps the tracking bounds directly while Section 2 is processing visible layout paths
-            let projectProgress = (window.scrollY - (heroRect.height)) / (projectRect.height || 1);
-            projectProgress = Math.max(0, Math.min(1, projectProgress));
+            // --- CONTEXT 2: RISC-V SCROLL TRACK RUNTIMES ---
+            let page2Progress = (window.scrollY - page1Rect.height) / (page2Rect.height || 1);
+            page2Progress = Math.max(0, Math.min(1, page2Progress));
 
-            // Continuous frame-locked tumbling loop matching scroll metrics safely inside frame bounds
-            riscvBoardGroup.rotation.x = 0.2 + (projectProgress * Math.PI * 2.0) + (mouseY * 0.3);
-            riscvBoardGroup.rotation.y = -0.3 + (projectProgress * Math.PI * 1.5) + (mouseX * 0.3);
-            riscvBoardGroup.rotation.z = -0.05 + (Math.cos(time * 0.4) * 0.05);
+            riscvGroup.rotation.x = 0.2 + (page2Progress * Math.PI * 2.0) + (mouseY * 0.3);
+            riscvGroup.rotation.y = -0.3 + (page2Progress * Math.PI * 1.5) + (mouseX * 0.3);
+            riscvGroup.rotation.z = -0.05 + (Math.cos(time * 0.4) * 0.04);
 
-            // Execute context specific draw render updates
+            // Draw graphic updates to screens
             pynqRenderer.render(pynqScene, pynqCamera);
             riscvRenderer.render(riscvScene, riscvCamera);
         }
 
         masterRenderEngineLoop();
 
-        // Global Layout Adaptation Window Resize Listener
+        // Screen Adaptations Handler
         window.addEventListener('resize', () => {
-            // Adaptive configuration calculation Context 1
             pynqCamera.aspect = pynqContainer.clientWidth / pynqContainer.clientHeight;
             pynqCamera.updateProjectionMatrix();
             pynqRenderer.setSize(pynqContainer.clientWidth, pynqContainer.clientHeight);
 
-            // Adaptive configuration calculation Context 2
             riscvCamera.aspect = riscvContainer.clientWidth / riscvContainer.clientHeight;
             riscvCamera.updateProjectionMatrix();
             riscvRenderer.setSize(riscvContainer.clientWidth, riscvContainer.clientHeight);
