@@ -105,14 +105,13 @@
         .canvas-3d-panel { width: 42vw; height: 100vh; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; z-index: 5; pointer-events: none; }
         .canvas-viewport { width: 100%; height: 85vh; }
 
-        /* Drag Hint Pulse */
+        /* Drag Hint Settings */
         .drag-hint {
             position: absolute; bottom: 10%; width: 100%; text-align: center;
             font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan);
-            letter-spacing: 3px; opacity: 0.6; pointer-events: none;
-            animation: pulse 2.5s infinite;
+            letter-spacing: 3px; opacity: 0; pointer-events: none;
+            transition: opacity 1s ease; /* Smooth fade effect */
         }
-        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; text-shadow: 0 0 8px var(--accent-cyan); } 100% { opacity: 0.3; } }
 
         .hero-tag { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-cyan); border: 1px solid var(--accent-purple); padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 2rem; background: rgba(139, 92, 246, 0.05); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); align-self: flex-start; }
         h1 { font-size: 3.8rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.5rem; background: linear-gradient(to right, #ffffff, #cbd5e1, #ffedd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -267,7 +266,7 @@
             
             <div class="canvas-3d-panel">
                 <div id="pynq-canvas" class="canvas-viewport"></div>
-                <div class="drag-hint">[ CLICK & DRAG TO INSPECT ]</div>
+                <div class="drag-hint">[ DRAG ME ]</div>
             </div>
         </div>
 
@@ -290,7 +289,7 @@
 
             <div class="canvas-3d-panel">
                 <div id="riscv-canvas" class="canvas-viewport"></div>
-                <div class="drag-hint" style="color: var(--accent-orange);">[ CLICK & DRAG TO INSPECT ]</div>
+                <div class="drag-hint" style="color: var(--accent-orange);">[ DRAG ME ]</div>
             </div>
         </div>
     </main>
@@ -365,15 +364,15 @@
     </footer>
 
     <script>
-        // --- TERMINAL BOOT SEQUENCE ---
+        // --- TERMINAL BOOT SEQUENCE & DRAG HINT LOGIC ---
         const bootScreen = document.getElementById('boot-screen');
         const bootContainer = document.getElementById('boot-container');
         const bootLines = [
-            "Initializing hardware abstraction layer...",
-            "Loading WebGL context...",
-            "Mounting file system...",
-            "Fetching Core Registry...",
-            "System boot complete. Welcome, User."
+            "Elaborating design...",
+            "Running Synthesis...",
+            "Running Implementation...",
+            "Generating Bitstream...",
+            "FPGA configured successfully. Welcome."
         ];
         
         let bootDelay = 100;
@@ -390,7 +389,18 @@
 
         setTimeout(() => {
             bootScreen.style.opacity = '0';
-            setTimeout(() => bootScreen.style.display = 'none', 600);
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+                
+                // Show "Drag Me" hint after boot, then fade out after 2s
+                const hints = document.querySelectorAll('.drag-hint');
+                hints.forEach(hint => hint.style.opacity = '0.8');
+                
+                setTimeout(() => {
+                    hints.forEach(hint => hint.style.opacity = '0');
+                }, 2000);
+
+            }, 600);
         }, bootDelay + 400);
 
         // --- GPU-ACCELERATED CANVAS MATRIX BACKGROUND ---
@@ -727,7 +737,6 @@
         // =============================================================
         let currentScrollProgress = 0;
         
-        // Smart Rendering Observers
         let isPynqVisible = true;
         let isRiscvVisible = false;
         
@@ -736,7 +745,7 @@
                 if (entry.target.id === 'pynq-canvas') isPynqVisible = entry.isIntersecting;
                 if (entry.target.id === 'riscv-canvas') isRiscvVisible = entry.isIntersecting;
             });
-        }, { threshold: 0.01 }); // Trigger as soon as 1% is visible
+        }, { threshold: 0.01 }); 
         
         canvasObserver.observe(document.getElementById('pynq-canvas'));
         canvasObserver.observe(document.getElementById('riscv-canvas'));
@@ -744,7 +753,6 @@
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
             
-            // Global Smoothing & Pointer Math
             mouseX += (targetMouseX - mouseX) * 0.05; mouseY += (targetMouseY - mouseY) * 0.05;
             userRotX += (targetUserRotX - userRotX) * 0.08; userRotY += (targetUserRotY - userRotY) * 0.08;
             
@@ -752,7 +760,6 @@
             let targetScrollProgress = window.scrollY / maxScroll;
             currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.08; 
 
-            // Only update and render PYNQ if it's on screen
             if (isPynqVisible) {
                 const siliconSection = document.getElementById('core-silicon-page');
                 const smoothedScrollY = currentScrollProgress * maxScroll;
@@ -764,7 +771,6 @@
                 pynqRenderer.render(pynqScene, pynqCamera);
             }
 
-            // Only update and render RISC-V if it's on screen
             if (isRiscvVisible) {
                 let page2Progress = Math.max(0, (currentScrollProgress - 0.3) * 1.42); 
                 page2Progress = Math.min(1, page2Progress);
