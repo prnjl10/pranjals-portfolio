@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pranjal's Portfolio</title>
+    
+    <title>Pranjal's Portfolio | Silicon Architecture</title>
+    <meta name="description" content="M.S. Electrical & Computer Engineer specializing in RTL Design, Design Verification (UVM), FPGA Acceleration, and PCB Design.">
+    <meta property="og:title" content="Pranjal Trivedi | Silicon Architecture Portfolio">
+    <meta property="og:description" content="Interactive 3D Hardware Engineering Portfolio. RISC-V, UVM, FPGA Development, and more.">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect x=%2220%22 y=%2220%22 width=%2260%22 height=%2260%22 fill=%22%2300f3ff%22 rx=%2210%22/><rect x=%2210%22 y=%2230%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/><rect x=%2210%22 y=%2260%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/><rect x=%2280%22 y=%2230%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/><rect x=%2280%22 y=%2260%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/><rect x=%2230%22 y=%2210%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/><rect x=%2260%22 y=%2210%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/><rect x=%2230%22 y=%2280%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/><rect x=%2260%22 y=%2280%22 width=%2210%22 height=%2210%22 fill=%22%2300f3ff%22/></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <style>
         /* High-Contrast Color Theory Palette */
         :root {
@@ -16,31 +29,42 @@
             --accent-purple: #8b5cf6; 
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
+            --font-main: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'Fira Code', monospace;
         }
 
-        /* Fix for navigation scroll framing */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 120px; 
-        }
+        /* Custom Cyan Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00c3cc; }
 
+        html { scroll-behavior: smooth; scroll-padding-top: 120px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            overflow-x: hidden; position: relative;
+            background-color: var(--bg-deep); color: var(--text-primary);
+            font-family: var(--font-main); overflow-x: hidden; position: relative;
         }
 
-        /* Dull digital green binary stream */
-        #binary-stream-bg {
+        /* Boot Screen Overlay */
+        #boot-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 1; pointer-events: none; opacity: 0.35; 
-            font-family: monospace; font-size: 13px; color: #357a38; overflow: hidden;
+            background-color: #000; z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: flex-start; padding: 5%;
+            font-family: var(--font-mono); color: #357a38; font-size: 1.1rem;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .boot-line { margin-bottom: 0.5rem; opacity: 0; transform: translateY(10px); transition: all 0.2s ease; }
+        .boot-line.visible { opacity: 1; transform: translateY(0); }
+
+        /* GPU-Accelerated Canvas Background */
+        #binary-canvas-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 1; pointer-events: none; opacity: 0.3; 
         }
 
-        /* --- ENHANCED HEADER & NAVIGATION --- */
+        /* Header & Navigation */
         header {
             position: fixed; top: 0; left: 0; width: 100%; display: flex;
             justify-content: space-between; align-items: center; padding: 1.5rem 4rem;
@@ -54,23 +78,20 @@
             box-shadow: 0 0 12px var(--accent-cyan); transition: width 0.1s ease-out;
         }
 
-        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; color: #ffffff; text-decoration: none; position: relative; z-index: 101;}
+        .logo { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 600; letter-spacing: 2px; color: #ffffff; text-decoration: none; position: relative; z-index: 101;}
         .logo span { color: var(--accent-cyan); }
         
         nav { display: flex; align-items: center; }
-        
         nav a { 
             color: var(--text-secondary); text-decoration: none; margin-left: 2.5rem; 
             font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s;
-            position: relative; padding: 0.5rem 0;
+            position: relative; padding: 0.5rem 0; font-family: var(--font-mono);
         }
-        
         nav a::after {
             content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px;
             background: var(--accent-cyan); transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 0 8px var(--accent-cyan);
         }
-
         nav a:hover, nav a.active { color: #ffffff; }
         nav a:hover::after, nav a.active::after { width: 100%; }
 
@@ -84,9 +105,18 @@
         .canvas-3d-panel { width: 42vw; height: 100vh; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; z-index: 5; pointer-events: none; }
         .canvas-viewport { width: 100%; height: 85vh; }
 
-        .hero-tag { display: inline-block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-cyan); border: 1px solid var(--accent-purple); padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 2rem; background: rgba(139, 92, 246, 0.05); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); align-self: flex-start; }
-        h1 { font-size: 4rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem; background: linear-gradient(to right, #ffffff, #cbd5e1, #ffedd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-desc { font-size: 1.2rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 3rem; }
+        /* Drag Hint Pulse */
+        .drag-hint {
+            position: absolute; bottom: 10%; width: 100%; text-align: center;
+            font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan);
+            letter-spacing: 3px; opacity: 0.6; pointer-events: none;
+            animation: pulse 2.5s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; text-shadow: 0 0 8px var(--accent-cyan); } 100% { opacity: 0.3; } }
+
+        .hero-tag { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-cyan); border: 1px solid var(--accent-purple); padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 2rem; background: rgba(139, 92, 246, 0.05); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); align-self: flex-start; }
+        h1 { font-size: 3.8rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.5rem; background: linear-gradient(to right, #ffffff, #cbd5e1, #ffedd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { font-size: 1.15rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 3rem; font-weight: 300; }
 
         .cta-group { display: flex; gap: 1.2rem; flex-wrap: wrap; }
         .btn { display: inline-flex; align-items: center; padding: 0.9rem 2rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.3s; cursor: pointer; }
@@ -94,7 +124,6 @@
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 30px rgba(0, 243, 255, 0.5); }
         .btn-secondary { border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-primary); background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(5px); }
         .btn-secondary:hover { border-color: var(--accent-cyan); transform: translateY(-3px); }
-
         .btn-more { margin-top: 1rem; align-self: flex-start; border: 1px solid var(--accent-cyan); color: var(--accent-cyan); background: transparent; box-shadow: 0 0 15px rgba(0, 243, 255, 0.05); }
         .btn-more:hover { background: rgba(0, 243, 255, 0.08); box-shadow: 0 0 25px rgba(0, 243, 255, 0.2); transform: translateY(-2px); }
 
@@ -107,27 +136,27 @@
         .category-title { font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 0.6rem; }
         .category-dot { width: 6px; height: 6px; background: var(--accent-orange); border-radius: 50%; box-shadow: 0 0 8px var(--accent-orange); }
         .category-tokens { display: flex; flex-wrap: wrap; gap: 0.65rem; }
-        .token { font-size: 0.9rem; background: rgba(255,255,255,0.03); color: var(--text-secondary); padding: 0.4rem 1rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); transition: all 0.2s; }
+        .token { font-family: var(--font-mono); font-size: 0.85rem; background: rgba(255,255,255,0.03); color: var(--text-secondary); padding: 0.4rem 1rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); transition: all 0.2s; }
         .token:hover { color: #ffffff; background: rgba(0, 243, 255, 0.05); border-color: var(--accent-cyan); }
 
         .project-stack { display: flex; flex-direction: column; gap: 3rem; width: 100%; padding: 6rem 0; }
         .project-card { background: linear-gradient(145deg, var(--bg-card), var(--bg-surface)); border: 1px solid rgba(255,255,255,0.02); border-left: 4px solid var(--accent-purple); padding: 2.5rem; border-radius: 0 12px 12px 0; transition: all 0.4s; }
         .project-card:hover { transform: translateY(-5px); border-left-color: var(--accent-cyan); border-color: rgba(0, 243, 255, 0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .project-meta { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-orange); margin-bottom: 0.75rem; font-weight: 600; }
+        .project-meta { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-orange); margin-bottom: 0.75rem; font-weight: 600; }
         .project-card h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; }
-        .project-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .project-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300; }
         .tag-group { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .tag { font-size: 0.75rem; background: rgba(255,255,255,0.02); color: #cbd5e1; padding: 0.3rem 0.8rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
+        .tag { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(255,255,255,0.02); color: #cbd5e1; padding: 0.3rem 0.8rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
         .project-link { display: inline-block; color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: 0.2s; }
         .project-link:hover { color: #ffffff; transform: translateX(3px); }
 
         .project-subpage { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(2, 2, 5, 0.98); z-index: 500; overflow-y: auto; padding: 6rem 10% 4rem 10%; display: none; opacity: 0; transition: opacity 0.4s ease; }
         .project-subpage.active { display: block; opacity: 1; }
-        .close-btn { position: fixed; top: 2rem; right: 4rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; padding: 0.6rem 1.5rem; border-radius: 4px; cursor: pointer; font-weight: 600; transition: all 0.2s; z-index: 600; }
+        .close-btn { position: fixed; top: 2rem; right: 4rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; padding: 0.6rem 1.5rem; border-radius: 4px; cursor: pointer; font-weight: 600; transition: all 0.2s; z-index: 600; font-family: var(--font-mono); font-size: 0.9rem;}
         .close-btn:hover { border-color: var(--accent-orange); background: rgba(255, 85, 0, 0.1); }
         .subpage-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; margin-top: 3rem; max-width: 900px; padding-bottom: 5rem; }
 
-        footer { padding: 4rem 8%; background-color: #010103; border-top: 1px solid rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center; color: #475569; font-size: 0.85rem; position: relative; z-index: 20; }
+        footer { padding: 4rem 8%; background-color: #010103; border-top: 1px solid rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center; color: #475569; font-size: 0.85rem; position: relative; z-index: 20; font-family: var(--font-mono); }
 
         @media (max-width: 1024px) {
             header { padding: 1.2rem 1.5rem; }
@@ -160,10 +189,14 @@
 </head>
 <body>
 
-    <div id="binary-stream-bg"></div>
+    <div id="boot-screen">
+        <div id="boot-container"></div>
+    </div>
+
+    <canvas id="binary-canvas-bg"></canvas>
 
     <header>
-        <a href="#" class="logo">PRANJAL TRIVEDI<span>.</span></a>
+        <a href="#" class="logo">PRANJAL TRIVEDI<span>_</span></a>
         
         <div class="menu-toggle" id="mobile-menu">
             <span></span><span></span><span></span>
@@ -171,7 +204,7 @@
 
         <nav id="nav-menu">
             <a href="#core-silicon-page" class="nav-link active">Silicon Projects</a>
-            <a href="#miscellaneous-page" class="nav-link">Miscellaneous Projects</a>
+            <a href="#miscellaneous-page" class="nav-link">Miscellaneous</a>
             <a href="mailto:prtrivedi@ucdavis.edu" class="nav-link">Contact</a>
         </nav>
 
@@ -234,6 +267,7 @@
             
             <div class="canvas-3d-panel">
                 <div id="pynq-canvas" class="canvas-viewport"></div>
+                <div class="drag-hint">[ CLICK & DRAG TO INSPECT ]</div>
             </div>
         </div>
 
@@ -256,6 +290,7 @@
 
             <div class="canvas-3d-panel">
                 <div id="riscv-canvas" class="canvas-viewport"></div>
+                <div class="drag-hint" style="color: var(--accent-orange);">[ CLICK & DRAG TO INSPECT ]</div>
             </div>
         </div>
     </main>
@@ -330,6 +365,73 @@
     </footer>
 
     <script>
+        // --- TERMINAL BOOT SEQUENCE ---
+        const bootScreen = document.getElementById('boot-screen');
+        const bootContainer = document.getElementById('boot-container');
+        const bootLines = [
+            "Initializing hardware abstraction layer...",
+            "Loading WebGL context...",
+            "Mounting file system...",
+            "Fetching Core Registry...",
+            "System boot complete. Welcome, User."
+        ];
+        
+        let bootDelay = 100;
+        bootLines.forEach((line, index) => {
+            setTimeout(() => {
+                const p = document.createElement('div');
+                p.className = 'boot-line';
+                p.innerText = `> ${line}`;
+                bootContainer.appendChild(p);
+                setTimeout(() => p.classList.add('visible'), 50);
+            }, bootDelay);
+            bootDelay += 300;
+        });
+
+        setTimeout(() => {
+            bootScreen.style.opacity = '0';
+            setTimeout(() => bootScreen.style.display = 'none', 600);
+        }, bootDelay + 400);
+
+        // --- GPU-ACCELERATED CANVAS MATRIX BACKGROUND ---
+        const canvas = document.getElementById('binary-canvas-bg');
+        const ctx = canvas.getContext('2d');
+        
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        
+        const fontSize = 14;
+        let columns = Math.floor(width / fontSize);
+        let drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(2, 2, 5, 0.08)'; // Trail effect
+            ctx.fillRect(0, 0, width, height);
+            
+            ctx.fillStyle = '#357a38'; // Authentic Dull Green
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = Math.random() > 0.5 ? "1" : "0";
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 50);
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / fontSize);
+            drops = [];
+            for (let x = 0; x < columns; x++) drops[x] = 1;
+        });
+
         // --- NAVIGATION & SCROLL TRACKING LOGIC ---
         const scrollProgress = document.getElementById('scroll-progress');
         const sections = document.querySelectorAll('.section-container');
@@ -370,7 +472,6 @@
             });
         });
 
-        // --- OVERLAY LOGIC ---
         function openSubpage(id) {
             document.getElementById(id).style.display = 'block';
             setTimeout(() => document.getElementById(id).classList.add('active'), 10);
@@ -382,55 +483,17 @@
             document.body.style.overflow = 'auto';
         }
 
-        // --- BINARY STREAM LOGIC ---
-        const binaryBg = document.getElementById('binary-stream-bg');
-        let totalColumns = Math.floor(window.innerWidth / 20);
-
-        function generateBinaryColumns() {
-            binaryBg.innerHTML = '';
-            totalColumns = Math.floor(window.innerWidth / 20);
-            for (let i = 0; i < totalColumns; i++) {
-                const streamEl = document.createElement('div');
-                streamEl.style.position = 'absolute';
-                streamEl.style.left = `${i * 20}px`;
-                streamEl.style.top = `${Math.random() * -300}px`;
-                streamEl.style.whiteSpace = 'pre';
-                streamEl.id = `bin-col-${i}`;
-                binaryBg.appendChild(streamEl);
-            }
-        }
-        generateBinaryColumns();
-
-        function runBinaryClockStream() {
-            for (let i = 0; i < totalColumns; i++) {
-                const el = document.getElementById(`bin-col-${i}`);
-                if (!el) continue;
-                let currentText = el.innerText.split('\n');
-                if (currentText.length > (window.innerWidth < 768 ? 25 : 55)) currentText.shift();
-                currentText.push(Math.random() > 0.5 ? "1" : "0");
-                el.innerText = currentText.join('\n');
-                let currentTop = parseFloat(el.style.top || 0);
-                if (currentTop > window.innerHeight + 400) {
-                    el.style.top = `${-400}px`; el.innerText = "";
-                } else {
-                    el.style.top = `${currentTop + 2.4}px`;
-                }
-            }
-            setTimeout(runBinaryClockStream, 40);
-        }
-        runBinaryClockStream();
-
+        // --- 3D PHYSICS SYSTEM SETUP ---
         function createSilkscreenTexture(text) {
-            const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 128;
-            const ctx = canvas.getContext('2d'); ctx.clearRect(0,0,512,128);
-            ctx.font = "bold 90px monospace"; ctx.fillStyle = "#ffffff"; ctx.textAlign = "center";
-            ctx.textBaseline = "middle"; ctx.fillText(text, 256, 64);
-            return new THREE.CanvasTexture(canvas);
+            const canv = document.createElement('canvas'); canv.width = 512; canv.height = 128;
+            const c = canv.getContext('2d'); c.clearRect(0,0,512,128);
+            c.font = "bold 90px monospace"; c.fillStyle = "#ffffff"; c.textAlign = "center";
+            c.textBaseline = "middle"; c.fillText(text, 256, 64);
+            return new THREE.CanvasTexture(canv);
         }
         const zynqTextMap = createSilkscreenTexture("ZYNQ");
         const riscvTextMap = createSilkscreenTexture("RISC-V");
 
-        // --- 3D PHYSICS SYSTEM ---
         let mouseX = 0, mouseY = 0; 
         let targetMouseX = 0, targetMouseY = 0;
         let isDragging = false;
@@ -438,10 +501,7 @@
         let userRotX = 0, targetUserRotX = 0;
         let userRotY = 0, targetUserRotY = 0;
 
-        window.addEventListener('mousedown', (e) => {
-            isDragging = true; previousMouseX = e.clientX; previousMouseY = e.clientY;
-        });
-
+        window.addEventListener('mousedown', (e) => { isDragging = true; previousMouseX = e.clientX; previousMouseY = e.clientY; });
         window.addEventListener('mousemove', (e) => {
             targetMouseX = (e.clientX / window.innerWidth) - 0.5;
             targetMouseY = (e.clientY / window.innerHeight) - 0.5;
@@ -451,16 +511,12 @@
                 previousMouseX = e.clientX; previousMouseY = e.clientY;
             }
         });
-
         window.addEventListener('mouseup', () => { isDragging = false; });
         window.addEventListener('mouseleave', () => { isDragging = false; });
 
         window.addEventListener('touchstart', (e) => {
-            if(e.touches.length === 1) {
-                isDragging = true; previousMouseX = e.touches[0].clientX; previousMouseY = e.touches[0].clientY;
-            }
+            if(e.touches.length === 1) { isDragging = true; previousMouseX = e.touches[0].clientX; previousMouseY = e.touches[0].clientY; }
         }, { passive: true });
-
         window.addEventListener('touchmove', (e) => {
             if(e.touches.length === 1) {
                 targetMouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
@@ -472,7 +528,6 @@
                 }
             }
         }, { passive: true });
-
         window.addEventListener('touchend', () => { isDragging = false; });
 
         const capSilverMat = new THREE.MeshStandardMaterial({ color: 0xdcdcdf, metalness: 0.8, roughness: 0.2 });
@@ -571,7 +626,6 @@
             }
         }
 
-        // Bottom Components
         for(let i = 0; i < 20; i++) {
             const smd = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.12, 0.04), (i % 3 === 0) ? resistorBlackMat : capSilverMat);
             smd.position.set(-1.2 + (Math.random() * 2.4), -1.8 + (Math.random() * 3.6), -0.09); pynqGroup.add(smd);
@@ -669,50 +723,62 @@
         const riscvOrange = new THREE.PointLight(0xff5500, 2.2, 15); riscvOrange.position.set(4, -3, 3); riscvScene.add(riscvOrange);
 
         // =============================================================
-        // MASTER PHYSICS ENGINE
+        // MASTER PHYSICS ENGINE & SMART RENDERING
         // =============================================================
         let currentScrollProgress = 0;
+        
+        // Smart Rendering Observers
+        let isPynqVisible = true;
+        let isRiscvVisible = false;
+        
+        const canvasObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.target.id === 'pynq-canvas') isPynqVisible = entry.isIntersecting;
+                if (entry.target.id === 'riscv-canvas') isRiscvVisible = entry.isIntersecting;
+            });
+        }, { threshold: 0.01 }); // Trigger as soon as 1% is visible
+        
+        canvasObserver.observe(document.getElementById('pynq-canvas'));
+        canvasObserver.observe(document.getElementById('riscv-canvas'));
 
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
             
-            // Pointer Smoothing
-            mouseX += (targetMouseX - mouseX) * 0.05;
-            mouseY += (targetMouseY - mouseY) * 0.05;
-            userRotX += (targetUserRotX - userRotX) * 0.08;
-            userRotY += (targetUserRotY - userRotY) * 0.08;
-
-            // Global Scroll LERP
+            // Global Smoothing & Pointer Math
+            mouseX += (targetMouseX - mouseX) * 0.05; mouseY += (targetMouseY - mouseY) * 0.05;
+            userRotX += (targetUserRotX - userRotX) * 0.08; userRotY += (targetUserRotY - userRotY) * 0.08;
+            
             const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
             let targetScrollProgress = window.scrollY / maxScroll;
             currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.08; 
 
-            // --- Board 1 (PYNQ) - Dynamic Tracking of Silicon Section ---
-            const siliconSection = document.getElementById('core-silicon-page');
-            const smoothedScrollY = currentScrollProgress * maxScroll;
-            let page1Progress = Math.max(0, Math.min(1, smoothedScrollY / (siliconSection.offsetHeight || 1)));
-            
-            pynqGroup.rotation.x = (mouseY * 0.25) + userRotX;
-            // Spins fully dynamically based on section height! (Math.PI * 2 = 360 degrees)
-            pynqGroup.rotation.y = (page1Progress * Math.PI * 2) + (mouseX * 0.25) + userRotY;
-            pynqGroup.rotation.z = 0;
+            // Only update and render PYNQ if it's on screen
+            if (isPynqVisible) {
+                const siliconSection = document.getElementById('core-silicon-page');
+                const smoothedScrollY = currentScrollProgress * maxScroll;
+                let page1Progress = Math.max(0, Math.min(1, smoothedScrollY / (siliconSection.offsetHeight || 1)));
+                
+                pynqGroup.rotation.x = (mouseY * 0.25) + userRotX;
+                pynqGroup.rotation.y = (page1Progress * Math.PI * 2) + (mouseX * 0.25) + userRotY;
+                pynqGroup.rotation.z = 0;
+                pynqRenderer.render(pynqScene, pynqCamera);
+            }
 
-            // --- Board 2 (RISC-V) ---
-            let page2Progress = Math.max(0, (currentScrollProgress - 0.3) * 1.42); 
-            page2Progress = Math.min(1, page2Progress);
-            
-            riscvGroup.rotation.x = (mouseY * 0.25) + userRotX;
-            riscvGroup.rotation.y = ((1 - page2Progress) * Math.PI) + (mouseX * 0.25) + userRotY;
-            riscvGroup.rotation.z = 0;
-
-            pynqRenderer.render(pynqScene, pynqCamera);
-            riscvRenderer.render(riscvScene, riscvCamera);
+            // Only update and render RISC-V if it's on screen
+            if (isRiscvVisible) {
+                let page2Progress = Math.max(0, (currentScrollProgress - 0.3) * 1.42); 
+                page2Progress = Math.min(1, page2Progress);
+                
+                riscvGroup.rotation.x = (mouseY * 0.25) + userRotX;
+                riscvGroup.rotation.y = ((1 - page2Progress) * Math.PI) + (mouseX * 0.25) + userRotY;
+                riscvGroup.rotation.z = 0;
+                riscvRenderer.render(riscvScene, riscvCamera);
+            }
         }
 
         masterRenderEngineLoop();
 
         window.addEventListener('resize', () => {
-            generateBinaryColumns();
             pynqCamera.aspect = pynqContainer.clientWidth / pynqContainer.clientHeight;
             pynqCamera.updateProjectionMatrix(); pynqRenderer.setSize(pynqContainer.clientWidth, pynqContainer.clientHeight);
 
