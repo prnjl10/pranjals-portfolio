@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pranjal Trivedi's Portfolio</title>
+    <title>Pranjal's Portfolio</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         /* High-Contrast Color Theory Palette */
@@ -18,38 +18,64 @@
             --text-secondary: #94a3b8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Fix for navigation scroll framing */
+        html {
             scroll-behavior: smooth;
+            scroll-padding-top: 120px; 
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-primary);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            overflow-x: hidden;
-            position: relative;
+            overflow-x: hidden; position: relative;
         }
 
+        /* Dull digital green binary stream */
         #binary-stream-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 1; pointer-events: none; opacity: 0.35; 
-            font-family: monospace; font-size: 13px; color: #475569; overflow: hidden;
+            font-family: monospace; font-size: 13px; color: #357a38; overflow: hidden;
         }
 
+        /* --- ENHANCED HEADER & NAVIGATION --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; display: flex;
             justify-content: space-between; align-items: center; padding: 1.5rem 4rem;
-            z-index: 100; background: linear-gradient(to bottom, rgba(2,2,5,0.8), rgba(2,2,5,0));
-            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            z-index: 100; background: linear-gradient(to bottom, rgba(2,2,5,0.95), rgba(2,2,5,0.4));
+            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; color: #ffffff; text-decoration: none; }
+        #scroll-progress {
+            position: absolute; bottom: -1px; left: 0; height: 2px;
+            background: var(--accent-cyan); width: 0%;
+            box-shadow: 0 0 12px var(--accent-cyan); transition: width 0.1s ease-out;
+        }
+
+        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; color: #ffffff; text-decoration: none; position: relative; z-index: 101;}
         .logo span { color: var(--accent-cyan); }
-        nav a { color: var(--text-secondary); text-decoration: none; margin-left: 2.5rem; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s; }
-        nav a:hover { color: var(--accent-cyan); }
+        
+        nav { display: flex; align-items: center; }
+        
+        nav a { 
+            color: var(--text-secondary); text-decoration: none; margin-left: 2.5rem; 
+            font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s;
+            position: relative; padding: 0.5rem 0;
+        }
+        
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px;
+            background: var(--accent-cyan); transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        nav a:hover, nav a.active { color: #ffffff; }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 101; }
+        .menu-toggle span { display: block; width: 25px; height: 2px; background: #fff; transition: 0.3s; }
 
         main { position: relative; z-index: 2; width: 100%; }
 
@@ -116,6 +142,20 @@
             .close-btn { top: 1rem; right: 1.5rem; padding: 0.4rem 1rem; font-size: 0.85rem; }
             footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2.5rem 5%; }
         }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            nav {
+                position: absolute; top: 100%; left: 0; width: 100%; background: rgba(6, 6, 12, 0.98);
+                flex-direction: column; align-items: flex-start; padding: 0; height: 0; overflow: hidden;
+                transition: all 0.3s ease; backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            nav.open { height: 200px; padding: 1.5rem 2rem; }
+            nav a { margin: 0.8rem 0; font-size: 1.1rem; }
+            .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .menu-toggle.open span:nth-child(2) { opacity: 0; }
+            .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        }
     </style>
 </head>
 <body>
@@ -124,11 +164,18 @@
 
     <header>
         <a href="#" class="logo">PRANJAL TRIVEDI<span>.</span></a>
-        <nav>
-            <a href="#core-silicon-page">Silicon Projects</a>
-            <a href="#miscellaneous-page">Miscellaneous Projects</a>
-            <a href="mailto:prtrivedi@ucdavis.edu">Contact</a>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <a href="#core-silicon-page" class="nav-link active">Silicon Projects</a>
+            <a href="#miscellaneous-page" class="nav-link">Miscellaneous Projects</a>
+            <a href="mailto:prtrivedi@ucdavis.edu" class="nav-link">Contact</a>
         </nav>
+
+        <div id="scroll-progress"></div>
     </header>
 
     <main>
@@ -283,7 +330,47 @@
     </footer>
 
     <script>
-        // Overlay Logic
+        // --- NAVIGATION & SCROLL TRACKING LOGIC ---
+        const scrollProgress = document.getElementById('scroll-progress');
+        const sections = document.querySelectorAll('.section-container');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        });
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.3 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+        sections.forEach(section => observer.observe(section));
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            navMenu.classList.toggle('open');
+        });
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                navMenu.classList.remove('open');
+            });
+        });
+
+        // --- OVERLAY LOGIC ---
         function openSubpage(id) {
             document.getElementById(id).style.display = 'block';
             setTimeout(() => document.getElementById(id).classList.add('active'), 10);
@@ -295,7 +382,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Binary Stream Logic
+        // --- BINARY STREAM LOGIC ---
         const binaryBg = document.getElementById('binary-stream-bg');
         let totalColumns = Math.floor(window.innerWidth / 20);
 
@@ -333,7 +420,6 @@
         }
         runBinaryClockStream();
 
-        // Texture Mapping
         function createSilkscreenTexture(text) {
             const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 128;
             const ctx = canvas.getContext('2d'); ctx.clearRect(0,0,512,128);
@@ -344,33 +430,25 @@
         const zynqTextMap = createSilkscreenTexture("ZYNQ");
         const riscvTextMap = createSilkscreenTexture("RISC-V");
 
-        // -------------------------------------------------------------
-        // NEW PHYSICS SYSTEM: Parallax + Smooth Scroll + Click & Drag
-        // -------------------------------------------------------------
+        // --- 3D PHYSICS SYSTEM ---
         let mouseX = 0, mouseY = 0; 
         let targetMouseX = 0, targetMouseY = 0;
-        
         let isDragging = false;
         let previousMouseX = 0, previousMouseY = 0;
         let userRotX = 0, targetUserRotX = 0;
         let userRotY = 0, targetUserRotY = 0;
 
         window.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            previousMouseX = e.clientX;
-            previousMouseY = e.clientY;
+            isDragging = true; previousMouseX = e.clientX; previousMouseY = e.clientY;
         });
 
         window.addEventListener('mousemove', (e) => {
             targetMouseX = (e.clientX / window.innerWidth) - 0.5;
             targetMouseY = (e.clientY / window.innerHeight) - 0.5;
             if (isDragging) {
-                let deltaX = e.clientX - previousMouseX;
-                let deltaY = e.clientY - previousMouseY;
-                targetUserRotY += deltaX * 0.008;
-                targetUserRotX += deltaY * 0.008;
-                previousMouseX = e.clientX;
-                previousMouseY = e.clientY;
+                let deltaX = e.clientX - previousMouseX; let deltaY = e.clientY - previousMouseY;
+                targetUserRotY += deltaX * 0.008; targetUserRotX += deltaY * 0.008;
+                previousMouseX = e.clientX; previousMouseY = e.clientY;
             }
         });
 
@@ -379,9 +457,7 @@
 
         window.addEventListener('touchstart', (e) => {
             if(e.touches.length === 1) {
-                isDragging = true;
-                previousMouseX = e.touches[0].clientX;
-                previousMouseY = e.touches[0].clientY;
+                isDragging = true; previousMouseX = e.touches[0].clientX; previousMouseY = e.touches[0].clientY;
             }
         }, { passive: true });
 
@@ -390,12 +466,9 @@
                 targetMouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
                 targetMouseY = (e.touches[0].clientY / window.innerHeight) - 0.5;
                 if (isDragging) {
-                    let deltaX = e.touches[0].clientX - previousMouseX;
-                    let deltaY = e.touches[0].clientY - previousMouseY;
-                    targetUserRotY += deltaX * 0.008;
-                    targetUserRotX += deltaY * 0.008;
-                    previousMouseX = e.touches[0].clientX;
-                    previousMouseY = e.touches[0].clientY;
+                    let deltaX = e.touches[0].clientX - previousMouseX; let deltaY = e.touches[0].clientY - previousMouseY;
+                    targetUserRotY += deltaX * 0.008; targetUserRotX += deltaY * 0.008;
+                    previousMouseX = e.touches[0].clientX; previousMouseY = e.touches[0].clientY;
                 }
             }
         }, { passive: true });
@@ -418,24 +491,17 @@
                 const traceOffset = i * spacing;
                 const tX = isHorizontal ? startX + length/2 : startX + traceOffset;
                 const tY = isHorizontal ? startY + traceOffset : startY + length/2;
-                
-                const trace = new THREE.Mesh(
-                    new THREE.PlaneGeometry(isHorizontal ? length : 0.012, isHorizontal ? 0.012 : length),
-                    copperTraceMat
-                );
+                const trace = new THREE.Mesh(new THREE.PlaneGeometry(isHorizontal ? length : 0.012, isHorizontal ? 0.012 : length), copperTraceMat);
                 trace.position.set(tX, tY, zOffset);
                 if (isBottom) trace.rotation.y = Math.PI;
                 group.add(trace);
 
                 const viaGeom = new THREE.CylinderGeometry(0.015, 0.015, 0.005, 8);
                 const via1 = new THREE.Mesh(viaGeom, viaMat);
-                via1.rotation.x = Math.PI/2;
-                via1.position.set(isHorizontal ? startX : startX + traceOffset, isHorizontal ? startY + traceOffset : startY, zOffset);
+                via1.rotation.x = Math.PI/2; via1.position.set(isHorizontal ? startX : startX + traceOffset, isHorizontal ? startY + traceOffset : startY, zOffset);
                 group.add(via1);
-
                 const via2 = new THREE.Mesh(viaGeom, viaMat);
-                via2.rotation.x = Math.PI/2;
-                via2.position.set(isHorizontal ? startX + length : startX + traceOffset, isHorizontal ? startY + traceOffset : startY + length, zOffset);
+                via2.rotation.x = Math.PI/2; via2.position.set(isHorizontal ? startX + length : startX + traceOffset, isHorizontal ? startY + traceOffset : startY + length, zOffset);
                 group.add(via2);
             }
         }
@@ -547,7 +613,6 @@
         generateTraceBus(riscvGroup, -0.6, -1.5, -0.071, 1.5, false, 14, 0.04, true); 
         generateTraceBus(riscvGroup, -1.2, 0.8, -0.071, 1.2, true, 8, 0.03, true); 
 
-        // Main RISC-V Die with QFP style pins
         const RISC_VDie = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.4, 0.18), new THREE.MeshStandardMaterial({ color: 0x0f0f13, roughness: 0.3, metalness: 0.8 }));
         RISC_VDie.position.set(0, 0.5, 0.12); riscvGroup.add(RISC_VDie);
         for(let i=0; i<12; i++) {
@@ -564,7 +629,6 @@
         const riscvLabelPlate = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.3), new THREE.MeshBasicMaterial({ map: riscvTextMap, transparent: true, depthTest: false }));
         riscvLabelPlate.position.set(0, 0.5, 0.22); riscvLabelPlate.renderOrder = 999; riscvGroup.add(riscvLabelPlate);
 
-        // Memory Chips with TSOP style pins
         for(let m = 0; m < 3; m++) {
             const extMem = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.7, 0.1), new THREE.MeshStandardMaterial({ color: 0x141419, roughness: 0.4 }));
             extMem.position.set(-0.6 + (m * 0.6), -1.3, 0.1); riscvGroup.add(extMem);
@@ -585,7 +649,6 @@
             tp.rotation.x = Math.PI / 2; tp.position.set(-1.0 + (i * 0.22), -1.8, -0.08); riscvGroup.add(tp);
         }
         
-        // Backside Debug IC with QFN/QFP style pins
         const debugIC = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.08), icMat); debugIC.position.set(0.2, -0.5, -0.11); riscvGroup.add(debugIC);
         for(let p = 0; p < 5; p++) {
             let px = -0.2 + (p * 0.1);
@@ -613,23 +676,28 @@
         function masterRenderEngineLoop() {
             requestAnimationFrame(masterRenderEngineLoop);
             
+            // Pointer Smoothing
             mouseX += (targetMouseX - mouseX) * 0.05;
             mouseY += (targetMouseY - mouseY) * 0.05;
-
             userRotX += (targetUserRotX - userRotX) * 0.08;
             userRotY += (targetUserRotY - userRotY) * 0.08;
 
+            // Global Scroll LERP
             const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
             let targetScrollProgress = window.scrollY / maxScroll;
             currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.08; 
 
-            // Board 1 (PYNQ)
-            let page1Progress = Math.min(1, currentScrollProgress * 1.8); 
+            // --- Board 1 (PYNQ) - Dynamic Tracking of Silicon Section ---
+            const siliconSection = document.getElementById('core-silicon-page');
+            const smoothedScrollY = currentScrollProgress * maxScroll;
+            let page1Progress = Math.max(0, Math.min(1, smoothedScrollY / (siliconSection.offsetHeight || 1)));
+            
             pynqGroup.rotation.x = (mouseY * 0.25) + userRotX;
-            pynqGroup.rotation.y = (page1Progress * Math.PI) + (mouseX * 0.25) + userRotY;
+            // Spins fully dynamically based on section height! (Math.PI * 2 = 360 degrees)
+            pynqGroup.rotation.y = (page1Progress * Math.PI * 2) + (mouseX * 0.25) + userRotY;
             pynqGroup.rotation.z = 0;
 
-            // Board 2 (RISC-V)
+            // --- Board 2 (RISC-V) ---
             let page2Progress = Math.max(0, (currentScrollProgress - 0.3) * 1.42); 
             page2Progress = Math.min(1, page2Progress);
             
